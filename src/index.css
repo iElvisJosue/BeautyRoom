@@ -1,0 +1,46 @@
+/* CONFIGURACIÓN GENERAL */
+:root {
+  --TittleFontSize: 32px;
+  --SubTittleFontSize: 24px;
+  --IconFontSize: 22px;
+  --NormalFontSize: 16px;
+  --SubNormalFontSize: 14px;
+  --SmallFontSize: 12px;
+  --StrongPurple: #6f3b87;
+  --WeakPurple: #e9e0ec;
+  --White: #ffffff;
+  --Black: #000000;
+  --Red: #dd433b;
+  --Transparent: #f1eef0;
+  --Gray: #a7a6a6;
+  --ContainerPurple: #938aad;
+  --ContainerGray: #8b9bad;
+  --ContainerBrown: #999999;
+  --ContainerGreen: #8bac8f;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Raleway", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+a {
+  text-decoration: none;
+}
+
+body {
+  background: var(--WeakPurple);
+}
+
+::-webkit-scrollbar {
+  width: 12px; /* Ancho del scroll */
+}
+::-webkit-scrollbar-thumb {
+  background: var(--StrongPurple); /* Color del scroll thumb */
+}
+::-webkit-scrollbar-track {
+  background: var(--White); /* Color del track */
+}

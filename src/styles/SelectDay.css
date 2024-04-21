@@ -1,0 +1,40 @@
+.SelectDay__Container {
+  width: 100%;
+  height: auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+}
+.SelectDay__Title {
+  text-align: center;
+  font-size: var(--SubTittleFontSize);
+  font-weight: bold;
+  color: var(--StrongPurple);
+}
+.SelectDay__Months {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: var(--SubTittleFontSize);
+
+  gap: 10px;
+}
+.SelectDay__Months p:first-child {
+  color: var(--Gray);
+}
+.SelectDay__Months p:last-child {
+  color: var(--Gray);
+}
+.SelectDay__Months--Button {
+  font-size: var(--IconFontSize);
+  background: none;
+  outline: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--Black);
+}

@@ -1,0 +1,131 @@
+.DataClient__Container {
+  width: 100%;
+  height: auto;
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+.DataClient__Container__DateInformation {
+  background: var(--StrongPurple);
+  height: 600px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+}
+.DataClient__Container__DateInformation__Title {
+  font-size: var(--SubTittleFontSize);
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--White);
+}
+.DataClient__Container__DateInformation__Details {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.DataClient__Container__DateInformation__Details--Day,
+.DataClient__Container__DateInformation__Details--Hour {
+  text-transform: uppercase;
+  color: var(--White);
+  font-size: var(--NormalFontSize);
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.DataClient__Container__DateInformation__Details--Day img,
+.DataClient__Container__DateInformation__Details--Hour img {
+  width: 100px;
+}
+.DataClient__Container__DateInformation__Button {
+  width: 70%;
+  height: 65px;
+  background: var(--White);
+  color: var(--StrongPurple);
+  font-size: var(--NormalFontSize);
+  border: 2px solid var(--White);
+  outline: none;
+  transition: 0.5s ease all;
+  font-weight: bold;
+}
+.DataClient__Container__DateInformation__Button:hover {
+  cursor: pointer;
+  background: var(--StrongPurple);
+  color: var(--White);
+  letter-spacing: 1px;
+}
+.DataClient__Container__Form {
+  background: var(--White);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 40px;
+}
+.DataClient__Container__Form__Title {
+  text-align: center;
+  font-size: var(--SubTittleFontSize);
+  font-weight: bold;
+  color: var(--StrongPurple);
+  text-transform: uppercase;
+}
+.DataClient__Container__Form--Data {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.DataClient__Container__Form--Data--Inputs {
+  display: flex;
+  flex-direction: column;
+}
+.DataClient__Container__Form--Data--Inputs--Title {
+  color: var(--Gray);
+  font-size: var(--IconFontSize);
+  font-weight: bold;
+}
+.DataClient__Container__Form--Data--Inputs--Input {
+  height: 65px;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid var(--Gray);
+  font-size: var(--NormalFontSize);
+  font-weight: bold;
+  color: var(--Black);
+}
+.DataClient__Container__Form--Data--Inputs--Input::placeholder {
+  font-weight: bold;
+  color: var(--Gray);
+}
+.DataClient__Container__Form--Data--SmallError {
+  color: var(--Red);
+  font-weight: bold;
+}
+.DataClient__Container__Form--Button {
+  height: 65px;
+  background: var(--StrongPurple);
+  color: var(--White);
+  font-size: var(--NormalFontSize);
+  border: 2px solid var(--StrongPurple);
+  font-weight: bold;
+  outline: none;
+  transition: 0.5s ease all;
+}
+.DataClient__Container__Form--Button:hover {
+  cursor: pointer;
+  background-color: var(--White);
+  color: var(--StrongPurple);
+  letter-spacing: 1px;
+}
+@media (width < 600px) {
+  .DataClient__Container {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

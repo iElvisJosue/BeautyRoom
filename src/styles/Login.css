@@ -1,0 +1,165 @@
+.Login__Container {
+  min-height: 100vh;
+  background: var(--White);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.Login__Container__Form {
+  width: 1024px;
+  height: 600px;
+  display: flex;
+}
+
+.Login__Container__Form__Left,
+.Login__Container__Form__Right {
+  width: 50%;
+  min-height: 100%;
+}
+
+.Login__Container__Form__Left {
+  display: grid;
+  place-items: center;
+  background: url(https://img.freepik.com/fotos-premium/coleccion-maquillaje-productos-belleza_250469-11094.jpg)
+    center/cover no-repeat;
+}
+
+.Login__Container__Form__Left img {
+  width: 300px;
+  height: 300px;
+  opacity: 0.5;
+}
+
+.Login__Container__Form__Right {
+  background-color: var(--WeakPurple);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  padding: 40px;
+}
+.Login__Container__Form__Right__Tittle {
+  font-size: var(--TittleFontSize);
+  color: var(--StrongPurple);
+  font-weight: bold;
+}
+.Login__Container__Form__Right--ContainerInputs {
+  position: relative;
+  width: 100%;
+  min-height: 65px;
+  height: 65px;
+}
+.Login__Container__Form__Right--ContainerInputs--Icon {
+  position: absolute;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.Login__Container__Form__Right--ContainerInputs--Icon.Eye {
+  right: 0;
+  cursor: pointer;
+}
+.Login__Container__Form__Right--ContainerInputs--Icon ion-icon {
+  color: var(--StrongPurple);
+  width: 50px;
+  font-size: var(--IconFontSize);
+}
+.Login__Container__Form__Right--ContainerInputs--Inputs {
+  font-size: var(--NormalFontSize);
+  color: var(--StrongPurple);
+  width: 100%;
+  height: 65px;
+  padding: 10px 50px;
+  outline: none;
+  background-color: transparent;
+  border: 2px solid var(--StrongPurple);
+}
+.Login__Container__Form__Right--ContainerInputs--Inputs::placeholder {
+  color: var(--StrongPurple);
+}
+.Login__Container__Form__Right--SmallError {
+  font-weight: bold;
+  color: var(--Red);
+}
+.Login__Container__Form__Right--ForgotPassword {
+  transition: 0.5s ease all;
+
+  text-align: right;
+  font-size: var(--NormalFontSize);
+  color: var(--StrongPurple);
+}
+.Login__Container__Form__Right--ForgotPassword:hover {
+  color: var(--Black);
+}
+.Login__Container__Form__Right--Button {
+  height: 65px;
+  background-color: var(--StrongPurple);
+  font-size: var(--NormalFontSize);
+  color: var(--White);
+  font-weight: bold;
+  outline: none;
+  border: 2px solid var(--StrongPurple);
+
+  transition: 0.5s ease all;
+}
+.Login__Container__Form__Right--Button:hover {
+  cursor: pointer;
+  background-color: var(--WeakPurple);
+  color: var(--StrongPurple);
+  letter-spacing: 1px;
+}
+.Login__Container__Form__Right--CreateAccount {
+  text-align: center;
+  font-size: var(--NormalFontSize);
+  color: var(--StrongPurple);
+}
+.Login__Container__Form__Right--CreateAccount a {
+  transition: 0.5s ease all;
+}
+.Login__Container__Form__Right--CreateAccount a:hover {
+  color: var(--Black);
+}
+
+/* RESPONSIVE */
+@media (width < 1024px) {
+  .Login__Container__Form__Left img {
+    width: 250px;
+    height: 250px;
+  }
+}
+@media (width < 768px) {
+  .Login__Container__Form__Left {
+    background-image: none;
+    padding: 10px;
+  }
+  .Login__Container__Form__Left img {
+    width: 150px;
+    height: 150px;
+    opacity: 1;
+  }
+  .Login__Container {
+    padding: 0;
+  }
+  .Login__Container__Form {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 100vh;
+    height: auto;
+    background: var(--WeakPurple);
+  }
+  .Login__Container__Form__Left,
+  .Login__Container__Form__Right {
+    width: 100%;
+  }
+  .Login__Container__Form__Right {
+    gap: 20px;
+    padding: 20px;
+  }
+}
