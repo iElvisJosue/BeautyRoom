@@ -42,7 +42,7 @@ export default function Date() {
       <ModalPay showModalPay={showModalPay} setShowModalPay={setShowModalPay} />
       <Navbar>Agendar Cita</Navbar>
       <ProgressDateToRender {...dateProps} />
-      <Toaster richColors position="top-right" />
+      <Toaster richColors position="top-right" closeButton />
     </main>
   );
 }

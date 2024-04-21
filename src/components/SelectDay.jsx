@@ -21,7 +21,6 @@ export default function SelectDay({
     useCalendar();
 
   return (
-    // <main className="SelectDay">
     <div className="SelectDay__Container">
       <p className="SelectDay__Title">Selecciona una fecha</p>
       {calendarDetails.length > 0 && (
@@ -56,6 +55,5 @@ export default function SelectDay({
         </>
       )}
     </div>
-    // </main>
   );
 }

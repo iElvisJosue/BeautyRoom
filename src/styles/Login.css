@@ -92,6 +92,7 @@
   text-align: right;
   font-size: var(--NormalFontSize);
   color: var(--StrongPurple);
+  text-decoration: underline;
 }
 .Login__Container__Form__Right--ForgotPassword:hover {
   color: var(--Black);
@@ -120,6 +121,8 @@
 }
 .Login__Container__Form__Right--CreateAccount a {
   transition: 0.5s ease all;
+  color: var(--StrongPurple);
+  text-decoration: underline;
 }
 .Login__Container__Form__Right--CreateAccount a:hover {
   color: var(--Black);
