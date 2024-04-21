@@ -10,7 +10,7 @@ export default function Navbar({ children }) {
       </button>
       <h1 className="Navbar__Tittle">{children}</h1>
       <img
-        src="../../public/BeautyRoomLogo.png"
+        src="BeautyRoomLogo.png"
         alt="Logo De La Empresa"
         className="Navbar__Logo"
       />

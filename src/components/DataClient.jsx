@@ -40,10 +40,7 @@ export default function DataClient({
         </p>
         <div className="DataClient__Container__DateInformation__Details">
           <span className="DataClient__Container__DateInformation__Details--Day">
-            <img
-              src="../../public/IconoCalendario.png"
-              alt="Icono del calendario"
-            />
+            <img src="IconoCalendario.png" alt="Icono del calendario" />
             <p>
               {`${dayName} ${day}`}
               <br />
@@ -51,7 +48,7 @@ export default function DataClient({
             </p>
           </span>
           <span className="DataClient__Container__DateInformation__Details--Hour">
-            <img src="../../public/IconoReloj.png" alt="Icono del horario" />
+            <img src="IconoReloj.png" alt="Icono del horario" />
             <p>{`${hour}:00 ${time}`}</p>
           </span>
         </div>

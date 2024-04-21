@@ -34,10 +34,7 @@ export default function Login() {
     <main className="Login__Container">
       <form onSubmit={checkDataLogin} className="Login__Container__Form">
         <aside className="Login__Container__Form__Left">
-          <img
-            src="../../public/BeautyRoomLogo.png"
-            alt="Icono De La Empresa"
-          />
+          <img src="BeautyRoomLogo.png" alt="Icono De La Empresa" />
         </aside>
         <aside className="Login__Container__Form__Right">
           <h1 className="Login__Container__Form__Right__Tittle">
