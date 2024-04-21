@@ -1,0 +1,77 @@
+.DatingHistory {
+  position: relative;
+  width: 1024px;
+  min-height: 100vh;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+  background: var(--White);
+}
+.DatingHistory__Container {
+  width: 100%;
+  height: auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+}
+.DatingHistory__Container--Title {
+  font-size: var(--SubTittleFontSize);
+  font-weight: bold;
+  color: var(--StrongPurple);
+}
+.DatingHistory__Container--Filters {
+  display: flex;
+  gap: 20px;
+}
+.DatingHistory__Container--Filters--Button {
+  background: var(--Transparent);
+  height: 50px;
+  border-radius: 50px;
+  border: 2px solid var(--Transparent);
+  outline: none;
+  font-size: var(--NormalFontSize);
+  color: var(--StrongPurple);
+  padding: 0 20px;
+
+  transition: 0.5s ease all;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+.DatingHistory__Container--Filters--Button:hover {
+  cursor: pointer;
+  background: var(--WeakPurple);
+  border-color: var(--StrongPurple);
+  font-weight: bold;
+}
+.DatingHistory__Container--Filters--Button ion-icon {
+  font-size: var(--IconFontSize);
+}
+@media (width < 1024px) {
+  .DatingHistory {
+    width: 100%;
+  }
+}
+@media (width < 750px) {
+  .DatingHistory__Container--Filters {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (width < 500px) {
+  .DatingHistory__Container--Filters {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  .DatingHistory__Container--Filters--Button {
+    padding: 0;
+    gap: 0;
+  }
+  .DatingHistory__Container--Filters--Button p {
+    display: none;
+  }
+}
