@@ -23,6 +23,7 @@ export default function DatingHistory() {
           ))}
         </div>
         <div className="DatingHistory__Container--Dates">
+          {/* TODO: HACERLO UN COMPONENTE CUANDO YA HAYA BACK */}
           <section className="DatingHistory__Container--Dates--Card">
             <picture className="DatingHistory__Container--Dates--Card--Img">
               <img src="ExtensionDePestañas.png" alt="Icono De Corte De Pelo" />
