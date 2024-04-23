@@ -1,0 +1,21 @@
+.NotResults {
+  width: 100%;
+  min-height: calc(100vh - 75px);
+  height: auto;
+  padding: 20px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+.NotResults__Img {
+  width: 200px;
+}
+.NotResults__Title {
+  font-size: var(--SubTittleFontSize);
+  font-weight: bold;
+  color: var(--StrongPurple);
+  text-align: center;
+}

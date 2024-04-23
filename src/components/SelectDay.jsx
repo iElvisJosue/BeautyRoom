@@ -5,9 +5,6 @@ import "../styles/SelectDay.css";
 // IMPORTAMOS LOS COMPONENTES
 import DayDetails from "./DayDetails";
 
-// IMPORTAMOS LOS HOOKS
-import useCalendar from "../hooks/useCalendar";
-
 // IMPORTAMOS LAS AYUDAS
 import { shortMonthNames } from "../helpers/Calendar";
 
@@ -16,10 +13,12 @@ export default function SelectDay({
   setDayDate,
   progressDate,
   setProgressDate,
+  calendarDetails,
+  currentYear,
+  monthNumber,
+  nextMonth,
+  prevMonth,
 }) {
-  const { calendarDetails, currentYear, monthNumber, nextMonth, prevMonth } =
-    useCalendar();
-
   return (
     <div className="SelectDay__Container">
       <p className="SelectDay__Title">Selecciona una fecha</p>

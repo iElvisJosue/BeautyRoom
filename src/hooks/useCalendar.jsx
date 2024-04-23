@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import { weekDays, shortMonthNames } from "../helpers/Calendar";
+import { weekDays, shortMonthNames, fullMonthNames } from "../helpers/Calendar";
 
 export default function useCalendar() {
   const [monthNumber, setMonthNumber] = useState(null);
@@ -57,11 +57,20 @@ export default function useCalendar() {
     setMonthNumber((prev) => (prev === 12 ? staticMonthNumber : prev + 1));
   }
 
+  function formatDate(date) {
+    const dateSplit = date.split("-");
+    const formattedDate = `${dateSplit[2]} de ${
+      fullMonthNames[dateSplit[1] - 1]
+    }  del ${dateSplit[0]}`;
+    return formattedDate;
+  }
+
   return {
     calendarDetails,
     prevMonth,
     nextMonth,
     monthNumber,
     currentYear,
+    formatDate,
   };
 }

@@ -12,6 +12,7 @@ import ModalPay from "../components/ModalPay";
 import useProgressDate from "../components/useProgressDate";
 import useDate from "../hooks/useDate";
 import useModalPay from "../hooks/useModalPay";
+import useCalendar from "../hooks/useCalendar";
 
 // IMPORTAMOS LOS ESTILOS
 import "../styles/Date.css";
@@ -20,6 +21,8 @@ export default function Date() {
   const { progressDate, setProgressDate } = useProgressDate();
   const { dayDate, setDayDate } = useDate();
   const { showModalPay, setShowModalPay } = useModalPay();
+  const { calendarDetails, currentYear, monthNumber, nextMonth, prevMonth } =
+    useCalendar();
 
   const dateProps = {
     dayDate,
@@ -27,6 +30,11 @@ export default function Date() {
     progressDate,
     setProgressDate,
     setShowModalPay,
+    calendarDetails,
+    currentYear,
+    monthNumber,
+    nextMonth,
+    prevMonth,
   };
 
   const currentProgressDate = {

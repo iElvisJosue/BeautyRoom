@@ -3,16 +3,21 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { Toaster, toast } from "sonner";
 
+// CONTEXTOS A USAR
+import { useGlobal } from "../context/GlobalContext";
+
 // IMPORTAMOS LOS ESTILOS
 import "../styles/Login.css";
 
 // IMPORTAMOS LAS AYUDAS
 import { loginInputsProps } from "../helpers/Login";
+import { handleResponseMessages } from "../helpers/RespuestasServidor";
 
 // IMPORTAMOS LOS HOOKS
 import usePassword from "../hooks/usePassword";
 
 export default function Login() {
+  const { loginUser } = useGlobal();
   const navigate = useNavigate();
   const { iconPassword } = usePassword();
 
@@ -22,12 +27,27 @@ export default function Login() {
     formState: { errors },
   } = useForm();
 
-  const checkDataLogin = handleSubmit(async (data) => {
-    console.log(data);
+  const handleSuccessResponse = (res) => {
     toast.success(
-      "¡Se ha iniciado sesión exitosamente! Lo estamos redirigiendo 🎉"
+      `¡Tu sesión ha sido iniciada ${res.userName.toUpperCase()}, bienvenido! 👋`
     );
-    setTimeout(() => navigate("/AgendarCita"), 3000);
+    setTimeout(() => navigate("/HistorialDeCitas"), 1500);
+  };
+
+  const checkDataLogin = handleSubmit(async (data) => {
+    try {
+      const res = await loginUser(data);
+      if (res.response) {
+        const { status, data } = res.response;
+        handleResponseMessages({ status, data });
+      } else {
+        handleSuccessResponse(res);
+      }
+    } catch (error) {
+      console.log(error);
+      const { status, data } = error.response;
+      handleResponseMessages({ status, data });
+    }
   });
 
   return (

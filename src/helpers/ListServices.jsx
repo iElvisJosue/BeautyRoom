@@ -28,6 +28,20 @@ export const imgListOfServices = [
   "IconoPlanchadoExpress.png",
 ];
 
+export const imgListOfServices2 = [
+  "ExtensionDePestañas.png",
+  "EnrizadoDePestañas.png",
+  "UñasAcrilicas.png",
+  "AplicacionDeGelish.png",
+  "Manicure.png",
+  "Pedicure.png",
+  "DiseñoDeCeja.png",
+  "CejaHD.png",
+  "CejaHD.png",
+  "HennaBrows.png",
+  "PlanchadoExpress.png",
+];
+
 export const listOfServices = services.map((service, index) =>
   index === 0 ? (
     <option

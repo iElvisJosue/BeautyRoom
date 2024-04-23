@@ -2,7 +2,7 @@ export const dataClientInputsProps = [
   {
     inputTitle: "Nombre",
     inputType: "text",
-    inputName: "clientName",
+    inputName: "NombreCliente",
     placeholder: "Escribe tu nombre aquí...",
     validator: {
       required: "¡Este campo es obligatorio! ⚠️",
@@ -15,7 +15,7 @@ export const dataClientInputsProps = [
   {
     inputTitle: "Número de Teléfono",
     inputType: "text",
-    inputName: "clientNumber",
+    inputName: "TelefonoCliente",
     placeholder: "Ejemplo: 56987654321",
     validator: {
       required: "¡Este campo es obligatorio! ⚠️",
@@ -32,6 +32,6 @@ export const dataClientInputsProps = [
   {
     inputTitle: "Motivo de la Cita",
     inputType: "select",
-    inputName: "dateService",
+    inputName: "MotivoCita",
   },
 ];

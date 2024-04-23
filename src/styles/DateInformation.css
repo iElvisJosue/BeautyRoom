@@ -1,0 +1,114 @@
+.DatingHistory__Container--Dates--Card {
+  min-height: 150px;
+  height: auto;
+  border-radius: 25px;
+  padding: 20px;
+  transition: 0.5s ease all;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 5px;
+}
+.DatingHistory__Container--Dates--Card:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+}
+.DatingHistory__Container--Dates--Card:nth-child(4n-3) {
+  background: var(--ContainerPurple);
+}
+.DatingHistory__Container--Dates--Card:nth-child(4n-2) {
+  background: var(--ContainerGray);
+}
+.DatingHistory__Container--Dates--Card:nth-child(4n-1) {
+  background: var(--ContainerBrown);
+}
+.DatingHistory__Container--Dates--Card:nth-child(4n) {
+  background: var(--ContainerGreen);
+}
+.DatingHistory__Container--Dates--Card--Img {
+  width: 90px;
+  height: 90px;
+  border: 2px solid var(--White);
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.DatingHistory__Container--Dates--Card--Img img {
+  width: 65%;
+  height: 65%;
+}
+.DatingHistory__Container--Dates--Card--Details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  padding: 0 10px;
+
+  border-right: 1px solid var(--White);
+}
+.DatingHistory__Container--Dates--Card--Details--Text {
+  font-size: var(--NormalFontSize);
+  color: var(--White);
+  font-weight: bold;
+
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+.DatingHistory__Container--Dates--Card--Details--Text ion-icon {
+  font-size: var(--SubTittleFontSize);
+}
+.DatingHistory__Container--Dates--Card--Button {
+  width: 50px;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.DatingHistory__Container--Dates--Card--Button--View {
+  cursor: pointer;
+  background: none;
+  outline: none;
+  border: none;
+}
+.DatingHistory__Container--Dates--Card--Button--View ion-icon {
+  color: var(--White);
+  font-size: var(--TittleFontSize);
+}
+@media (width < 800px) {
+  .DatingHistory__Container--Dates--Card {
+    min-height: 130px;
+  }
+  .DatingHistory__Container--Dates--Card--Img {
+    width: 65px;
+    height: 65px;
+    min-height: 65px;
+    min-width: 65px;
+  }
+  .DatingHistory__Container--Dates--Card--Details--Text {
+    font-size: var(--SmallFontSize);
+  }
+  .DatingHistory__Container--Dates--Card--Details--Text ion-icon {
+    font-size: var(--NormalFontSize);
+  }
+}
+@media (width < 550px) {
+  .DatingHistory__Container--Dates--Card--Details--Text {
+    font-size: var(--NormalFontSize);
+  }
+  .DatingHistory__Container--Dates--Card--Details--Text ion-icon {
+    font-size: var(--IconFontSize);
+  }
+}
+@media (width < 360px) {
+  .DatingHistory__Container--Dates--Card--Details--Text {
+    font-size: var(--SmallFontSize);
+  }
+  .DatingHistory__Container--Dates--Card--Details--Text ion-icon {
+    font-size: var(--NormalFontSize);
+  }
+}

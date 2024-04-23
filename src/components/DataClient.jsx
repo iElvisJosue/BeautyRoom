@@ -1,20 +1,26 @@
 /* eslint-disable react/prop-types */
 // LIBRERÍAS A USAR
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import { toast } from "sonner";
 
-// IMPORTAMOS LOS ESTILOS
-import "../styles/DataClient.css";
-
 // IMPORTAMOS LAS AYUDAS
 import { listOfServices } from "../helpers/ListServices";
 import { dataClientInputsProps } from "../helpers/DataClient";
+import { handleResponseMessages } from "../helpers/RespuestasServidor";
+
+// IMPORTAMOS LOS CONTEXTOS A USAR
+import { useDates } from "../context/DatesContext";
+
+// IMPORTAMOS LOS ESTILOS
+import "../styles/DataClient.css";
 
 export default function DataClient({
   dayDate,
   setProgressDate,
   setShowModalPay,
+  monthNumber,
 }) {
   const {
     handleSubmit,
@@ -23,14 +29,52 @@ export default function DataClient({
   } = useForm({
     criteriaMode: "all",
   });
+  const { createDate } = useDates();
+  const [selectedIndex, setSelectedIndex] = useState(0);
   const { dayName, day, monthDay, year, hour, time } = dayDate;
 
-  const checkDataClient = handleSubmit(async (data) => {
-    data.dateService === "Selecciona un servicio"
-      ? toast.error("¡Por favor selecciona un servicio! ❌")
-      : (toast.success("¡Cita programada correctamente! 🎉"),
-        setShowModalPay(true));
+  const handleSelectChange = (event) => {
+    const index = event.target.selectedIndex;
+    setSelectedIndex(index);
+  };
+
+  const validateDataClient = handleSubmit(async (data) => {
+    if (selectedIndex === "Selecciona un servicio") {
+      return toast.error("¡Por favor selecciona un servicio! ❌");
+    } else {
+      formatDataClient(data);
+      return setShowModalPay(true);
+    }
   });
+
+  const formatDataClient = (data) => {
+    const dateFormatted = `${year}-${
+      monthNumber < 10 ? `0${monthNumber}` : monthNumber
+    }-${day}`;
+    const hourFormatted = `${hour}:00 ${time}`;
+    data.FechaCita = dateFormatted;
+    data.HoraCita = hourFormatted;
+    data.ImagenCita = selectedIndex - 1;
+    console.log(data);
+
+    createNewDate(data);
+  };
+
+  const createNewDate = async (data) => {
+    try {
+      const res = await createDate(data);
+      if (res.response) {
+        const { status, data } = res.response;
+        handleResponseMessages({ status, data });
+      } else {
+        return toast.success("¡Datos guardados! ✔️");
+      }
+    } catch (error) {
+      console.log(error);
+      const { status, data } = error.response;
+      handleResponseMessages({ status, data });
+    }
+  };
 
   return (
     <div className="DataClient__Container">
@@ -62,7 +106,7 @@ export default function DataClient({
       <aside className="DataClient__Container__Form">
         <p className="DataClient__Container__Form__Title">Completa tus datos</p>
         <form
-          onSubmit={checkDataClient}
+          onSubmit={validateDataClient}
           className="DataClient__Container__Form--Data"
         >
           {dataClientInputsProps.map(
@@ -81,12 +125,14 @@ export default function DataClient({
                     />
                   </div>
                 ) : (
-                  <div className="DataClient__Container__Form--Data--Inputs">
+                  <div
+                    className="DataClient__Container__Form--Data--Inputs"
+                    onChange={handleSelectChange}
+                  >
                     <p className="DataClient__Container__Form--Data--Inputs--Title">
                       Motivo de la Cita
                     </p>
                     <select
-                      type="text"
                       {...register(inputName, validator)}
                       className="DataClient__Container__Form--Data--Inputs--Input"
                     >
