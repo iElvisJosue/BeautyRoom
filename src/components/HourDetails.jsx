@@ -7,23 +7,29 @@ import "../styles/HourDetails.css";
 
 export default function HourDetails({
   hour,
-  time,
   dateDay,
   setDayDate,
   setProgressDate,
 }) {
   const selectedHour = () => {
-    setDayDate({ ...dateDay, hour, time });
+    setDayDate({ ...dateDay, hour });
     toast.success("Hora seleccionada correctamente ✨");
     setProgressDate(2);
   };
+
+  const hourFormatted = hour.substring(0, 5);
+  const timeFormatted = hour.substring(6, 8);
 
   return (
     <section className="SelectHour__Calendar--Details" onClick={selectedHour}>
       <span className="SelectHour__Calendar--Details--Date">
         <p className="SelectHour__Calendar--Details--Date--Day">Hora</p>
-        <p className="SelectHour__Calendar--Details--Date--DayNumber">{hour}</p>
-        <p className="SelectHour__Calendar--Details--Date--Month">{time}</p>
+        <p className="SelectHour__Calendar--Details--Date--DayNumber">
+          {hourFormatted}
+        </p>
+        <p className="SelectHour__Calendar--Details--Date--Month">
+          {timeFormatted}
+        </p>
       </span>
       <span className="SelectHour__Calendar--Details--Icon">
         <button className="SelectHour__Calendar--Details--Icon--Button">

@@ -9,6 +9,7 @@ import { toast } from "sonner";
 import { listOfServices } from "../helpers/ListServices";
 import { dataClientInputsProps } from "../helpers/DataClient";
 import { handleResponseMessages } from "../helpers/RespuestasServidor";
+import { DateFormatted } from "../helpers/DateFormatted";
 
 // IMPORTAMOS LOS CONTEXTOS A USAR
 import { useDates } from "../context/DatesContext";
@@ -29,9 +30,9 @@ export default function DataClient({
   } = useForm({
     criteriaMode: "all",
   });
-  const { createDate } = useDates();
+  const { verifyDateExist, createDate } = useDates();
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const { dayName, day, monthDay, year, hour, time } = dayDate;
+  const { dayName, day, monthDay, year, hour } = dayDate;
 
   const handleSelectChange = (event) => {
     const index = event.target.selectedIndex;
@@ -39,25 +40,35 @@ export default function DataClient({
   };
 
   const validateDataClient = handleSubmit(async (data) => {
-    if (selectedIndex === "Selecciona un servicio") {
-      return toast.error("¡Por favor selecciona un servicio! ❌");
-    } else {
-      formatDataClient(data);
-      return setShowModalPay(true);
-    }
+    selectedIndex === 0
+      ? toast.error("¡Por favor selecciona un servicio! ❌")
+      : formatDataClient(data);
   });
 
   const formatDataClient = (data) => {
-    const dateFormatted = `${year}-${
-      monthNumber < 10 ? `0${monthNumber}` : monthNumber
-    }-${day}`;
-    const hourFormatted = `${hour}:00 ${time}`;
+    const dateFormatted = DateFormatted(year, monthNumber, day);
     data.FechaCita = dateFormatted;
-    data.HoraCita = hourFormatted;
+    data.HoraCita = hour;
     data.ImagenCita = selectedIndex - 1;
-    console.log(data);
 
-    createNewDate(data);
+    verifyDateDuplicateExist(data);
+  };
+
+  const verifyDateDuplicateExist = async (data) => {
+    try {
+      const res = await verifyDateExist(data);
+      if (res.data.length > 0) {
+        return toast.error(
+          "¡Ya existe una cita programada en esta fecha! Por favor selecciona una nueva fecha ❌"
+        );
+      } else {
+        return createNewDate(data);
+      }
+    } catch (error) {
+      console.log(error);
+      const { status, data } = error.response;
+      handleResponseMessages({ status, data });
+    }
   };
 
   const createNewDate = async (data) => {
@@ -67,7 +78,8 @@ export default function DataClient({
         const { status, data } = res.response;
         handleResponseMessages({ status, data });
       } else {
-        return toast.success("¡Datos guardados! ✔️");
+        toast.success("¡Datos guardados! ✔️");
+        return setShowModalPay(true);
       }
     } catch (error) {
       console.log(error);
@@ -93,7 +105,7 @@ export default function DataClient({
           </span>
           <span className="DataClient__Container__DateInformation__Details--Hour">
             <img src="IconoReloj.png" alt="Icono del horario" />
-            <p>{`${hour}:00 ${time}`}</p>
+            <p>{hour}</p>
           </span>
         </div>
         <button

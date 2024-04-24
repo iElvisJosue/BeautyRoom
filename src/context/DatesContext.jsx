@@ -1,5 +1,10 @@
 import { createContext, useContext } from "react";
-import { getAllDates, createNewDate } from "../api/authDates";
+import {
+  getAllDates,
+  createNewDate,
+  verifyAllDates,
+  verifyDateDuplicateExist,
+} from "../api/authDates";
 
 export const DatesContext = createContext();
 
@@ -38,11 +43,37 @@ export const DatesProvider = ({ children }) => {
     }
   };
 
+  const verifyDate = async (data) => {
+    try {
+      const res = await verifyAllDates(data);
+      if (!res.data) {
+        return console.log("HUBO UN ERROR AL VERIFICAR LAS CITAS");
+      }
+      return res;
+    } catch (error) {
+      return error;
+    }
+  };
+
+  const verifyDateExist = async (data) => {
+    try {
+      const res = await verifyDateDuplicateExist(data);
+      if (!res.data) {
+        return console.log("HUBO UN ERROR AL VERIFICAR LA CITA");
+      }
+      return res;
+    } catch (error) {
+      return error;
+    }
+  };
+
   return (
     <DatesContext.Provider
       value={{
         getDates,
         createDate,
+        verifyDate,
+        verifyDateExist,
       }}
     >
       {children}
