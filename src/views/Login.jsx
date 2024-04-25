@@ -37,7 +37,6 @@ export default function Login() {
   const checkDataLogin = handleSubmit(async (data) => {
     try {
       const res = await loginUser(data);
-      console.log(res);
       if (res.response) {
         const { status, data } = res.response;
         handleResponseMessages({ status, data });
