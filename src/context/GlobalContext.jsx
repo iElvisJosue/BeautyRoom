@@ -74,7 +74,9 @@ export const GlobalProvider = ({ children }) => {
 
   const loginUser = async (data) => {
     try {
+      console.log("Data desde el loginUser", data);
       const res = await login(data);
+      console.log("Respuesta desde el loginUser");
       if (!res.data) {
         return setError();
       }
