@@ -16,7 +16,7 @@ export const dataClientInputsProps = [
     inputTitle: "Número de Teléfono",
     inputType: "text",
     inputName: "TelefonoCliente",
-    placeholder: "Ejemplo: 56987654321",
+    placeholder: "Ejemplo: 7441595198",
     validator: {
       required: "¡Este campo es obligatorio! ⚠️",
       pattern: {
@@ -24,8 +24,12 @@ export const dataClientInputsProps = [
         message: "¡Este campo solo acepta números! 🔢",
       },
       maxLength: {
-        value: 20,
-        message: "¡Este campo no puede tener más de 20 caracteres! 🔠",
+        value: 10,
+        message: "¡Este campo no puede tener más de 10 caracteres! 🔠",
+      },
+      minLength: {
+        value: 10,
+        message: "¡Este campo no puede tener menos de 10 caracteres! 🔠",
       },
     },
   },

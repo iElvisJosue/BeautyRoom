@@ -23,10 +23,10 @@
 .ModalPay__Container {
   position: relative;
   width: 500px;
-  min-height: 550px;
+  min-height: 400px;
   height: auto;
   background: var(--White);
-  padding: 20px 40px;
+  padding: 40px;
   border-radius: 35px;
 
   display: flex;
@@ -58,7 +58,7 @@
   transform: scale(1.1);
 }
 .ModalPay__Container__Title {
-  font-size: var(--TittleFontSize);
+  font-size: var(--SubTittleFontSize);
   font-weight: bold;
   color: var(--Black);
   text-align: center;
@@ -70,44 +70,21 @@
   border: none;
   background: var(--Gray);
 }
-.ModalPay__Container__Form {
+.ModalPay__Container__Text {
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-.ModalPay__Container__Form--Inputs {
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  gap: 10px;
-}
-.ModalPay__Container__Form--Inputs--Title {
-  font-size: var(--IconFontSize);
-  font-weight: bold;
-}
-.ModalPay__Container__Form--Inputs--Input {
-  width: 100%;
-  height: 50px;
-  background-color: var(--Transparent);
-  border: none;
-  outline: none;
-  padding: 0 20px;
   font-size: var(--NormalFontSize);
-
-  font-weight: bold;
-  color: var(--ContainerPurple);
 }
-.ModalPay__Container__Form--Inputs--Input::placeholder {
+.ModalPay__Container__Text b {
+  color: var(--StrongPurple);
   font-weight: bold;
-  color: var(--ContainerPurple);
 }
-.ModalPay__Container__Form--Inputs--Double {
-  display: flex;
-  gap: 10px;
-  align-items: flex-start;
+.ModalPay__Container__Message {
+  font-style: italic;
+  color: var(--Gray);
+  text-align: center;
 }
 .ModalPay__Container__Form--Button {
+  width: 100%;
   height: 50px;
   background-color: var(--StrongPurple);
   font-size: var(--NormalFontSize);
@@ -132,12 +109,6 @@
   }
   .ModalPay__Container__Title {
     font-size: var(--IconFontSize);
-  }
-  .ModalPay__Container__Form--Inputs--Title {
-    font-size: var(--NormalFontSize);
-  }
-  .ModalPay__Container__Form--Inputs--Input {
-    font-size: var(--SmallFontSize);
   }
   .ModalPay__Container__Form--Button {
     font-size: var(--SmallFontSize);

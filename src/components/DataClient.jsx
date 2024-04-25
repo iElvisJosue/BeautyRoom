@@ -14,15 +14,17 @@ import { DateFormatted } from "../helpers/DateFormatted";
 // IMPORTAMOS LOS CONTEXTOS A USAR
 import { useDates } from "../context/DatesContext";
 
+// IMPORTAMOS LOS HOOKS A USAR
+import useModalPay from "../hooks/useModalPay";
+import useDataClient from "../hooks/useDataClient";
+
+// IMPORTAMOS LOS COMPONENTES
+import ModalPay from "../components/ModalPay";
+
 // IMPORTAMOS LOS ESTILOS
 import "../styles/DataClient.css";
 
-export default function DataClient({
-  dayDate,
-  setProgressDate,
-  setShowModalPay,
-  monthNumber,
-}) {
+export default function DataClient({ dayDate, setProgressDate, monthNumber }) {
   const {
     handleSubmit,
     register,
@@ -30,7 +32,10 @@ export default function DataClient({
   } = useForm({
     criteriaMode: "all",
   });
-  const { verifyDateExist, createDate } = useDates();
+
+  const { showModalPay, setShowModalPay } = useModalPay();
+  const { dataClient, setDataClient } = useDataClient();
+  const { verifyDateExist } = useDates();
   const [selectedIndex, setSelectedIndex] = useState(0);
   const { dayName, day, monthDay, year, hour } = dayDate;
 
@@ -41,7 +46,7 @@ export default function DataClient({
 
   const validateDataClient = handleSubmit(async (data) => {
     selectedIndex === 0
-      ? toast.error("¡Por favor selecciona un servicio! ❌")
+      ? toast.error("Por favor selecciona un servicio ❌")
       : formatDataClient(data);
   });
 
@@ -51,6 +56,8 @@ export default function DataClient({
     data.HoraCita = hour;
     data.ImagenCita = selectedIndex - 1;
 
+    setDataClient(data);
+    setShowModalPay(true);
     verifyDateDuplicateExist(data);
   };
 
@@ -61,25 +68,6 @@ export default function DataClient({
         return toast.error(
           "¡Ya existe una cita programada en esta fecha! Por favor selecciona una nueva fecha ❌"
         );
-      } else {
-        return createNewDate(data);
-      }
-    } catch (error) {
-      console.log(error);
-      const { status, data } = error.response;
-      handleResponseMessages({ status, data });
-    }
-  };
-
-  const createNewDate = async (data) => {
-    try {
-      const res = await createDate(data);
-      if (res.response) {
-        const { status, data } = res.response;
-        handleResponseMessages({ status, data });
-      } else {
-        toast.success("¡Datos guardados! ✔️");
-        return setShowModalPay(true);
       }
     } catch (error) {
       console.log(error);
@@ -90,6 +78,15 @@ export default function DataClient({
 
   return (
     <div className="DataClient__Container">
+      <ModalPay
+        showModalPay={showModalPay}
+        setShowModalPay={setShowModalPay}
+        dataClient={dataClient}
+        dayName={dayName}
+        day={day}
+        monthDay={monthDay}
+        year={year}
+      />
       <aside className="DataClient__Container__DateInformation">
         <p className="DataClient__Container__DateInformation__Title">
           Datos de la cita <br /> programada
@@ -170,7 +167,9 @@ export default function DataClient({
               </>
             )
           )}
-          <button className="DataClient__Container__Form--Button">Pagar</button>
+          <button className="DataClient__Container__Form--Button">
+            Ir a pagar
+          </button>
         </form>
       </aside>
     </div>

@@ -1,32 +1,40 @@
 /* eslint-disable react/prop-types */
-// LIBRERÍAS A USAR
-import { useForm } from "react-hook-form";
-import { ErrorMessage } from "@hookform/error-message";
-import { toast } from "sonner";
-
-// IMPORTAMOS LAS AYUDAS
-import { modalPayInputsProps } from "../helpers/ModalPay";
-
 // IMPORTAMOS LOS ESTILOS
 import "../styles/ModalPay.css";
 
-export default function ModalPay({ showModalPay, setShowModalPay }) {
-  const {
-    handleSubmit,
-    register,
-    formState: { errors },
-  } = useForm({
-    criteriaMode: "all",
-  });
+// IMPORTAMOS LOS CONTEXTOS A USAR
+import { useDates } from "../context/DatesContext";
 
-  const checkDataPay = handleSubmit((data) => {
-    console.log(data);
-    toast.success("¡Pago realizado correctamente! 🎉");
-    setShowModalPay(false);
-  });
+// IMPORTAMOS LAS AYUDAS
+import { handleResponseMessages } from "../helpers/RespuestasServidor";
+
+export default function ModalPay({
+  showModalPay,
+  setShowModalPay,
+  dataClient,
+  dayName,
+  day,
+  monthDay,
+  year,
+}) {
+  const { createOrder } = useDates();
 
   const classModalPay = `ModalPay ${showModalPay ? "Show" : ""}`;
 
+  const createDateOrder = async () => {
+    try {
+      const res = await createOrder(dataClient);
+      window.location.href = res.data.links[1].href;
+    } catch (error) {
+      console.log(error);
+      const { status, data } = error.response;
+      handleResponseMessages({ status, data });
+    }
+  };
+
+  if (dataClient === null) {
+    return null;
+  }
   return (
     <main className={classModalPay}>
       <div className="ModalPay__Container">
@@ -36,95 +44,39 @@ export default function ModalPay({ showModalPay, setShowModalPay }) {
         >
           <ion-icon name="close-outline"></ion-icon>
         </button>
-        <p className="ModalPay__Container__Title">Datos Bancarios</p>
+        <p className="ModalPay__Container__Title">
+          Verifica los datos de tu cita
+        </p>
         <hr className="ModalPay__Container__Divisor" />
-        <form onSubmit={checkDataPay} className="ModalPay__Container__Form">
-          {modalPayInputsProps.map(
-            ({
-              isDuo,
-              inputTitle,
-              inputName,
-              placeholder,
-              validator,
-              inputDetails,
-            }) => (
-              <>
-                {isDuo ? (
-                  <div className="ModalPay__Container__Form--Inputs--Double">
-                    {inputDetails.map(
-                      ({ inputTitle, inputName, placeholder, validator }) => (
-                        <span
-                          className="ModalPay__Container__Form--Inputs"
-                          key={inputName}
-                        >
-                          <p className="ModalPay__Container__Form--Inputs--Title">
-                            {inputTitle}
-                          </p>
-                          <input
-                            type="text"
-                            {...register(inputName, validator)}
-                            className="ModalPay__Container__Form--Inputs--Input"
-                            placeholder={placeholder}
-                          ></input>
-                          <ErrorMessage
-                            errors={errors}
-                            name={inputName}
-                            render={({ messages }) =>
-                              messages &&
-                              Object.entries(messages).map(
-                                ([type, message]) => (
-                                  <small
-                                    key={type}
-                                    className="DataClient__Container__Form--Data--SmallError"
-                                  >
-                                    {message}
-                                  </small>
-                                )
-                              )
-                            }
-                          />
-                        </span>
-                      )
-                    )}
-                  </div>
-                ) : (
-                  <span
-                    className="ModalPay__Container__Form--Inputs"
-                    key={inputName}
-                  >
-                    <p className="ModalPay__Container__Form--Inputs--Title">
-                      {inputTitle}
-                    </p>
-                    <input
-                      type="text"
-                      {...register(inputName, validator)}
-                      className="ModalPay__Container__Form--Inputs--Input"
-                      placeholder={placeholder}
-                    ></input>
-                  </span>
-                )}
-                <ErrorMessage
-                  errors={errors}
-                  name={inputName}
-                  render={({ messages }) =>
-                    messages &&
-                    Object.entries(messages).map(([type, message]) => (
-                      <small
-                        key={type}
-                        className="DataClient__Container__Form--Data--SmallError"
-                      >
-                        {message}
-                      </small>
-                    ))
-                  }
-                />
-              </>
-            )
-          )}
-          <button className="ModalPay__Container__Form--Button">
-            Pagar $100
-          </button>
-        </form>
+        <p className="ModalPay__Container__Text">
+          <b>Nombre:</b> {dataClient.NombreCliente}
+        </p>
+        <p className="ModalPay__Container__Text">
+          <b>Teléfono:</b> {dataClient.TelefonoCliente}
+        </p>
+        <p className="ModalPay__Container__Text">
+          <b>Motivo de la cita:</b> {dataClient.MotivoCita}
+        </p>
+        <p className="ModalPay__Container__Text">
+          <b>Fecha de la cita:</b>{" "}
+          {`${dayName} ${day} de ${monthDay} del ${year}`}
+        </p>
+        <p className="ModalPay__Container__Text">
+          <b>Hora de la cita:</b> {dataClient.HoraCita}
+        </p>
+        <hr className="ModalPay__Container__Divisor" />
+        <small className="ModalPay__Container__Message">
+          ¡Atención! Para completar tu cita serás redirigido a PayPal,
+          reconocido por su seguridad y protección de datos. Tu transacción se
+          completará de manera segura en esta plataforma confiable. ¡Gracias por
+          tu confianza!
+        </small>
+        <button
+          className="ModalPay__Container__Form--Button"
+          onClick={createDateOrder}
+        >
+          Realizar Pago
+        </button>
       </div>
     </main>
   );

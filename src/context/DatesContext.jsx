@@ -1,9 +1,9 @@
 import { createContext, useContext } from "react";
 import {
   getAllDates,
-  createNewDate,
   verifyAllDates,
   verifyDateDuplicateExist,
+  createPayment,
 } from "../api/authDates";
 
 export const DatesContext = createContext();
@@ -24,18 +24,6 @@ export const DatesProvider = ({ children }) => {
       const res = await getAllDates();
       if (!res.data) {
         return console.log("HUBO UN ERROR AL OBTENER LAS CITAS");
-      }
-      return res;
-    } catch (error) {
-      return error;
-    }
-  };
-
-  const createDate = async (data) => {
-    try {
-      const res = await createNewDate(data);
-      if (!res.data) {
-        return console.log("HUBO UN ERROR AL CREAR LA CITA");
       }
       return res;
     } catch (error) {
@@ -67,13 +55,22 @@ export const DatesProvider = ({ children }) => {
     }
   };
 
+  const createOrder = async (data) => {
+    try {
+      const res = await createPayment(data);
+      return res;
+    } catch (error) {
+      return error;
+    }
+  };
+
   return (
     <DatesContext.Provider
       value={{
         getDates,
-        createDate,
         verifyDate,
         verifyDateExist,
+        createOrder,
       }}
     >
       {children}

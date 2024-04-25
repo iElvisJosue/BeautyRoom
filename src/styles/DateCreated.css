@@ -1,0 +1,42 @@
+.DateCreated {
+  min-height: 100vh;
+  padding: 20px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.DateCreated__Img {
+  width: 250px;
+}
+
+.DateCreated__Text {
+  font-size: var(--SubTittleFontSize);
+  font-weight: bold;
+  color: var(--Red);
+  text-align: center;
+}
+.DateCreated__Text.Two {
+  font-size: var(--NormalFontSize);
+  color: var(--StrongPurple);
+}
+.DateCreated__Button {
+  margin-top: 0px;
+  padding: 10px 20px;
+  font-size: var(--NormalFontSize);
+  font-weight: bold;
+  color: var(--White);
+  background: var(--StrongPurple);
+  outline: none;
+  border: 2px solid var(--StrongPurple);
+  transition: 0.5s ease all;
+}
+
+.DateCreated__Button:hover {
+  cursor: pointer;
+  background-color: var(--WeakPurple);
+  color: var(--StrongPurple);
+  letter-spacing: 1px;
+}

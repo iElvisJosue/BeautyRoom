@@ -7,6 +7,7 @@ import { DatesProvider } from "./context/DatesContext";
 import Login from "./views/Login";
 import Date from "./views/Date";
 import DatingHistory from "./views/DatingHistory";
+import DateCreated from "./views/DateCreated";
 
 // PROTECCIÓN DE RUTAS
 import ProtectedByCookies from "./protection/ProtectedByCookies";
@@ -22,6 +23,7 @@ export default function App() {
             <Route element={<ProtectedByCookies />}>
               <Route path="/HistorialDeCitas" element={<DatingHistory />} />
             </Route>
+            <Route path="/CitaCreada" element={<DateCreated />} />
           </Routes>
         </BrowserRouter>
       </DatesProvider>

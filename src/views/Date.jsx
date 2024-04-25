@@ -6,12 +6,10 @@ import Navbar from "../components/Navbar";
 import SelectDay from "../components/SelectDay";
 import SelectHour from "../components/SelectHour";
 import DataClient from "../components/DataClient";
-import ModalPay from "../components/ModalPay";
 
 // IMPORTAMOS LOS HOOKS
 import useProgressDate from "../components/useProgressDate";
 import useDate from "../hooks/useDate";
-import useModalPay from "../hooks/useModalPay";
 import useCalendar from "../hooks/useCalendar";
 
 // IMPORTAMOS LOS ESTILOS
@@ -20,7 +18,6 @@ import "../styles/Date.css";
 export default function Date() {
   const { progressDate, setProgressDate } = useProgressDate();
   const { dayDate, setDayDate } = useDate();
-  const { showModalPay, setShowModalPay } = useModalPay();
   const { calendarDetails, currentYear, monthNumber, nextMonth, prevMonth } =
     useCalendar();
 
@@ -29,7 +26,6 @@ export default function Date() {
     setDayDate,
     progressDate,
     setProgressDate,
-    setShowModalPay,
     calendarDetails,
     currentYear,
     monthNumber,
@@ -47,7 +43,6 @@ export default function Date() {
 
   return (
     <main className="Date">
-      <ModalPay showModalPay={showModalPay} setShowModalPay={setShowModalPay} />
       <Navbar>Agendar Cita</Navbar>
       <ProgressDateToRender {...dateProps} />
       <Toaster richColors position="top-right" closeButton />
