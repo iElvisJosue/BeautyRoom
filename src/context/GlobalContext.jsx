@@ -32,32 +32,32 @@ export const GlobalProvider = ({ children }) => {
     return res;
   };
   // COMPROBAR SI TIENE UN COOKIE
-  useEffect(() => {
-    async function checkCookie() {
-      const cookies = Cookies.get();
-      if (!cookies.accessToken) {
-        console.log("NO HAY COOKIE :(");
-        setError();
-        return;
-      }
-      try {
-        const res = await verifyToken(cookies.accessToken);
-        if (!res.data) {
-          setError();
-          return;
-        }
-        setSuccess(res.data);
-        if (res.data.online) {
-          setIsLogin(true);
-        }
-        return;
-      } catch (error) {
-        setError();
-        return;
-      }
-    }
-    checkCookie();
-  }, []);
+  // useEffect(() => {
+  //   async function checkCookie() {
+  //     const cookies = Cookies.get();
+  //     if (!cookies.accessToken) {
+  //       console.log("NO HAY COOKIE :(");
+  //       setError();
+  //       return;
+  //     }
+  //     try {
+  //       const res = await verifyToken(cookies.accessToken);
+  //       if (!res.data) {
+  //         setError();
+  //         return;
+  //       }
+  //       setSuccess(res.data);
+  //       if (res.data.online) {
+  //         setIsLogin(true);
+  //       }
+  //       return;
+  //     } catch (error) {
+  //       setError();
+  //       return;
+  //     }
+  //   }
+  //   checkCookie();
+  // }, []);
 
   //   EDITAR PARA LAS CITAS
   //   const getUserProfile = async () => {
