@@ -57,7 +57,6 @@ export default function DataClient({ dayDate, setProgressDate, monthNumber }) {
     data.ImagenCita = selectedIndex - 1;
 
     setDataClient(data);
-    setShowModalPay(true);
     verifyDateDuplicateExist(data);
   };
 
@@ -68,6 +67,8 @@ export default function DataClient({ dayDate, setProgressDate, monthNumber }) {
         return toast.error(
           "¡Ya existe una cita programada en esta fecha! Por favor selecciona una nueva fecha ❌"
         );
+      } else {
+        setShowModalPay(true);
       }
     } catch (error) {
       console.log(error);
