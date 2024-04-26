@@ -1,0 +1,109 @@
+.EditDate {
+  position: relative;
+  width: 1024px;
+  min-height: 100vh;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+  background: var(--White);
+}
+.EditDate__Container {
+  width: 500px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 0 20px;
+}
+.EditDate__Container__Back {
+  height: 50px;
+  position: relative;
+  font-size: var(--SubTittleFontSize);
+  font-weight: bold;
+  color: var(--StrongPurple);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.EditDate__Container__Back--Button {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 50px;
+  height: 100%;
+  color: var(--White);
+  background: var(--StrongPurple);
+  border: none;
+
+  cursor: pointer;
+}
+.EditDate__Container__Back--Button ion-icon {
+  font-size: var(--IconFontSize);
+}
+.EditDate__Container__Form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.EditDate__Container__Form {
+  display: flex;
+}
+.EditDate__Container__Form--Inputs--Text {
+  color: var(--Gray);
+  font-size: var(--IconFontSize);
+  font-weight: bold;
+}
+.EditDate__Container__Form--Inputs--Input {
+  height: 65px;
+  width: 100%;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid var(--Gray);
+  font-size: var(--NormalFontSize);
+  font-weight: bold;
+  color: var(--Black);
+}
+.EditDate__Container__Form--Inputs--Input::placeholder {
+  font-weight: bold;
+  color: var(--Gray);
+}
+.EditDate__Container__Form--SmallError {
+  color: var(--Red);
+  font-weight: bold;
+}
+.EditDate__Container__Form--Button {
+  height: 65px;
+  background: var(--StrongPurple);
+  color: var(--White);
+  font-size: var(--NormalFontSize);
+  border: 2px solid var(--StrongPurple);
+  font-weight: bold;
+  outline: none;
+  transition: 0.5s ease all;
+}
+.EditDate__Container__Form--Button:hover {
+  cursor: pointer;
+  background-color: var(--White);
+  color: var(--StrongPurple);
+  letter-spacing: 1px;
+}
+.EditDate__Container__Message {
+  font-style: italic;
+  color: var(--Gray);
+  text-align: center;
+}
+@media (width < 1024px) {
+  .EditDate {
+    width: 100%;
+  }
+}
+@media (width < 600px) {
+  .EditDate__Container {
+    width: 100%;
+    padding: 20px;
+  }
+}

@@ -2,9 +2,11 @@
 // IMPORTAMOS LOS ESTILOS
 import "../styles/NotResults.css";
 
-export default function NotResults({ children }) {
+export default function NotResults({ responsive = false, children }) {
+  const classNotResults = responsive ? "NotResults Responsive" : "NotResults";
+
   return (
-    <section className="NotResults">
+    <section className={classNotResults}>
       <img
         src="SinResultados.png"
         alt="Sin Resultados"

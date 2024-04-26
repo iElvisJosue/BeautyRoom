@@ -1,0 +1,68 @@
+.Menu {
+  position: absolute;
+  left: -300px;
+  top: 0;
+  width: 250px;
+  min-height: 100%;
+  height: auto;
+  background-color: var(--White);
+  border-right: 1px solid var(--WeakPurple);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+
+  transition: 0.5s ease all;
+}
+.Menu.Show {
+  left: 0;
+}
+.Menu__Header {
+  position: relative;
+  min-height: 75px;
+  padding: 10px;
+  border-bottom: 1px solid var(--WeakPurple);
+  text-align: center;
+  color: var(--StrongPurple);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.Menu__Header--Button {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  left: 20px;
+  top: calc(50% - 25px);
+  background: none;
+  outline: none;
+  border: none;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--StrongPurple);
+}
+.Menu__Header--Button ion-icon {
+  font-size: var(--SubTittleFontSize);
+}
+.Menu__Header--List {
+  list-style: none;
+}
+.Menu__Header--List--Item {
+  min-height: 75px;
+  border-bottom: 1px solid var(--WeakPurple);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: var(--NormalFontSize);
+  color: var(--StrongPurple);
+
+  transition: 0.5s ease all;
+}
+.Menu__Header--List--Item:hover {
+  cursor: pointer;
+  background: var(--StrongPurple);
+  color: var(--White);
+}

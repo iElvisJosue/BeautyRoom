@@ -19,7 +19,7 @@ export default function ModalPay({
 }) {
   const { createOrder } = useDates();
 
-  const classModalPay = `ModalPay ${showModalPay ? "Show" : ""}`;
+  const classModalPay = showModalPay ? "ModalPay Show" : "ModalPay";
 
   const createDateOrder = async () => {
     try {
@@ -63,6 +63,9 @@ export default function ModalPay({
         </p>
         <p className="ModalPay__Container__Text">
           <b>Hora de la cita:</b> {dataClient.HoraCita}
+        </p>
+        <p className="ModalPay__Container__Text">
+          <b>Método de pago:</b> {dataClient.MetodoPago}
         </p>
         <hr className="ModalPay__Container__Divisor" />
         <small className="ModalPay__Container__Message">

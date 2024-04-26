@@ -1,60 +1,119 @@
+import { Toaster } from "sonner";
+
 // IMPORTAMOS LOS COMPONENTES
 import Navbar from "../components/Navbar";
-import FilterButton from "../components/FilterButton";
 import Loader from "../components/Loader";
 import NotResults from "../components/NotResults";
 import DateInformation from "../components/DateInformation";
-
-// IMPORTAMOS LAS AYUDAS
-import { listOfServices } from "../helpers/ListServices";
+import Menu from "../components/Menu";
+import EditDate from "../components/EditDate";
 
 // IMPORTAMOS LOS HOOKS
 import useGetDates from "../hooks/useGetDates";
+import useMenu from "../hooks/useMenu";
+import useEditDate from "../hooks/useEditDate";
+import useDataDate from "../hooks/useDataDate";
+import useGetEmployees from "../hooks/useGetEmployees";
+
+// IMPORTAMOS LOS CONTEXTOS A USAR
+import { useGlobal } from "../context/GlobalContext";
 
 // IMPORTAMOS LOS ESTILOS
 import "../styles/DatingHistory.css";
 
 export default function DatingHistory() {
-  const { totalDates, searchingDates } = useGetDates();
+  const { user } = useGlobal();
+  const { totalDates, searchingDates, setFilter, filter } = useGetDates();
+  const { showEditDate, setShowEditDate } = useEditDate();
+  const { showMenu, setShowMenu } = useMenu();
+  const { currentDataDate, setCurrentDataDate } = useDataDate();
+  const { employees, searchingEmployees } = useGetEmployees();
 
-  if (searchingDates) return <Loader />;
+  const getDatesByFilters = (event) => {
+    const value = event.target.value;
+    // Utilizamos una expresión regular para permitir letras, números y "-"
+    const regex = /^[a-zA-Z0-9\sáéíóúÁÉÍÓÚüÜ-]*$/;
+    // Comprobamos si el nuevo valor cumple con la expresión regular
+    if (regex.test(value) || value === "") {
+      const filter = event.target.value;
+      setFilter(filter);
+    }
+  };
+
+  const titleSection =
+    user.rolUsuario === "Administrador"
+      ? "Historial de citas"
+      : "Citas asignadas";
+
   return (
     <main className="DatingHistory">
-      <Navbar>Historial de Citas</Navbar>
-      {totalDates.length > 0 ? (
+      <Navbar setShowMenu={setShowMenu}>{titleSection}</Navbar>
+      <Menu showMenu={showMenu} setShowMenu={setShowMenu}></Menu>
+      {showEditDate ? (
+        <EditDate
+          setShowEditDate={setShowEditDate}
+          currentDataDate={currentDataDate}
+          employees={employees}
+          searchingEmployees={searchingEmployees}
+          setFilter={setFilter}
+          filter={filter}
+        ></EditDate>
+      ) : (
         <div className="DatingHistory__Container">
           <h1 className="DatingHistory__Container--Title">
             Total de citas: {totalDates.length}
           </h1>
-          <h1 className="DatingHistory__Container--SubTitle">Filtra por:</h1>
+          <h1 className="DatingHistory__Container--SubTitle">
+            Buscar citas por:
+          </h1>
           <div className="DatingHistory__Container--Filters">
-            {listOfServices.map((service, index) => (
-              <FilterButton key={index} position={index}>
-                {service}
-              </FilterButton>
-            ))}
+            <input
+              type="text"
+              placeholder="Fecha (AAAA-MM-DD), Folio, Motivo o Nombre del cliente"
+              className="DatingHistory__Container--Filters--Input"
+              onChange={getDatesByFilters}
+            />
           </div>
           <div className="DatingHistory__Container--Dates">
-            {totalDates.map(
-              ({ idCita, FechaCita, HoraCita, NombreCliente, ImagenCita }) => (
-                <DateInformation
-                  key={idCita}
-                  FechaCita={FechaCita}
-                  HoraCita={HoraCita}
-                  NombreCliente={NombreCliente}
-                  ImagenCita={ImagenCita}
-                />
+            {searchingDates ? (
+              <Loader responsive={true} />
+            ) : totalDates.length > 0 ? (
+              totalDates.map(
+                ({
+                  idCita,
+                  FechaCita,
+                  HoraCita,
+                  NombreCliente,
+                  TelefonoCliente,
+                  ImagenCita,
+                  MotivoCita,
+                  EmpleadoAsignado,
+                }) => (
+                  <DateInformation
+                    key={idCita}
+                    idCita={idCita}
+                    FechaCita={FechaCita}
+                    HoraCita={HoraCita}
+                    NombreCliente={NombreCliente}
+                    TelefonoCliente={TelefonoCliente}
+                    ImagenCita={ImagenCita}
+                    MotivoCita={MotivoCita}
+                    EmpleadoAsignado={EmpleadoAsignado}
+                    setShowEditDate={setShowEditDate}
+                    setCurrentDataDate={setCurrentDataDate}
+                  />
+                )
               )
+            ) : (
+              <NotResults responsive={true}>
+                ¡No se encontraron <br />
+                citas registradas! <br />
+              </NotResults>
             )}
           </div>
         </div>
-      ) : (
-        <NotResults>
-          ¡No se encontraron <br />
-          citas registradas! <br />
-          😔
-        </NotResults>
       )}
+      <Toaster richColors position="top-right" closeButton />
     </main>
   );
 }

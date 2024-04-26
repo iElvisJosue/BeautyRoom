@@ -8,6 +8,8 @@
   align-items: center;
   margin: auto;
   background: var(--White);
+
+  overflow: hidden;
 }
 
 @media (width < 1024px) {

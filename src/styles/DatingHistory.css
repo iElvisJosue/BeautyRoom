@@ -8,6 +8,7 @@
   align-items: center;
   margin: auto;
   background: var(--White);
+  overflow: hidden;
 }
 .DatingHistory__Container {
   width: 100%;
@@ -33,6 +34,15 @@
   display: flex;
   overflow: auto;
   gap: 10px;
+}
+.DatingHistory__Container--Filters--Input {
+  background: var(--Transparent);
+  width: 100%;
+  padding: 0 20px;
+  height: 50px;
+  border-radius: 50px;
+  border: 2px solid var(--Transparent);
+  outline: none;
 }
 .DatingHistory__Container--Filters--Button {
   background: var(--Transparent);
@@ -73,7 +83,7 @@
     width: 100%;
   }
 }
-@media (width < 550px) {
+@media (width < 570px) {
   .DatingHistory__Container--Dates {
     grid-template-columns: repeat(1, 1fr);
   }

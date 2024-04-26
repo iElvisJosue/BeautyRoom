@@ -7,12 +7,17 @@ import { toast } from "sonner";
 
 // IMPORTAMOS LAS AYUDAS
 import { listOfServices } from "../helpers/ListServices";
+import {
+  listOfPaymentsForAdmin,
+  listOfPaymentsForClient,
+} from "../helpers/ListOfPayments";
 import { dataClientInputsProps } from "../helpers/DataClient";
 import { handleResponseMessages } from "../helpers/RespuestasServidor";
 import { DateFormatted } from "../helpers/DateFormatted";
 
 // IMPORTAMOS LOS CONTEXTOS A USAR
 import { useDates } from "../context/DatesContext";
+import { useGlobal } from "../context/GlobalContext";
 
 // IMPORTAMOS LOS HOOKS A USAR
 import useModalPay from "../hooks/useModalPay";
@@ -32,10 +37,10 @@ export default function DataClient({ dayDate, setProgressDate, monthNumber }) {
   } = useForm({
     criteriaMode: "all",
   });
-
+  const { user } = useGlobal();
   const { showModalPay, setShowModalPay } = useModalPay();
   const { dataClient, setDataClient } = useDataClient();
-  const { verifyDateExist } = useDates();
+  const { verifyDateExist, adminCreateNewDate } = useDates();
   const [selectedIndex, setSelectedIndex] = useState(0);
   const { dayName, day, monthDay, year, hour } = dayDate;
 
@@ -68,12 +73,29 @@ export default function DataClient({ dayDate, setProgressDate, monthNumber }) {
           "¡Ya existe una cita programada en esta fecha! Por favor selecciona una nueva fecha ❌"
         );
       } else {
-        setShowModalPay(true);
+        user ? createDateByAdmin(data) : checkPayment(data);
       }
     } catch (error) {
-      console.log(error);
       const { status, data } = error.response;
       handleResponseMessages({ status, data });
+    }
+  };
+
+  const createDateByAdmin = async (dataInfo) => {
+    try {
+      const res = await adminCreateNewDate(dataInfo);
+      const { status, data } = res;
+      handleResponseMessages({ status, data });
+      // setProgressDate(0);
+    } catch (error) {
+      const { status, data } = error.response;
+      handleResponseMessages({ status, data });
+    }
+  };
+
+  const checkPayment = (data) => {
+    if (data.MetodoPago === "PayPal") {
+      setShowModalPay(true);
     }
   };
 
@@ -120,36 +142,19 @@ export default function DataClient({ dayDate, setProgressDate, monthNumber }) {
           className="DataClient__Container__Form--Data"
         >
           {dataClientInputsProps.map(
-            ({ inputType, inputTitle, inputName, placeholder, validator }) => (
+            ({ inputTitle, inputName, placeholder, validator }) => (
               <>
-                {inputType === "text" ? (
-                  <div className="DataClient__Container__Form--Data--Inputs">
-                    <p className="DataClient__Container__Form--Data--Inputs--Title">
-                      {inputTitle}
-                    </p>
-                    <input
-                      type="text"
-                      {...register(inputName, validator)}
-                      className="DataClient__Container__Form--Data--Inputs--Input"
-                      placeholder={placeholder}
-                    />
-                  </div>
-                ) : (
-                  <div
-                    className="DataClient__Container__Form--Data--Inputs"
-                    onChange={handleSelectChange}
-                  >
-                    <p className="DataClient__Container__Form--Data--Inputs--Title">
-                      Motivo de la Cita
-                    </p>
-                    <select
-                      {...register(inputName, validator)}
-                      className="DataClient__Container__Form--Data--Inputs--Input"
-                    >
-                      {listOfServices}
-                    </select>
-                  </div>
-                )}
+                <div className="DataClient__Container__Form--Data--Inputs">
+                  <p className="DataClient__Container__Form--Data--Inputs--Title">
+                    {inputTitle}
+                  </p>
+                  <input
+                    type="text"
+                    {...register(inputName, validator)}
+                    className="DataClient__Container__Form--Data--Inputs--Input"
+                    placeholder={placeholder}
+                  />
+                </div>
                 <ErrorMessage
                   errors={errors}
                   name={inputName}
@@ -168,6 +173,31 @@ export default function DataClient({ dayDate, setProgressDate, monthNumber }) {
               </>
             )
           )}
+          <div
+            className="DataClient__Container__Form--Data--Inputs"
+            onChange={handleSelectChange}
+          >
+            <p className="DataClient__Container__Form--Data--Inputs--Title">
+              Motivo de la cita
+            </p>
+            <select
+              {...register("MotivoCita")}
+              className="DataClient__Container__Form--Data--Inputs--Input"
+            >
+              {listOfServices}
+            </select>
+          </div>
+          <div className="DataClient__Container__Form--Data--Inputs">
+            <p className="DataClient__Container__Form--Data--Inputs--Title">
+              Método de pago
+            </p>
+            <select
+              {...register("MetodoPago")}
+              className="DataClient__Container__Form--Data--Inputs--Input"
+            >
+              {user ? listOfPaymentsForAdmin : listOfPaymentsForClient}
+            </select>
+          </div>
           <button className="DataClient__Container__Form--Button">
             Ir a pagar
           </button>

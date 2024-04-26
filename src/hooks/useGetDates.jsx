@@ -10,14 +10,15 @@ import { useDates } from "../context/DatesContext";
 import { handleResponseMessages } from "../helpers/RespuestasServidor";
 
 export default function useGetDates() {
-  const { getDates } = useDates();
+  const { getDatesByFilter } = useDates();
   const [totalDates, setTotalDates] = useState(false);
   const [searchingDates, setSearchingDates] = useState(true);
+  const [filter, setFilter] = useState(true);
 
   useEffect(() => {
     async function getAllDates() {
       try {
-        const res = await getDates();
+        const res = await getDatesByFilter({ filter });
         setTotalDates(res.data);
       } catch (error) {
         console.log(error);
@@ -27,7 +28,7 @@ export default function useGetDates() {
       setSearchingDates(false);
     }
     getAllDates();
-  }, []);
+  }, [filter]);
 
-  return { totalDates, setTotalDates, searchingDates };
+  return { totalDates, setTotalDates, searchingDates, setFilter, filter };
 }

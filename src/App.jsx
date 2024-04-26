@@ -8,9 +8,11 @@ import Login from "./views/Login";
 import Date from "./views/Date";
 import DatingHistory from "./views/DatingHistory";
 import DateCreated from "./views/DateCreated";
+import AddUsers from "./views/AddUsers";
 
 // PROTECCIÓN DE RUTAS
 import ProtectedByCookies from "./protection/ProtectedByCookies";
+// import ProtectedForAdmins from "./protection/ProtectedForAdmins";
 
 export default function App() {
   return (
@@ -21,7 +23,11 @@ export default function App() {
             <Route path="/" element={<Login />} />
             <Route path="/AgendarCita" element={<Date />} />
             <Route element={<ProtectedByCookies />}>
+              {/* <Route element={<ProtectedForAdmins />}> */}
               <Route path="/HistorialDeCitas" element={<DatingHistory />} />
+              <Route path="/AgendarCitaAdministrador" element={<Date />} />
+              {/* </Route> */}
+              <Route path="/AgregarUsuarios" element={<AddUsers />} />
             </Route>
             <Route path="/CitaCreada" element={<DateCreated />} />
           </Routes>

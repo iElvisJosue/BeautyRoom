@@ -1,6 +1,5 @@
 .NotResults {
   width: 100%;
-  min-height: calc(100vh - 75px);
   height: auto;
   padding: 20px;
 
@@ -9,6 +8,9 @@
   align-items: center;
   justify-content: center;
   gap: 20px;
+}
+.NotResults.Responsive {
+  grid-column: span 2;
 }
 .NotResults__Img {
   width: 200px;

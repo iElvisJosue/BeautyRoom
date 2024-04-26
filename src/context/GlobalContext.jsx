@@ -1,6 +1,13 @@
 import { createContext, useState, useContext, useEffect } from "react";
+import {
+  login,
+  createUser,
+  verifyUser,
+  getEmployees,
+  verifyToken,
+  logoutUser,
+} from "../api/authGlobal";
 import Cookies from "js-cookie";
-import { login, verifyToken } from "../api/authGlobal";
 
 export const GlobalContext = createContext();
 
@@ -72,19 +79,51 @@ export const GlobalProvider = ({ children }) => {
       return error;
     }
   };
-  //   const logout = async (id) => {
-  //     await logoutUser(id);
-  //     return setError();
-  //   };
+  const createNewUser = async (data) => {
+    try {
+      const res = await createUser(data);
+      return res;
+    } catch (error) {
+      setError();
+      return error;
+    }
+  };
+  const verifyUserExist = async (data) => {
+    try {
+      const res = await verifyUser(data);
+      return res;
+    } catch (error) {
+      setError();
+      return error;
+    }
+  };
+
+  const getAllEmployees = async () => {
+    try {
+      const res = await getEmployees();
+      return res;
+    } catch (error) {
+      setError();
+      return error;
+    }
+  };
+  const logout = async () => {
+    await logoutUser();
+    return setError();
+  };
 
   return (
     <GlobalContext.Provider
       value={{
         user,
+        logout,
         loading,
         isLogin,
         hasCookie,
         loginUser,
+        createNewUser,
+        verifyUserExist,
+        getAllEmployees,
       }}
     >
       {children}

@@ -1,6 +1,6 @@
-export const dataClientInputsProps = [
+export const dataUpdateDateInputsProps = [
   {
-    inputTitle: "Nombre",
+    inputTitle: "Nombre del cliente",
     inputType: "text",
     inputName: "NombreCliente",
     placeholder: "Escribe tu nombre aquí...",
@@ -16,7 +16,7 @@ export const dataClientInputsProps = [
     inputTitle: "Número de Teléfono",
     inputType: "text",
     inputName: "TelefonoCliente",
-    placeholder: "Ejemplo: 7441595198",
+    placeholder: "Ejemplo: 7444523691",
     validator: {
       required: "¡Este campo es obligatorio! ⚠️",
       pattern: {
@@ -32,5 +32,10 @@ export const dataClientInputsProps = [
         message: "¡Este campo no puede tener menos de 10 caracteres! 🔠",
       },
     },
+  },
+  {
+    inputTitle: "Motivo de la Cita",
+    inputType: "select",
+    inputName: "MotivoCita",
   },
 ];

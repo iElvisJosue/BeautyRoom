@@ -12,6 +12,9 @@
   color: var(--MainPurple);
   gap: 10px;
 }
+.Main__Loader.Responsive {
+  grid-column: span 2;
+}
 .Main__Loader h1 {
   font-size: var(--NormalFontSize);
   font-weight: bold;

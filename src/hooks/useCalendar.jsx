@@ -61,7 +61,7 @@ export default function useCalendar() {
     const dateSplit = date.split("-");
     const formattedDate = `${dateSplit[2]} de ${
       fullMonthNames[dateSplit[1] - 1]
-    }  del ${dateSplit[0]}`;
+    } del ${dateSplit[0]}`;
     return formattedDate;
   }
 

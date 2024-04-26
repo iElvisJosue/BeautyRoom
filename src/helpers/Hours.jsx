@@ -10,3 +10,9 @@ export const hours = [
   "05:00 PM",
   "06:00 PM",
 ];
+
+export const listOfHours = hours.map((hour, index) => (
+  <option key={index} value={hour}>
+    {hour}
+  </option>
+));

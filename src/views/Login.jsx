@@ -18,8 +18,8 @@ import usePassword from "../hooks/usePassword";
 
 export default function Login() {
   const { loginUser } = useGlobal();
-  const navigate = useNavigate();
   const { iconPassword } = usePassword();
+  const navigate = useNavigate();
 
   const {
     handleSubmit,
@@ -29,7 +29,7 @@ export default function Login() {
 
   const handleSuccessResponse = (res) => {
     toast.success(
-      `¡Tu sesión ha sido iniciada ${res.userName.toUpperCase()}, bienvenido! 👋`
+      `¡Tu sesión ha sido iniciada ${res.nombreUsuario.toUpperCase()}, bienvenido! 👋`
     );
     setTimeout(() => navigate("/HistorialDeCitas"), 1500);
   };
