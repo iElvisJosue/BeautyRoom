@@ -3,8 +3,10 @@
   left: -300px;
   top: 0;
   width: 250px;
-  min-height: 100%;
-  height: auto;
+  /* CAMBIAR PARA RESPONSIVE */
+  /* height: 100vh; */
+  height: 100%;
+  overflow: auto;
   background-color: var(--White);
   border-right: 1px solid var(--WeakPurple);
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
@@ -19,9 +21,9 @@
   position: relative;
   min-height: 75px;
   padding: 10px;
-  border-bottom: 1px solid var(--WeakPurple);
   text-align: center;
-  color: var(--StrongPurple);
+  color: var(--White);
+  background: var(--StrongPurple);
 
   display: flex;
   align-items: center;
@@ -41,7 +43,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--StrongPurple);
+  color: var(--White);
 }
 .Menu__Header--Button ion-icon {
   font-size: var(--SubTittleFontSize);

@@ -3,27 +3,38 @@
   padding: 20px;
 
   display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.DateCreated__Container {
+  width: 500px;
+  height: auto;
+  background-color: var(--White);
+  border-radius: 25px;
+  padding: 20px;
+
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 20px;
 }
-.DateCreated__Img {
-  width: 250px;
+.DateCreated__Container--Img {
+  width: 100px;
 }
 
-.DateCreated__Text {
+.DateCreated__Container--Title {
   font-size: var(--SubTittleFontSize);
   font-weight: bold;
-  color: var(--Red);
+  color: var(--StrongPurple);
   text-align: center;
 }
-.DateCreated__Text.Two {
+.DateCreated__Container--Title.Two {
   font-size: var(--NormalFontSize);
-  color: var(--StrongPurple);
+  color: #8a90a1;
 }
-.DateCreated__Button {
-  margin-top: 0px;
+.DateCreated__Container--Button {
+  /* margin-top: 0px;
   padding: 10px 20px;
   font-size: var(--NormalFontSize);
   font-weight: bold;
@@ -31,12 +42,21 @@
   background: var(--StrongPurple);
   outline: none;
   border: 2px solid var(--StrongPurple);
+  transition: 0.5s ease all; */
+  color: #8a90a1;
+  font-size: var(--NormalFontSize);
+  font-weight: bold;
   transition: 0.5s ease all;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
 }
 
-.DateCreated__Button:hover {
+.DateCreated__Container--Button:hover {
   cursor: pointer;
-  background-color: var(--WeakPurple);
+  background-color: var(--White);
   color: var(--StrongPurple);
   letter-spacing: 1px;
 }
