@@ -82,6 +82,8 @@ export default function DataClient({ dayDate, setProgressDate, monthNumber }) {
   };
 
   const createDateByAdmin = async (dataInfo) => {
+    const FechaCitaFormateada = `${day} de ${monthDay} de ${year} a las ${hour}`;
+    dataInfo.FechaCitaFormateada = FechaCitaFormateada;
     try {
       const res = await adminCreateNewDate(dataInfo);
       const { status, data } = res;

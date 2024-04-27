@@ -23,6 +23,8 @@ export default function ModalPay({
 
   const createDateOrder = async () => {
     try {
+      const FechaCitaFormateada = `${day} de ${monthDay} de ${year} a las ${dataClient.HoraCita}`;
+      dataClient.FechaCitaFormateada = FechaCitaFormateada;
       const res = await createOrder(dataClient);
       window.location.href = res.data.links[1].href;
     } catch (error) {
