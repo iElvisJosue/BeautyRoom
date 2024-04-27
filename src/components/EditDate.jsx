@@ -25,6 +25,7 @@ export default function EditDate({
   setFilter,
   filter,
 }) {
+  console.log(currentDataDate);
   const { updateOneDate } = useDates();
 
   const [fechaCita, setFechaCita] = useState("");
@@ -42,7 +43,8 @@ export default function EditDate({
   } = useForm({ criteriaMode: "all" });
 
   useEffect(() => {
-    if (searchingEmployees || employees.length === 0) return;
+    // if (searchingEmployees || employees.length === 0) return;
+    if (searchingEmployees) return;
 
     setFechaCita(currentDataDate.FechaCita);
     const foundEmployee = employees.find(
