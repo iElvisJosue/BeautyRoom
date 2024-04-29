@@ -9,8 +9,8 @@ import { ErrorMessage } from "@hookform/error-message";
 import { useDates } from "../context/DatesContext";
 
 // IMPORTAMOS LAS AYUDAS
-import { listOfServices } from "../helpers/ListServices";
-import { listOfHours } from "../helpers/Hours";
+// import { listOfServices } from "../helpers/ListServices";
+// import { listOfHours } from "../helpers/Hours";
 import { dataUpdateDateInputsProps } from "../helpers/DataUpdateDate";
 import { handleResponseMessages } from "../helpers/RespuestasServidor";
 
@@ -24,14 +24,16 @@ export default function EditDate({
   searchingEmployees,
   setFilter,
   filter,
+  services,
+  hours,
+  searchingHours,
 }) {
-  console.log(currentDataDate);
   const { updateOneDate } = useDates();
-
   const [fechaCita, setFechaCita] = useState("");
-  const [selectedIndex, setSelectedIndex] = useState(
-    currentDataDate.ImagenCita
-  );
+  const [dateReason, setDateReason] = useState(currentDataDate.ImagenCita);
+  // const [selectedIndex, setSelectedIndex] = useState(
+  //   currentDataDate.ImagenCita
+  // );
   const [newEmployeeAssigned, setNewEmployeeAssigned] = useState(
     currentDataDate.EmpleadoAsignado
   );
@@ -44,7 +46,7 @@ export default function EditDate({
 
   useEffect(() => {
     // if (searchingEmployees || employees.length === 0) return;
-    if (searchingEmployees) return;
+    if (searchingEmployees || searchingHours) return;
 
     setFechaCita(currentDataDate.FechaCita);
     const foundEmployee = employees.find(
@@ -65,21 +67,20 @@ export default function EditDate({
     setValue("HoraCita", HoraCita);
   }, [currentDataDate]);
 
-  const handleSelectChange = (event) => {
-    const index = event.target.selectedIndex;
-    setSelectedIndex(index - 1);
+  const handleChangeDateReason = (event) => {
+    const selectedDateReason =
+      event.target.selectedOptions[0].getAttribute("id");
+    setDateReason(selectedDateReason);
   };
   const handleIdEmployeeAssigned = (event) => {
-    const selectedOption = event.target.selectedOptions[0]; // Obtener el option seleccionado
-    const selectedId = selectedOption.getAttribute("id"); // Obtener el ID del option seleccionado
-    setNewEmployeeAssigned(selectedId); // Actualizar el estado con el ID del option seleccionado
+    const selectedEmployee = event.target.selectedOptions[0].getAttribute("id"); // Obtener el option seleccionado
+    setNewEmployeeAssigned(selectedEmployee); // Actualizar el estado con el ID del option seleccionado
   };
-
   const checkNewDataDate = handleSubmit(async (data) => {
     data.idCita = currentDataDate.idCita;
     data.FechaCita = fechaCita;
     data.EmpleadoAsignado = newEmployeeAssigned;
-    data.ImagenCita = selectedIndex;
+    data.ImagenCita = dateReason;
     try {
       const res = await updateOneDate(data);
       if (res.response) {
@@ -96,15 +97,26 @@ export default function EditDate({
       handleResponseMessages({ status, data });
     }
   });
+  const back = () => {
+    setFilter(!filter);
+    setShowEditDate(false);
+  };
+
+  // const handleSelectChange = (event) => {
+  //   const index = event.target.selectedIndex;
+  //   setSelectedIndex(index - 1);
+  // };
+  // const handleIdEmployeeAssigned = (event) => {
+  //   const selectedEmployee = event.target.selectedOptions[0].getAttribute("id"); // Obtener el option seleccionado
+  //   const selectedId = selectedOption.getAttribute("id"); // Obtener el ID del option seleccionado
+  //   setNewEmployeeAssigned(selectedId); // Actualizar el estado con el ID del option seleccionado
+  // };
 
   return (
     <main className="EditDate">
       <div className="EditDate__Container">
         <span className="EditDate__Container__Back">
-          <button
-            className="EditDate__Container__Back--Button"
-            onClick={() => setShowEditDate(false)}
-          >
+          <button className="EditDate__Container__Back--Button" onClick={back}>
             <ion-icon name="chevron-back-outline"></ion-icon>
           </button>
           Actualizar Cita
@@ -151,7 +163,7 @@ export default function EditDate({
           )}
           <span
             className="EditDate__Container__Form--Inputs"
-            onChange={handleSelectChange}
+            onChange={handleChangeDateReason}
           >
             <p className="EditDate__Container__Form--Inputs--Text">
               Motivo de la cita
@@ -160,7 +172,18 @@ export default function EditDate({
               {...register("MotivoCita")}
               className="EditDate__Container__Form--Inputs--Input"
             >
-              {listOfServices}
+              {services.map(
+                ({ NombreServicio, ImagenServicio, idServicio }) => (
+                  <option
+                    key={idServicio}
+                    value={NombreServicio}
+                    id={ImagenServicio}
+                  >
+                    {NombreServicio}
+                  </option>
+                )
+              )}
+              {/* {listOfServices} */}
             </select>
           </span>
           <span className="EditDate__Container__Form--Inputs">
@@ -184,7 +207,12 @@ export default function EditDate({
               {...register("HoraCita")}
               className="EditDate__Container__Form--Inputs--Input"
             >
-              {listOfHours}
+              {hours.map(({ HoraServicio, idHora }) => (
+                <option key={idHora} value={HoraServicio}>
+                  {HoraServicio}
+                </option>
+              ))}
+              {/* {listOfHours} */}
             </select>
           </span>
           <span className="EditDate__Container__Form--Inputs">

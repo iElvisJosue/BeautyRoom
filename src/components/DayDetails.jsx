@@ -14,19 +14,22 @@ export default function DayDetails({
   dayName,
   shortMonthName,
   monthNumber,
-  setDayDate,
+  // setDayDate,
+  dateInformation,
+  setDateInformation,
   currentYear,
   setProgressDate,
 }) {
   const selectedDate = () => {
-    setDayDate({
-      dayName,
-      day,
-      monthDay: fullMonthNames[monthNumber - 1],
-      year: currentYear,
+    setDateInformation({
+      ...dateInformation,
+      DíaCitaNombre: dayName,
+      DíaCita: day,
+      NombreMesCita: fullMonthNames[monthNumber - 1],
+      AñoCita: currentYear,
     });
     toast.success("Fecha seleccionada correctamente ✨");
-    setProgressDate(1);
+    setProgressDate(2);
   };
 
   return (

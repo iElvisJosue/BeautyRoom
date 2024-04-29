@@ -1,12 +1,13 @@
 /* eslint-disable react/prop-types */
 // LIBRERÍAS A USAR
-import { useState } from "react";
+// import { useState } from "react
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import { toast } from "sonner";
 
 // IMPORTAMOS LAS AYUDAS
-import { listOfServices } from "../helpers/ListServices";
+// import { listOfServices } from "../helpers/ListServices";
+import { HOST_IMG } from "../helpers/Urls";
 import {
   listOfPaymentsForAdmin,
   listOfPaymentsForClient,
@@ -21,7 +22,7 @@ import { useGlobal } from "../context/GlobalContext";
 
 // IMPORTAMOS LOS HOOKS A USAR
 import useModalPay from "../hooks/useModalPay";
-import useDataClient from "../hooks/useDataClient";
+// import useDataClient from "../hooks/useDataClient";
 
 // IMPORTAMOS LOS COMPONENTES
 import ModalPay from "../components/ModalPay";
@@ -29,7 +30,12 @@ import ModalPay from "../components/ModalPay";
 // IMPORTAMOS LOS ESTILOS
 import "../styles/DataClient.css";
 
-export default function DataClient({ dayDate, setProgressDate, monthNumber }) {
+export default function DataClient({
+  dateInformation,
+  setDateInformation,
+  setProgressDate,
+  monthNumber,
+}) {
   const {
     handleSubmit,
     register,
@@ -39,41 +45,58 @@ export default function DataClient({ dayDate, setProgressDate, monthNumber }) {
   });
   const { user } = useGlobal();
   const { showModalPay, setShowModalPay } = useModalPay();
-  const { dataClient, setDataClient } = useDataClient();
+  // const { dataClient, setDataClient } = useDataClient();
   const { verifyDateExist, adminCreateNewDate } = useDates();
-  const [selectedIndex, setSelectedIndex] = useState(0);
-  const { dayName, day, monthDay, year, hour } = dayDate;
+  // const [selectedIndex, setSelectedIndex] = useState(0);
+  const {
+    DíaCitaNombre,
+    DíaCita,
+    NombreMesCita,
+    AñoCita,
+    HoraCita,
+    NombreServicio,
+    ImagenServicio,
+  } = dateInformation;
 
-  const handleSelectChange = (event) => {
-    const index = event.target.selectedIndex;
-    setSelectedIndex(index);
-  };
+  // const handleSelectChange = (event) => {
+  //   const index = event.target.selectedIndex;
+  //   setSelectedIndex(index);
+  // };
 
-  const validateDataClient = handleSubmit(async (data) => {
-    selectedIndex === 0
-      ? toast.error("Por favor selecciona un servicio ❌")
-      : formatDataClient(data);
+  // const validateDataClient = handleSubmit(async (data) => {
+  //   selectedIndex === 0
+  //     ? toast.error("Por favor selecciona un servicio ❌")
+  //     : formatDataClient(data);
+  // });
+
+  const handleDataClient = handleSubmit(async (data) => {
+    const dateFormatted = DateFormatted(AñoCita, monthNumber, DíaCita);
+    data.FechaCita = dateFormatted;
+    setDateInformation({ ...dateInformation, ...data });
+    const dataClient = { ...dateInformation, ...data };
+    verifyDateDuplicateExist(dataClient);
   });
 
-  const formatDataClient = (data) => {
-    const dateFormatted = DateFormatted(year, monthNumber, day);
-    data.FechaCita = dateFormatted;
-    data.HoraCita = hour;
-    data.ImagenCita = selectedIndex - 1;
+  // const formatDataClient = (data) => {
+  //   const dateFormatted = DateFormatted(AñoCita, monthNumber, DíaCita);
+  //   data.FechaCita = dateFormatted;
+  //   data.HoraCita = HoraCita;
+  //   data.ImagenCita = selectedIndex - 1;
 
-    setDataClient(data);
-    verifyDateDuplicateExist(data);
-  };
+  //   setDataClient(data);
+  //   verifyDateDuplicateExist(data);
+  // };
 
-  const verifyDateDuplicateExist = async (data) => {
+  const verifyDateDuplicateExist = async (dataClient) => {
     try {
-      const res = await verifyDateExist(data);
+      const res = await verifyDateExist(dataClient);
+      console.log(res);
       if (res.data.length > 0) {
         return toast.error(
-          "¡Ya existe una cita programada en esta fecha! Por favor selecciona una nueva fecha ❌"
+          "¡Ya no hay citas disponibles para esta hora! Por favor selecciona una nueva fecha y/o hora ❌"
         );
       } else {
-        user ? createDateByAdmin(data) : checkPayment(data);
+        user ? createDateByAdmin(dataClient) : checkPayment(dataClient);
       }
     } catch (error) {
       const { status, data } = error.response;
@@ -82,7 +105,7 @@ export default function DataClient({ dayDate, setProgressDate, monthNumber }) {
   };
 
   const createDateByAdmin = async (dataInfo) => {
-    const FechaCitaFormateada = `${day} de ${monthDay} de ${year} a las ${hour}`;
+    const FechaCitaFormateada = `${DíaCita} de ${NombreMesCita} de ${AñoCita} a las ${HoraCita}`;
     dataInfo.FechaCitaFormateada = FechaCitaFormateada;
     try {
       const res = await adminCreateNewDate(dataInfo);
@@ -103,31 +126,43 @@ export default function DataClient({ dayDate, setProgressDate, monthNumber }) {
 
   return (
     <div className="DataClient__Container">
-      <ModalPay
-        showModalPay={showModalPay}
-        setShowModalPay={setShowModalPay}
-        dataClient={dataClient}
-        dayName={dayName}
-        day={day}
-        monthDay={monthDay}
-        year={year}
-      />
+      {dateInformation && (
+        <ModalPay
+          showModalPay={showModalPay}
+          setShowModalPay={setShowModalPay}
+          dateInformation={dateInformation}
+          // dataClient={dataClient}
+          // dayName={dayName}
+          // day={day}
+          // monthDay={monthDay}
+          // year={year}
+        />
+      )}
       <aside className="DataClient__Container__DateInformation">
         <p className="DataClient__Container__DateInformation__Title">
           Datos de la cita <br /> programada
         </p>
+        <div className="DataClient__Container__DateInformation__Service">
+          <picture className="DataClient__Container__DateInformation__Service--Img">
+            <img
+              src={`${HOST_IMG}/${ImagenServicio}`}
+              alt="Icono del servicio seleccionado"
+            />
+          </picture>
+          <p>{NombreServicio}</p>
+        </div>
         <div className="DataClient__Container__DateInformation__Details">
           <span className="DataClient__Container__DateInformation__Details--Day">
             <img src="IconoCalendario.png" alt="Icono del calendario" />
             <p>
-              {`${dayName} ${day}`}
+              {`${DíaCitaNombre} ${DíaCita}`}
               <br />
-              {`de ${monthDay} del ${year}`}
+              {`de ${NombreMesCita} del ${AñoCita}`}
             </p>
           </span>
           <span className="DataClient__Container__DateInformation__Details--Hour">
             <img src="IconoReloj.png" alt="Icono del horario" />
-            <p>{hour}</p>
+            <p>{HoraCita}</p>
           </span>
         </div>
         <button
@@ -140,7 +175,7 @@ export default function DataClient({ dayDate, setProgressDate, monthNumber }) {
       <aside className="DataClient__Container__Form">
         <p className="DataClient__Container__Form__Title">Completa tus datos</p>
         <form
-          onSubmit={validateDataClient}
+          onSubmit={handleDataClient}
           className="DataClient__Container__Form--Data"
         >
           {dataClientInputsProps.map(
@@ -175,7 +210,7 @@ export default function DataClient({ dayDate, setProgressDate, monthNumber }) {
               </>
             )
           )}
-          <div
+          {/* <div
             className="DataClient__Container__Form--Data--Inputs"
             onChange={handleSelectChange}
           >
@@ -188,7 +223,7 @@ export default function DataClient({ dayDate, setProgressDate, monthNumber }) {
             >
               {listOfServices}
             </select>
-          </div>
+          </div> */}
           <div className="DataClient__Container__Form--Data--Inputs">
             <p className="DataClient__Container__Form--Data--Inputs--Title">
               Método de pago

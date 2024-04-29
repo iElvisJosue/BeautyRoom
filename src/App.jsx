@@ -2,6 +2,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { GlobalProvider } from "./context/GlobalContext";
 import { DatesProvider } from "./context/DatesContext";
+import { ServicesProvider } from "./context/ServicesContext";
 
 // IMPORTAMOS LAS VISTAS
 import Login from "./views/Login";
@@ -18,20 +19,22 @@ export default function App() {
   return (
     <GlobalProvider>
       <DatesProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Login />} />
-            <Route path="/AgendarCita" element={<Date />} />
-            <Route element={<ProtectedByCookies />}>
-              {/* <Route element={<ProtectedForAdmins />}> */}
-              <Route path="/HistorialDeCitas" element={<DatingHistory />} />
-              <Route path="/AgendarCitaAdministrador" element={<Date />} />
-              {/* </Route> */}
-              <Route path="/AgregarUsuarios" element={<AddUsers />} />
-            </Route>
-            <Route path="/CitaCreada" element={<DateCreated />} />
-          </Routes>
-        </BrowserRouter>
+        <ServicesProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Login />} />
+              <Route path="/AgendarCita" element={<Date />} />
+              <Route element={<ProtectedByCookies />}>
+                {/* <Route element={<ProtectedForAdmins />}> */}
+                <Route path="/HistorialDeCitas" element={<DatingHistory />} />
+                <Route path="/AgendarCitaAdministrador" element={<Date />} />
+                {/* </Route> */}
+                <Route path="/AgregarUsuarios" element={<AddUsers />} />
+              </Route>
+              <Route path="/CitaCreada" element={<DateCreated />} />
+            </Routes>
+          </BrowserRouter>
+        </ServicesProvider>
       </DatesProvider>
     </GlobalProvider>
   );

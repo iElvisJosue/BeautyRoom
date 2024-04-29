@@ -1,25 +1,44 @@
 /* eslint-disable react/prop-types */
 // IMPORTAMOS LAS AYUDAS
-import { imgListOfServices2 } from "../helpers/ListServices";
+// import { imgListOfServices2 } from "../helpers/ListServices";
+
+// IMPORTAMOS LAS AYUDAS
+import { HOST_IMG } from "../helpers/Urls";
 
 // IMPORTAMOS LOS HOOKS
 import useCalendar from "../hooks/useCalendar";
 
 // IMPORTAMOS LOS ESTILOS
 import "../styles/DateInformation.css";
+
 export default function DateInformation({
-  idCita,
-  FechaCita,
-  HoraCita,
-  NombreCliente,
-  TelefonoCliente,
-  ImagenCita,
-  MotivoCita,
-  EmpleadoAsignado,
+  dataDate,
+  // idCita,
+  // FechaCita,
+  // HoraCita,
+  // NombreCliente,
+  // TelefonoCliente,
+  // ImagenCita,
+  // MotivoCita,
+  // EmpleadoAsignado,
   setShowEditDate,
   setCurrentDataDate,
+  setShowModalChangeStatusDate,
+  setTextModalChangeStatusDate,
+  setIdDateUpdate,
 }) {
   const { formatDate } = useCalendar();
+  const {
+    idCita,
+    FechaCita,
+    HoraCita,
+    NombreCliente,
+    TelefonoCliente,
+    ImagenCita,
+    MotivoCita,
+    EmpleadoAsignado,
+    EstadoCita,
+  } = dataDate;
 
   const setDataDateOnInputs = () => {
     setCurrentDataDate({
@@ -32,37 +51,74 @@ export default function DateInformation({
       MotivoCita,
       EmpleadoAsignado,
     });
+    getHoursForTheServiceSelected();
     setShowEditDate(true);
   };
 
+  const getHoursForTheServiceSelected = () => {};
+
+  const handleAsist = () => {
+    setShowModalChangeStatusDate(true);
+    setTextModalChangeStatusDate("No Asistio");
+    setIdDateUpdate(idCita);
+  };
+  const handleCompleted = () => {
+    setShowModalChangeStatusDate(true);
+    setTextModalChangeStatusDate("Completada");
+    setIdDateUpdate(idCita);
+  };
+
   return (
-    <section
-      className="DatingHistory__Container--Dates--Card"
-      id={idCita}
-      onClick={setDataDateOnInputs}
-    >
-      <picture className="DatingHistory__Container--Dates--Card--Img">
-        <img
-          src={imgListOfServices2[ImagenCita]}
-          alt="Icono De Corte De Pelo"
-        />
-      </picture>
-      <span className="DatingHistory__Container--Dates--Card--Details">
-        <p className="DatingHistory__Container--Dates--Card--Details--Text">
-          👤 {NombreCliente}
+    <section className="DatingHistory__Container--Dates--Card" id={idCita}>
+      <div className="DatingHistory__Container--Dates--Card--Container">
+        <picture className="DatingHistory__Container--Dates--Card--Container--Img">
+          <img
+            src={`${HOST_IMG}/${ImagenCita}`}
+            alt={`Icono De ${MotivoCita}`}
+          />
+        </picture>
+        <span className="DatingHistory__Container--Dates--Card--Container--Details">
+          <p className="DatingHistory__Container--Dates--Card--Container--Details--Text">
+            👤 {NombreCliente}
+          </p>
+          <p className="DatingHistory__Container--Dates--Card--Container--Details--Text">
+            📆 {formatDate(FechaCita.substring(0, 10))}
+          </p>
+          <p className="DatingHistory__Container--Dates--Card--Container--Details--Text">
+            ⌚ {HoraCita}
+          </p>
+        </span>
+        {EstadoCita === "Espera" && (
+          <span className="DatingHistory__Container--Dates--Card--Container--Button">
+            <button
+              className="DatingHistory__Container--Dates--Card--Container--Button--View"
+              onClick={setDataDateOnInputs}
+            >
+              <ion-icon name="brush-outline"></ion-icon>
+            </button>
+          </span>
+        )}
+      </div>
+      {EstadoCita === "Espera" ? (
+        <div className="DatingHistory__Container--Dates--Card--Buttons">
+          <button
+            className="DatingHistory__Container--Dates--Card--Buttons--Negative"
+            onClick={handleAsist}
+          >
+            No asistió
+          </button>
+          <button
+            className="DatingHistory__Container--Dates--Card--Buttons--Positive"
+            onClick={handleCompleted}
+          >
+            Completar
+          </button>
+        </div>
+      ) : (
+        <p className="DateInformation__Container--Status">
+          Esta cita se marco como {`"${EstadoCita.toUpperCase()}"`}
         </p>
-        <p className="DatingHistory__Container--Dates--Card--Details--Text">
-          📆 {formatDate(FechaCita.substring(0, 10))}
-        </p>
-        <p className="DatingHistory__Container--Dates--Card--Details--Text">
-          ⌚ {HoraCita}
-        </p>
-      </span>
-      <span className="DatingHistory__Container--Dates--Card--Button">
-        <button className="DatingHistory__Container--Dates--Card--Button--View">
-          <ion-icon name="brush-outline"></ion-icon>
-        </button>
-      </span>
+      )}
     </section>
   );
 }

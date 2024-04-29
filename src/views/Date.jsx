@@ -6,6 +6,7 @@ import { useGlobal } from "../context/GlobalContext";
 
 // IMPORTAMOS LOS COMPONENTES
 import Navbar from "../components/Navbar";
+import SelectService from "../components/SelectService";
 import SelectDay from "../components/SelectDay";
 import SelectHour from "../components/SelectHour";
 import DataClient from "../components/DataClient";
@@ -24,13 +25,16 @@ export default function Date() {
   const { user } = useGlobal();
   const { showMenu, setShowMenu } = useMenu();
   const { progressDate, setProgressDate } = useProgressDate();
-  const { dayDate, setDayDate } = useDate();
+  // const { dayDate, setDayDate } = useDate();
+  const { dateInformation, setDateInformation } = useDate();
   const { calendarDetails, currentYear, monthNumber, nextMonth, prevMonth } =
     useCalendar();
 
   const dateProps = {
-    dayDate,
-    setDayDate,
+    // dayDate,
+    // setDayDate,
+    dateInformation,
+    setDateInformation,
     progressDate,
     setProgressDate,
     calendarDetails,
@@ -41,9 +45,10 @@ export default function Date() {
   };
 
   const currentProgressDate = {
-    0: SelectDay,
-    1: SelectHour,
-    2: DataClient,
+    0: SelectService,
+    1: SelectDay,
+    2: SelectHour,
+    3: DataClient,
   };
 
   const ProgressDateToRender = currentProgressDate[progressDate];

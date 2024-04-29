@@ -2,10 +2,13 @@
 import { useState } from "react";
 
 export default function useDate() {
-  const [dayDate, setDayDate] = useState(null);
+  const [dateInformation, setDateInformation] = useState(null);
+  // const [dayDate, setDayDate] = useState(null);
 
   return {
-    dayDate,
-    setDayDate,
+    // dayDate,
+    // setDayDate,
+    dateInformation,
+    setDateInformation,
   };
 }

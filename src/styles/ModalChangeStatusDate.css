@@ -1,0 +1,116 @@
+.ModalChangeStatusDate {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 100vh;
+  height: auto;
+  z-index: -1;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: 0.5s ease all;
+  opacity: 0;
+}
+.ModalChangeStatusDate.Show {
+  opacity: 1;
+  z-index: 1000;
+}
+.ModalChangeStatusDate__Container {
+  position: relative;
+  width: 500px;
+  min-height: 200px;
+  height: auto;
+  background: var(--White);
+  padding: 40px;
+  border-radius: 35px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+.ModalChangeStatusDate__Container__Close {
+  position: absolute;
+  top: -25px;
+  right: -25px;
+  width: 60px;
+  height: 60px;
+  background: var(--StrongPurple);
+  border-radius: 50%;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-size: var(--TittleFontSize);
+  color: var(--White);
+  transition: 0.5s ease all;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ModalChangeStatusDate__Container__Close:hover {
+  transform: scale(1.1);
+}
+.ModalChangeStatusDate__Container__Title {
+  font-size: var(--SubTittleFontSize);
+  font-weight: bold;
+  color: var(--Black);
+  text-align: center;
+  text-transform: uppercase;
+}
+.ModalChangeStatusDate__Container__Divisor {
+  width: 100%;
+  height: 1px;
+  border: none;
+  background: var(--Gray);
+}
+.ModalChangeStatusDate__Container__Text {
+  width: 100%;
+  font-size: var(--NormalFontSize);
+}
+.ModalChangeStatusDate__Container__Text b {
+  color: var(--StrongPurple);
+  font-weight: bold;
+}
+.ModalChangeStatusDate__Container__Message {
+  font-style: italic;
+  color: var(--Gray);
+  text-align: center;
+}
+.ModalChangeStatusDate__Container__Form--Button {
+  width: 100%;
+  height: 50px;
+  background-color: var(--StrongPurple);
+  font-size: var(--NormalFontSize);
+  color: var(--White);
+  font-weight: bold;
+  outline: none;
+  border: 2px solid var(--StrongPurple);
+
+  transition: 0.5s ease all;
+}
+.ModalChangeStatusDate__Container__Form--Button:hover {
+  cursor: pointer;
+  background-color: var(--White);
+  color: var(--StrongPurple);
+  letter-spacing: 1px;
+}
+@media (width < 400px) {
+  .ModalChangeStatusDate__Container {
+    min-height: auto;
+    padding: 20px;
+    gap: 20px;
+  }
+  .ModalChangeStatusDate__Container__Title {
+    font-size: var(--IconFontSize);
+  }
+  .ModalChangeStatusDate__Container__Form--Button {
+    font-size: var(--SmallFontSize);
+  }
+}

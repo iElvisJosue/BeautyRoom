@@ -1,12 +1,12 @@
 import { createContext, useContext } from "react";
 import {
-  // getAllDates,
   getDatesFiltered,
   verifyAllDates,
   verifyDateDuplicateExist,
   adminCreateDate,
   updateDate,
   createPayment,
+  updateDateByStatus,
 } from "../api/authDates";
 
 export const DatesContext = createContext();
@@ -22,18 +22,6 @@ export const useDates = () => {
 
 // eslint-disable-next-line react/prop-types
 export const DatesProvider = ({ children }) => {
-  // const getDates = async () => {
-  //   try {
-  //     const res = await getAllDates();
-  //     if (!res.data) {
-  //       return console.log("HUBO UN ERROR AL OBTENER LAS CITAS");
-  //     }
-  //     return res;
-  //   } catch (error) {
-  //     return error;
-  //   }
-  // };
-
   const getDatesByFilter = async (data) => {
     try {
       const res = await getDatesFiltered(data);
@@ -97,16 +85,25 @@ export const DatesProvider = ({ children }) => {
     }
   };
 
+  const updateStatusDate = async (data) => {
+    try {
+      const res = await updateDateByStatus(data);
+      return res;
+    } catch (error) {
+      return error;
+    }
+  };
+
   return (
     <DatesContext.Provider
       value={{
-        // getDates,
         getDatesByFilter,
         verifyDate,
         verifyDateExist,
         updateOneDate,
         createOrder,
         adminCreateNewDate,
+        updateStatusDate,
       }}
     >
       {children}

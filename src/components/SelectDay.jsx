@@ -1,16 +1,23 @@
 /* eslint-disable react/prop-types */
-// IMPORTAMOS LOS ESTILOS
-import "../styles/SelectDay.css";
 
 // IMPORTAMOS LOS COMPONENTES
 import DayDetails from "./DayDetails";
+// import Loader from "./Loader";
+
+// IMPORTAMOS LOS HOOKS
+// import useGetEmployeesByService from "../hooks/useGetEmployeesByService";
 
 // IMPORTAMOS LAS AYUDAS
 import { shortMonthNames } from "../helpers/Calendar";
 
+// IMPORTAMOS LOS ESTILOS
+import "../styles/SelectDay.css";
+
 export default function SelectDay({
-  dayDate,
-  setDayDate,
+  // dayDate,
+  // setDayDate,
+  dateInformation,
+  setDateInformation,
   progressDate,
   setProgressDate,
   calendarDetails,
@@ -19,6 +26,13 @@ export default function SelectDay({
   nextMonth,
   prevMonth,
 }) {
+  // const { NombreServicio } = dateInformation;
+  // const { amountEmployees, searchingEmployees } = useGetEmployeesByService({
+  //   NombreServicio,
+  // });
+  // if (searchingEmployees) return <Loader />;
+  // dateInformation.EmpleadosDisponibles = amountEmployees.length;
+
   return (
     <div className="SelectDay__Container">
       <p className="SelectDay__Title">Selecciona una fecha</p>
@@ -42,8 +56,10 @@ export default function SelectDay({
                 day={day}
                 dayName={dayName}
                 shortMonthName={shortMonthName}
-                dayDate={dayDate}
-                setDayDate={setDayDate}
+                // dayDate={dayDate}
+                // setDayDate={setDayDate}
+                dateInformation={dateInformation}
+                setDateInformation={setDateInformation}
                 currentYear={currentYear}
                 progressDate={progressDate}
                 setProgressDate={setProgressDate}

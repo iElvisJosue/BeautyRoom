@@ -6,19 +6,23 @@ import { toast } from "sonner";
 import "../styles/HourDetails.css";
 
 export default function HourDetails({
-  hour,
-  dateDay,
-  setDayDate,
+  HoraServicio,
   setProgressDate,
+  dateInformation,
+  setDateInformation,
+  // hour,
+  // dateDay,
+  // setDayDate,
+  // setProgressDate,
 }) {
   const selectedHour = () => {
-    setDayDate({ ...dateDay, hour });
+    setDateInformation({ ...dateInformation, HoraCita: HoraServicio });
     toast.success("Hora seleccionada correctamente ✨");
-    setProgressDate(2);
+    setProgressDate(3);
   };
 
-  const hourFormatted = hour.substring(0, 5);
-  const timeFormatted = hour.substring(6, 8);
+  const hourFormatted = HoraServicio.substring(0, 5);
+  const timeFormatted = HoraServicio.substring(6, 9);
 
   return (
     <section className="SelectHour__Calendar--Details" onClick={selectedHour}>

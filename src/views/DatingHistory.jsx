@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Toaster } from "sonner";
 
 // IMPORTAMOS LOS COMPONENTES
@@ -7,6 +8,7 @@ import NotResults from "../components/NotResults";
 import DateInformation from "../components/DateInformation";
 import Menu from "../components/Menu";
 import EditDate from "../components/EditDate";
+import ModalChangeStatusDate from "../components/ModalChangeStatusDate";
 
 // IMPORTAMOS LOS HOOKS
 import useGetDates from "../hooks/useGetDates";
@@ -14,6 +16,9 @@ import useMenu from "../hooks/useMenu";
 import useEditDate from "../hooks/useEditDate";
 import useDataDate from "../hooks/useDataDate";
 import useGetEmployees from "../hooks/useGetEmployees";
+import useGetServices from "../hooks/useGetServices";
+import useGetHours from "../hooks/useGetHours";
+import useModalChangeStatusDate from "../hooks/useModalChangeStatusDate";
 
 // IMPORTAMOS LOS CONTEXTOS A USAR
 import { useGlobal } from "../context/GlobalContext";
@@ -22,12 +27,21 @@ import { useGlobal } from "../context/GlobalContext";
 import "../styles/DatingHistory.css";
 
 export default function DatingHistory() {
+  const [idDateUpdate, setIdDateUpdate] = useState(null);
   const { user } = useGlobal();
+  const { services } = useGetServices();
+  const { hours, searchingHours } = useGetHours();
   const { totalDates, searchingDates, setFilter, filter } = useGetDates();
   const { showEditDate, setShowEditDate } = useEditDate();
   const { showMenu, setShowMenu } = useMenu();
   const { currentDataDate, setCurrentDataDate } = useDataDate();
   const { employees, searchingEmployees } = useGetEmployees();
+  const {
+    showModalChangeStatusDate,
+    setShowModalChangeStatusDate,
+    textModalChangeStatusDate,
+    setTextModalChangeStatusDate,
+  } = useModalChangeStatusDate();
 
   const getDatesByFilters = (event) => {
     const value = event.target.value;
@@ -40,6 +54,9 @@ export default function DatingHistory() {
     }
   };
 
+  // PROBABLEMENTE DEBA PONER UN
+  // if(searchingDates) return <Loader/>
+
   const titleSection =
     user.rolUsuario === "Administrador"
       ? "Historial de citas"
@@ -47,6 +64,14 @@ export default function DatingHistory() {
 
   return (
     <main className="DatingHistory">
+      <ModalChangeStatusDate
+        setShowModalChangeStatusDate={setShowModalChangeStatusDate}
+        showModalChangeStatusDate={showModalChangeStatusDate}
+        textModalChangeStatusDate={textModalChangeStatusDate}
+        idDateUpdate={idDateUpdate}
+        setFilter={setFilter}
+        filter={filter}
+      />
       <Navbar setShowMenu={setShowMenu}>{titleSection}</Navbar>
       <Menu showMenu={showMenu} setShowMenu={setShowMenu}></Menu>
       {showEditDate ? (
@@ -57,15 +82,16 @@ export default function DatingHistory() {
           searchingEmployees={searchingEmployees}
           setFilter={setFilter}
           filter={filter}
+          services={services}
+          hours={hours}
+          searchingHours={searchingHours}
         ></EditDate>
       ) : (
         <div className="DatingHistory__Container">
           <h1 className="DatingHistory__Container--Title">
             Total de citas: {totalDates.length}
           </h1>
-          <h1 className="DatingHistory__Container--SubTitle">
-            Buscar citas por:
-          </h1>
+          <h1 className="DatingHistory__Container--SubTitle">Buscar citas:</h1>
           <div className="DatingHistory__Container--Filters">
             <input
               type="text"
@@ -79,28 +105,35 @@ export default function DatingHistory() {
               <Loader responsive={true} />
             ) : totalDates.length > 0 ? (
               totalDates.map(
-                ({
-                  idCita,
-                  FechaCita,
-                  HoraCita,
-                  NombreCliente,
-                  TelefonoCliente,
-                  ImagenCita,
-                  MotivoCita,
-                  EmpleadoAsignado,
-                }) => (
+                (
+                  dataDate
+                  //   {
+                  //   idCita,
+                  //   FechaCita,
+                  //   HoraCita,
+                  //   NombreCliente,
+                  //   TelefonoCliente,
+                  //   ImagenCita,
+                  //   MotivoCita,
+                  //   EmpleadoAsignado,
+                  // }
+                ) => (
                   <DateInformation
-                    key={idCita}
-                    idCita={idCita}
-                    FechaCita={FechaCita}
-                    HoraCita={HoraCita}
-                    NombreCliente={NombreCliente}
-                    TelefonoCliente={TelefonoCliente}
-                    ImagenCita={ImagenCita}
-                    MotivoCita={MotivoCita}
-                    EmpleadoAsignado={EmpleadoAsignado}
+                    key={dataDate.idCita}
+                    dataDate={dataDate}
+                    // idCita={idCita}
+                    // FechaCita={FechaCita}
+                    // HoraCita={HoraCita}
+                    // NombreCliente={NombreCliente}
+                    // TelefonoCliente={TelefonoCliente}
+                    // ImagenCita={ImagenCita}
+                    // MotivoCita={MotivoCita}
+                    // EmpleadoAsignado={EmpleadoAsignado}
                     setShowEditDate={setShowEditDate}
                     setCurrentDataDate={setCurrentDataDate}
+                    setShowModalChangeStatusDate={setShowModalChangeStatusDate}
+                    setTextModalChangeStatusDate={setTextModalChangeStatusDate}
+                    setIdDateUpdate={setIdDateUpdate}
                   />
                 )
               )

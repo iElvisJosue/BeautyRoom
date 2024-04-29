@@ -11,21 +11,33 @@ import { handleResponseMessages } from "../helpers/RespuestasServidor";
 export default function ModalPay({
   showModalPay,
   setShowModalPay,
-  dataClient,
-  dayName,
-  day,
-  monthDay,
-  year,
+  dateInformation,
+  // dataClient,
+  // dayName,
+  // day,
+  // monthDay,
+  // year,
 }) {
+  const {
+    NombreCliente,
+    TelefonoCliente,
+    NombreServicio,
+    DíaCitaNombre,
+    DíaCita,
+    NombreMesCita,
+    AñoCita,
+    HoraCita,
+    MetodoPago,
+  } = dateInformation;
   const { createOrder } = useDates();
 
   const classModalPay = showModalPay ? "ModalPay Show" : "ModalPay";
 
   const createDateOrder = async () => {
     try {
-      const FechaCitaFormateada = `${day} de ${monthDay} de ${year} a las ${dataClient.HoraCita}`;
-      dataClient.FechaCitaFormateada = FechaCitaFormateada;
-      const res = await createOrder(dataClient);
+      const FechaCitaFormateada = `${DíaCita} de ${NombreMesCita} de ${AñoCita} a las ${HoraCita}`;
+      dateInformation.FechaCitaFormateada = FechaCitaFormateada;
+      const res = await createOrder(dateInformation);
       window.location.href = res.data.links[1].href;
     } catch (error) {
       console.log(error);
@@ -33,10 +45,18 @@ export default function ModalPay({
       handleResponseMessages({ status, data });
     }
   };
-
-  if (dataClient === null) {
-    return null;
-  }
+  // const createDateOrder = async () => {
+  //   try {
+  //     const FechaCitaFormateada = `${day} de ${monthDay} de ${year} a las ${HoraCita}`;
+  //     dataClient.FechaCitaFormateada = FechaCitaFormateada;
+  //     const res = await createOrder(dataClient);
+  //     window.location.href = res.data.links[1].href;
+  //   } catch (error) {
+  //     console.log(error);
+  //     const { status, data } = error.response;
+  //     handleResponseMessages({ status, data });
+  //   }
+  // };
   return (
     <main className={classModalPay}>
       <div className="ModalPay__Container">
@@ -51,23 +71,23 @@ export default function ModalPay({
         </p>
         <hr className="ModalPay__Container__Divisor" />
         <p className="ModalPay__Container__Text">
-          <b>Nombre:</b> {dataClient.NombreCliente}
+          <b>Nombre:</b> {NombreCliente}
         </p>
         <p className="ModalPay__Container__Text">
-          <b>Teléfono:</b> {dataClient.TelefonoCliente}
+          <b>Teléfono:</b> {TelefonoCliente}
         </p>
         <p className="ModalPay__Container__Text">
-          <b>Motivo de la cita:</b> {dataClient.MotivoCita}
+          <b>Motivo de la cita:</b> {NombreServicio}
         </p>
         <p className="ModalPay__Container__Text">
           <b>Fecha de la cita:</b>{" "}
-          {`${dayName} ${day} de ${monthDay} del ${year}`}
+          {`${DíaCitaNombre} ${DíaCita} de ${NombreMesCita} del ${AñoCita}`}
         </p>
         <p className="ModalPay__Container__Text">
-          <b>Hora de la cita:</b> {dataClient.HoraCita}
+          <b>Hora de la cita:</b> {HoraCita}
         </p>
         <p className="ModalPay__Container__Text">
-          <b>Método de pago:</b> {dataClient.MetodoPago}
+          <b>Método de pago:</b> {MetodoPago}
         </p>
         <hr className="ModalPay__Container__Divisor" />
         <small className="ModalPay__Container__Message">

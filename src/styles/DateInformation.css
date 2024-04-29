@@ -6,13 +6,9 @@
   transition: 0.5s ease all;
 
   display: flex;
-  align-items: center;
-  justify-content: space-around;
-  gap: 5px;
-}
-.DatingHistory__Container--Dates--Card:hover {
-  cursor: pointer;
-  transform: scale(1.05);
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
 }
 .DatingHistory__Container--Dates--Card:nth-child(4n-3) {
   background: var(--ContainerPurple);
@@ -26,8 +22,15 @@
 .DatingHistory__Container--Dates--Card:nth-child(4n) {
   background: var(--ContainerGreen);
 }
-.DatingHistory__Container--Dates--Card--Img {
+.DatingHistory__Container--Dates--Card--Container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.DatingHistory__Container--Dates--Card--Container--Img {
+  min-width: 90px;
   width: 90px;
+  min-height: 90px;
   height: 90px;
   border: 2px solid var(--White);
   border-radius: 50%;
@@ -36,30 +39,33 @@
   align-items: center;
   justify-content: center;
 }
-.DatingHistory__Container--Dates--Card--Img img {
+.DatingHistory__Container--Dates--Card--Container--Img img {
   width: 65%;
   height: 65%;
 }
-.DatingHistory__Container--Dates--Card--Details {
+.DatingHistory__Container--Dates--Card--Container--Details {
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   gap: 10px;
   padding: 0 10px;
 }
-.DatingHistory__Container--Dates--Card--Details--Text {
+.DatingHistory__Container--Dates--Card--Container--Details--Text {
   font-size: var(--NormalFontSize);
   color: var(--White);
   font-weight: bold;
+  text-align: center;
 
   display: flex;
   align-items: center;
   gap: 3px;
 }
-.DatingHistory__Container--Dates--Card--Details--Text ion-icon {
+.DatingHistory__Container--Dates--Card--Container--Details--Text ion-icon {
   font-size: var(--SubTittleFontSize);
 }
-.DatingHistory__Container--Dates--Card--Button {
+.DatingHistory__Container--Dates--Card--Container--Button {
   width: 50px;
   height: 100%;
 
@@ -67,46 +73,100 @@
   align-items: center;
   justify-content: center;
 }
-.DatingHistory__Container--Dates--Card--Button--View {
+.DatingHistory__Container--Dates--Card--Container--Button--View {
   cursor: pointer;
+  background: var(--White);
+  outline: none;
+  border: none;
+  padding: 5px;
+  border-radius: 10px;
+  color: var(--Blue);
+
+  transition: 0.5s ease all;
+}
+.DatingHistory__Container--Dates--Card--Container--Button--View:hover {
+  background: var(--Blue);
+  transform: scale(1.1);
+}
+.DatingHistory__Container--Dates--Card--Container--Button--View ion-icon {
+  font-size: var(--IconFontSize);
+  transition: 0.5s ease all;
+}
+.DatingHistory__Container--Dates--Card--Container--Button--View:hover ion-icon {
+  color: var(--White);
+}
+.DatingHistory__Container--Dates--Card--Buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.DatingHistory__Container--Dates--Card--Buttons--Negative,
+.DatingHistory__Container--Dates--Card--Buttons--Positive {
   background: none;
   outline: none;
   border: none;
+  width: 100%;
+  font-size: var(--NormalFontSize);
+  background-color: var(--White);
+  font-weight: bold;
+  border-radius: 10px;
+  padding: 10px 0;
+  cursor: pointer;
+  transition: 0.5s ease all;
 }
-.DatingHistory__Container--Dates--Card--Button--View ion-icon {
+.DatingHistory__Container--Dates--Card--Buttons--Negative {
+  color: var(--Red);
+}
+.DatingHistory__Container--Dates--Card--Buttons--Positive {
+  color: var(--Green);
+}
+.DatingHistory__Container--Dates--Card--Buttons--Negative:hover {
+  background-color: var(--Red);
   color: var(--White);
-  font-size: var(--TittleFontSize);
+  transform: scale(1.05);
+}
+.DatingHistory__Container--Dates--Card--Buttons--Positive:hover {
+  background-color: var(--Green);
+  color: var(--White);
+  transform: scale(1.05);
+}
+.DateInformation__Container--Status {
+  color: var(--White);
+  font-size: var(--NormalFontSize);
+  font-weight: bold;
+  text-align: center;
 }
 @media (width < 800px) {
-  .DatingHistory__Container--Dates--Card {
+  .DatingHistory__Container--Dates--Card--Container {
     min-height: 130px;
   }
-  .DatingHistory__Container--Dates--Card--Img {
-    width: 65px;
-    height: 65px;
-    min-height: 65px;
-    min-width: 65px;
+  .DatingHistory__Container--Dates--Card--Container--Img {
+    width: 70px;
+    height: 70px;
+    min-height: 70px;
+    min-width: 70px;
   }
-  .DatingHistory__Container--Dates--Card--Details--Text {
+  .DatingHistory__Container--Dates--Card--Container--Details--Text {
     font-size: var(--SmallFontSize);
   }
-  .DatingHistory__Container--Dates--Card--Details--Text ion-icon {
+  .DatingHistory__Container--Dates--Card--Container--Details--Text ion-icon {
     font-size: var(--NormalFontSize);
   }
 }
-@media (width < 550px) {
-  .DatingHistory__Container--Dates--Card--Details--Text {
+@media (width < 570px) {
+  .DatingHistory__Container--Dates--Card--Container--Details--Text {
     font-size: var(--NormalFontSize);
   }
-  .DatingHistory__Container--Dates--Card--Details--Text ion-icon {
+  .DatingHistory__Container--Dates--Card--Container--Details--Text ion-icon {
     font-size: var(--IconFontSize);
   }
 }
 @media (width < 360px) {
-  .DatingHistory__Container--Dates--Card--Details--Text {
+  .DatingHistory__Container--Dates--Card--Container--Details--Text {
     font-size: var(--SmallFontSize);
   }
-  .DatingHistory__Container--Dates--Card--Details--Text ion-icon {
+  .DatingHistory__Container--Dates--Card--Container--Details--Text ion-icon {
     font-size: var(--NormalFontSize);
   }
 }
