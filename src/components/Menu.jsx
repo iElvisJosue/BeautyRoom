@@ -33,9 +33,29 @@ export default function Menu({ setShowMenu, showMenu }) {
           <>
             <li
               className="Menu__Header--List--Item"
-              onClick={() => (window.location.href = `${HOST}/AgregarUsuarios`)}
+              onClick={() =>
+                (window.location.href = `${HOST}/AdministrarUsuarios`)
+              }
             >
-              <ion-icon name="add-circle-outline"></ion-icon> Agregar usuarios
+              <ion-icon name="people-circle-outline"></ion-icon> Administrar
+              usuarios
+            </li>
+            <li
+              className="Menu__Header--List--Item"
+              onClick={() =>
+                (window.location.href = `${HOST}/AgendarCitaAdministrador`)
+              }
+            >
+              <ion-icon name="calendar-outline"></ion-icon> Agendar cita
+            </li>
+            <li
+              className="Menu__Header--List--Item"
+              onClick={() =>
+                (window.location.href = `${HOST}/InventarioDeVenta`)
+              }
+            >
+              <ion-icon name="storefront-outline"></ion-icon> Inventario de
+              venta
             </li>
             <li
               className="Menu__Header--List--Item"
@@ -45,14 +65,6 @@ export default function Menu({ setShowMenu, showMenu }) {
             >
               <ion-icon name="document-text-outline"></ion-icon> Historial de
               citas
-            </li>
-            <li
-              className="Menu__Header--List--Item"
-              onClick={() =>
-                (window.location.href = `${HOST}/AgendarCitaAdministrador`)
-              }
-            >
-              <ion-icon name="calendar-outline"></ion-icon> Agendar cita
             </li>
           </>
         )}

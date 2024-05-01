@@ -104,39 +104,17 @@ export default function DatingHistory() {
             {searchingDates ? (
               <Loader responsive={true} />
             ) : totalDates.length > 0 ? (
-              totalDates.map(
-                (
-                  dataDate
-                  //   {
-                  //   idCita,
-                  //   FechaCita,
-                  //   HoraCita,
-                  //   NombreCliente,
-                  //   TelefonoCliente,
-                  //   ImagenCita,
-                  //   MotivoCita,
-                  //   EmpleadoAsignado,
-                  // }
-                ) => (
-                  <DateInformation
-                    key={dataDate.idCita}
-                    dataDate={dataDate}
-                    // idCita={idCita}
-                    // FechaCita={FechaCita}
-                    // HoraCita={HoraCita}
-                    // NombreCliente={NombreCliente}
-                    // TelefonoCliente={TelefonoCliente}
-                    // ImagenCita={ImagenCita}
-                    // MotivoCita={MotivoCita}
-                    // EmpleadoAsignado={EmpleadoAsignado}
-                    setShowEditDate={setShowEditDate}
-                    setCurrentDataDate={setCurrentDataDate}
-                    setShowModalChangeStatusDate={setShowModalChangeStatusDate}
-                    setTextModalChangeStatusDate={setTextModalChangeStatusDate}
-                    setIdDateUpdate={setIdDateUpdate}
-                  />
-                )
-              )
+              totalDates.map((dataDate) => (
+                <DateInformation
+                  key={dataDate.idCita}
+                  dataDate={dataDate}
+                  setShowEditDate={setShowEditDate}
+                  setCurrentDataDate={setCurrentDataDate}
+                  setShowModalChangeStatusDate={setShowModalChangeStatusDate}
+                  setTextModalChangeStatusDate={setTextModalChangeStatusDate}
+                  setIdDateUpdate={setIdDateUpdate}
+                />
+              ))
             ) : (
               <NotResults responsive={true}>
                 ¡No se encontraron <br />

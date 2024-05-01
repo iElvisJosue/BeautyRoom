@@ -22,6 +22,7 @@ export default function ModalPay({
     NombreCliente,
     TelefonoCliente,
     NombreServicio,
+    NombreSubservicio,
     DíaCitaNombre,
     DíaCita,
     NombreMesCita,
@@ -77,7 +78,7 @@ export default function ModalPay({
           <b>Teléfono:</b> {TelefonoCliente}
         </p>
         <p className="ModalPay__Container__Text">
-          <b>Motivo de la cita:</b> {NombreServicio}
+          <b>Motivo de la cita:</b> {NombreServicio} - {NombreSubservicio}
         </p>
         <p className="ModalPay__Container__Text">
           <b>Fecha de la cita:</b>{" "}

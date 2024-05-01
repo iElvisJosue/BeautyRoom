@@ -10,6 +10,7 @@ import Date from "./views/Date";
 import DatingHistory from "./views/DatingHistory";
 import DateCreated from "./views/DateCreated";
 import AddUsers from "./views/AddUsers";
+import SalesInventory from "./views/SalesInventory";
 
 // PROTECCIÓN DE RUTAS
 import ProtectedByCookies from "./protection/ProtectedByCookies";
@@ -28,8 +29,9 @@ export default function App() {
                 {/* <Route element={<ProtectedForAdmins />}> */}
                 <Route path="/HistorialDeCitas" element={<DatingHistory />} />
                 <Route path="/AgendarCitaAdministrador" element={<Date />} />
+                <Route path="/AdministrarUsuarios" element={<AddUsers />} />
+                <Route path="/InventarioDeVenta" element={<SalesInventory />} />
                 {/* </Route> */}
-                <Route path="/AgregarUsuarios" element={<AddUsers />} />
               </Route>
               <Route path="/CitaCreada" element={<DateCreated />} />
             </Routes>

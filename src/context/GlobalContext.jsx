@@ -4,6 +4,7 @@ import {
   createUser,
   verifyUser,
   getEmployees,
+  getAllEmployeesByService,
   verifyToken,
   logoutUser,
 } from "../api/authGlobal";
@@ -107,6 +108,15 @@ export const GlobalProvider = ({ children }) => {
       return error;
     }
   };
+  const getEmployeesByService = async (data) => {
+    try {
+      const res = await getAllEmployeesByService(data);
+      return res;
+    } catch (error) {
+      setError();
+      return error;
+    }
+  };
   const logout = async () => {
     await logoutUser();
     return setError();
@@ -124,6 +134,7 @@ export const GlobalProvider = ({ children }) => {
         createNewUser,
         verifyUserExist,
         getAllEmployees,
+        getEmployeesByService,
       }}
     >
       {children}

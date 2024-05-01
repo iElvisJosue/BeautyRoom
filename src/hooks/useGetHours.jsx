@@ -13,7 +13,7 @@ export default function useGetHours() {
   const [searchingHours, setSearchingHours] = useState(true);
 
   useEffect(() => {
-    async function getServicesHours() {
+    async function getAllHours() {
       try {
         const res = await getHours();
         setHours(res.data);
@@ -23,7 +23,7 @@ export default function useGetHours() {
       }
       setSearchingHours(false);
     }
-    getServicesHours();
+    getAllHours();
   }, []);
 
   return {

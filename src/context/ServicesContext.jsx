@@ -1,9 +1,11 @@
 import { createContext, useContext } from "react";
 import {
   getAllServices,
+  getAllSubservices,
+  getAllSubservicesByNameService,
   getAllHours,
+  getAllHoursByEmployeeSelected,
   getHoursAvailableForDaySelected,
-  getAllHoursAvailableForService,
 } from "../api/authServices";
 
 export const ServicesContext = createContext();
@@ -27,17 +29,25 @@ export const ServicesProvider = ({ children }) => {
       return error;
     }
   };
-  const getHours = async () => {
+  const getSubservices = async (data) => {
     try {
-      const res = await getAllHours();
+      const res = await getAllSubservices(data);
       return res;
     } catch (error) {
       return error;
     }
   };
-  const getHoursForService = async (data) => {
+  const getSubservicesByNameService = async (data) => {
     try {
-      const res = await getAllHoursAvailableForService(data);
+      const res = await getAllSubservicesByNameService(data);
+      return res;
+    } catch (error) {
+      return error;
+    }
+  };
+  const getHours = async () => {
+    try {
+      const res = await getAllHours();
       return res;
     } catch (error) {
       return error;
@@ -51,13 +61,23 @@ export const ServicesProvider = ({ children }) => {
       return error;
     }
   };
+  const getHoursByEmployeeSelected = async (data) => {
+    try {
+      const res = await getAllHoursByEmployeeSelected(data);
+      return res;
+    } catch (error) {
+      return error;
+    }
+  };
 
   return (
     <ServicesContext.Provider
       value={{
         getServices,
+        getSubservices,
+        getSubservicesByNameService,
         getHours,
-        getHoursForService,
+        getHoursByEmployeeSelected,
         getHoursForDaySelected,
       }}
     >

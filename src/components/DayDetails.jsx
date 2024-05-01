@@ -29,7 +29,7 @@ export default function DayDetails({
       AñoCita: currentYear,
     });
     toast.success("Fecha seleccionada correctamente ✨");
-    setProgressDate(2);
+    setProgressDate(3);
   };
 
   return (

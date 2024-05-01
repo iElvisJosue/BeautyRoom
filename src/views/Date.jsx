@@ -7,6 +7,7 @@ import { useGlobal } from "../context/GlobalContext";
 // IMPORTAMOS LOS COMPONENTES
 import Navbar from "../components/Navbar";
 import SelectService from "../components/SelectService";
+import SelectSubservice from "../components/SelectSubservice";
 import SelectDay from "../components/SelectDay";
 import SelectHour from "../components/SelectHour";
 import DataClient from "../components/DataClient";
@@ -46,9 +47,10 @@ export default function Date() {
 
   const currentProgressDate = {
     0: SelectService,
-    1: SelectDay,
-    2: SelectHour,
-    3: DataClient,
+    1: SelectSubservice,
+    2: SelectDay,
+    3: SelectHour,
+    4: DataClient,
   };
 
   const ProgressDateToRender = currentProgressDate[progressDate];

@@ -16,7 +16,7 @@ export default function SelectService({ setProgressDate, setDateInformation }) {
 
   return (
     <div className="SelectService__Container">
-      <p className="SelectService__Title">Selecciona un servicio</p>
+      <p className="SelectService__Title">Selecciona un tipo de servicio</p>
       {services.length > 0 && (
         <div className="SelectService__Details">
           {services.map(({ NombreServicio, ImagenServicio, idServicio }) => (

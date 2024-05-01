@@ -1,13 +1,15 @@
 /* eslint-disable react/prop-types */
+import { useEffect, useState } from "react";
 
 // IMPORTAMOS LOS COMPONENTES
 import HourDetails from "./HourDetails";
 import Loader from "../components/Loader";
+import Employees from "../components/Employees";
 
 // IMPORTAMOS LOS HOOKS A USAR
-// import useCheckDates from "../hooks/useCheckDates";
-import useGetHoursForService from "../hooks/useGetHoursForService";
-import useGetHoursForDaySelected from "../hooks/useGetHoursForDaySelected";
+import useGetHours from "../hooks/useGetHours";
+import useGetEmployeesByService from "../hooks/useGetEmployeesByService";
+import useGetHoursByEmployeeSelected from "../hooks/useGetHoursByEmployeeSelected";
 
 // IMPORTAMOS LAS AYUDAS
 // import { hours } from "../helpers/Hours";
@@ -17,54 +19,72 @@ import { DateFormatted } from "../helpers/DateFormatted";
 import "../styles/SelectHour.css";
 
 export default function SelectHour({
-  // dayDate,
-  // setDayDate,
   dateInformation,
   setDateInformation,
   setProgressDate,
   monthNumber,
 }) {
-  const { NombreServicio, DíaCita, DíaCitaNombre, NombreMesCita, AñoCita } =
-    dateInformation;
+  const [numberEmployee, setNumberEmployee] = useState(1);
+  const { NombreServicio, DíaCita, AñoCita } = dateInformation;
   const dateFormatted = DateFormatted(AñoCita, monthNumber, DíaCita);
-  const { hoursForService, searchingHoursForService } = useGetHoursForService({
-    NombreServicio,
-  });
-  const { hoursAvailable, searchingEmployees } = useGetHoursForDaySelected({
-    NombreServicio,
-    FechaCita: dateFormatted,
-  });
-  // const { hoursForService, searchingHoursForService } = useGetHoursForService({
-  //   NombreServicio,
-  // });
-  // const { allDates, searchingDates } = useCheckDates({ dateFormatted });
+  const { hours, searchingHours } = useGetHours();
+  const { employeesByService, searchingEmployeesByService } =
+    useGetEmployeesByService({
+      NombreServicio,
+    });
+  const { hoursByEmployeeSelected, setInformationDate } =
+    useGetHoursByEmployeeSelected();
 
-  if (searchingHoursForService || searchingEmployees) return <Loader />;
-  // const hoursInThisDay = allDates.data.map(({ HoraCita }) => HoraCita);
-  // const getUniqueHours = new Set(hoursInThisDay);
-  // const hoursFiltered = [...getUniqueHours];
+  if (searchingHours || searchingEmployeesByService) return <Loader />;
+
+  const getNewHoursByEmployee = () => {
+    dateInformation.EmpleadoAsignado = employeesByService[0].idUsuario;
+    setInformationDate({
+      EmpleadoAsignado: employeesByService && employeesByService[0].idUsuario,
+      FechaCita: dateFormatted,
+    });
+  };
 
   return (
-    <div className="SelectHour__Container">
+    <div className="SelectHour__Container" onLoad={getNewHoursByEmployee}>
       <p className="SelectHour__Title">Selecciona una hora</p>
-      <p className="SelectHour__Subtitle">{`Has seleccionado ${NombreServicio.toUpperCase()} para el día ${DíaCitaNombre.toUpperCase()} ${DíaCita} de ${NombreMesCita} del ${AñoCita}`}</p>
-
-      <div className="SelectHour__Calendar">
-        {hoursForService.map(({ HoraServicio }, index) => {
-          const hourExist = hoursAvailable.includes(HoraServicio);
-          if (hourExist) {
-            return (
-              <HourDetails
-                key={index}
-                HoraServicio={HoraServicio}
-                setProgressDate={setProgressDate}
-                dateInformation={dateInformation}
-                setDateInformation={setDateInformation}
-              />
-            );
-          }
-        })}
+      <p className="SelectHour__Subtitle">
+        ¿No ves la hora que quieres disponible? Actualmente estas viendo el
+        horario del EMPLEADO #{numberEmployee}, prueba seleccionando otro
+        empleado.
+      </p>
+      <div className="SelectHour__Container--Employees">
+        {employeesByService.map(({ idUsuario }, index) => (
+          <Employees
+            key={index}
+            dateInformation={dateInformation}
+            idUsuario={idUsuario}
+            setInformationDate={setInformationDate}
+            dateFormatted={dateFormatted}
+            setNumberEmployee={setNumberEmployee}
+            numberEmployee={numberEmployee}
+            index={index}
+          />
+        ))}
       </div>
+      {hoursByEmployeeSelected && (
+        <div className="SelectHour__Calendar">
+          {hours.map(({ HoraServicio }, index) => {
+            const hourExist = hoursByEmployeeSelected.includes(HoraServicio);
+            if (!hourExist) {
+              return (
+                <HourDetails
+                  key={index}
+                  HoraServicio={HoraServicio}
+                  setProgressDate={setProgressDate}
+                  dateInformation={dateInformation}
+                  setDateInformation={setDateInformation}
+                />
+              );
+            }
+          })}
+        </div>
+      )}
     </div>
   );
 }

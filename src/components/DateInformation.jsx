@@ -13,14 +13,6 @@ import "../styles/DateInformation.css";
 
 export default function DateInformation({
   dataDate,
-  // idCita,
-  // FechaCita,
-  // HoraCita,
-  // NombreCliente,
-  // TelefonoCliente,
-  // ImagenCita,
-  // MotivoCita,
-  // EmpleadoAsignado,
   setShowEditDate,
   setCurrentDataDate,
   setShowModalChangeStatusDate,
@@ -36,6 +28,7 @@ export default function DateInformation({
     TelefonoCliente,
     ImagenCita,
     MotivoCita,
+    SubmotivoCita,
     EmpleadoAsignado,
     EstadoCita,
   } = dataDate;
@@ -49,6 +42,7 @@ export default function DateInformation({
       TelefonoCliente,
       ImagenCita,
       MotivoCita,
+      SubmotivoCita,
       EmpleadoAsignado,
     });
     getHoursForTheServiceSelected();

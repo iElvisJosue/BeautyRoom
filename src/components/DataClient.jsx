@@ -56,6 +56,7 @@ export default function DataClient({
     HoraCita,
     NombreServicio,
     ImagenServicio,
+    NombreSubservicio,
   } = dateInformation;
 
   // const handleSelectChange = (event) => {
@@ -90,7 +91,6 @@ export default function DataClient({
   const verifyDateDuplicateExist = async (dataClient) => {
     try {
       const res = await verifyDateExist(dataClient);
-      console.log(res);
       if (res.data.length > 0) {
         return toast.error(
           "¡Ya no hay citas disponibles para esta hora! Por favor selecciona una nueva fecha y/o hora ❌"
@@ -149,7 +149,9 @@ export default function DataClient({
               alt="Icono del servicio seleccionado"
             />
           </picture>
-          <p>{NombreServicio}</p>
+          <p>
+            {NombreServicio} - {NombreSubservicio}
+          </p>
         </div>
         <div className="DataClient__Container__DateInformation__Details">
           <span className="DataClient__Container__DateInformation__Details--Day">

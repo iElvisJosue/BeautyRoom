@@ -8,6 +8,9 @@ import { ErrorMessage } from "@hookform/error-message";
 // IMPORTAMOS LOS CONTEXTOS A USAR
 import { useDates } from "../context/DatesContext";
 
+// IMPORTAMOS LOS HOOKS A USAR
+import useGetSubservicesByName from "../hooks/useGetSubservicesByName";
+
 // IMPORTAMOS LAS AYUDAS
 // import { listOfServices } from "../helpers/ListServices";
 // import { listOfHours } from "../helpers/Hours";
@@ -28,6 +31,9 @@ export default function EditDate({
   hours,
   searchingHours,
 }) {
+  const { subservicesByName, setCurrentNameService } = useGetSubservicesByName({
+    NombreServicio: currentDataDate.MotivoCita,
+  });
   const { updateOneDate } = useDates();
   const [fechaCita, setFechaCita] = useState("");
   const [dateReason, setDateReason] = useState(currentDataDate.ImagenCita);
@@ -59,11 +65,17 @@ export default function EditDate({
       setValue("EmpleadoAsignado", "Sin asignar");
     }
 
-    const { NombreCliente, TelefonoCliente, MotivoCita, HoraCita } =
-      currentDataDate;
+    const {
+      NombreCliente,
+      TelefonoCliente,
+      MotivoCita,
+      SubmotivoCita,
+      HoraCita,
+    } = currentDataDate;
     setValue("NombreCliente", NombreCliente);
     setValue("TelefonoCliente", TelefonoCliente);
     setValue("MotivoCita", MotivoCita);
+    setValue("SubmotivoCita", SubmotivoCita);
     setValue("HoraCita", HoraCita);
   }, [currentDataDate]);
 
@@ -71,6 +83,8 @@ export default function EditDate({
     const selectedDateReason =
       event.target.selectedOptions[0].getAttribute("id");
     setDateReason(selectedDateReason);
+    const NombreServicio = selectedDateReason.split(".")[0];
+    setCurrentNameService(NombreServicio);
   };
   const handleIdEmployeeAssigned = (event) => {
     const selectedEmployee = event.target.selectedOptions[0].getAttribute("id"); // Obtener el option seleccionado
@@ -101,7 +115,6 @@ export default function EditDate({
     setFilter(!filter);
     setShowEditDate(false);
   };
-
   // const handleSelectChange = (event) => {
   //   const index = event.target.selectedIndex;
   //   setSelectedIndex(index - 1);
@@ -166,7 +179,7 @@ export default function EditDate({
             onChange={handleChangeDateReason}
           >
             <p className="EditDate__Container__Form--Inputs--Text">
-              Motivo de la cita
+              Servicio de la cita
             </p>
             <select
               {...register("MotivoCita")}
@@ -186,6 +199,29 @@ export default function EditDate({
               {/* {listOfServices} */}
             </select>
           </span>
+          {subservicesByName && (
+            <span className="EditDate__Container__Form--Inputs">
+              <p className="EditDate__Container__Form--Inputs--Text">
+                Subservicio de la cita
+              </p>
+              <select
+                {...register("SubmotivoCita")}
+                className="EditDate__Container__Form--Inputs--Input"
+              >
+                {subservicesByName.map(
+                  ({ NombreSubservicio, idSubservicio }) => (
+                    <option
+                      key={idSubservicio}
+                      value={NombreSubservicio}
+                      id={idSubservicio}
+                    >
+                      {NombreSubservicio}
+                    </option>
+                  )
+                )}
+              </select>
+            </span>
+          )}
           <span className="EditDate__Container__Form--Inputs">
             <p className="EditDate__Container__Form--Inputs--Text">
               Fecha de la cita

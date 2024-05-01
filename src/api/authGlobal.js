@@ -10,5 +10,8 @@ export const createUser = (data) => axios.post("/global/createUser", data);
 export const logoutUser = () => axios.post("/global/logout");
 // PETICIÓN PARA OBTENER A LOS EMPLEADOS
 export const getEmployees = () => axios.get("/global/getEmployees");
+// PETICIÓN PARA OBTENER A LOS EMPLEADOS POR SERVICIO
+export const getAllEmployeesByService = (data) =>
+  axios.post("/global/getEmployeesByService", data);
 // PETICIÓN PARA VERIFICAR TOKEN DEL NAVEGADOR
 export const verifyToken = () => axios.get("/global/verifyToken");

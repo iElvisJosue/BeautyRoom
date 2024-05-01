@@ -18,7 +18,7 @@ export default function HourDetails({
   const selectedHour = () => {
     setDateInformation({ ...dateInformation, HoraCita: HoraServicio });
     toast.success("Hora seleccionada correctamente ✨");
-    setProgressDate(3);
+    setProgressDate(4);
   };
 
   const hourFormatted = HoraServicio.substring(0, 5);
