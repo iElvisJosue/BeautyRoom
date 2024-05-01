@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 // IMPORTAMOS LOS COMPONENTES
 import HourDetails from "./HourDetails";
@@ -49,9 +49,9 @@ export default function SelectHour({
     <div className="SelectHour__Container" onLoad={getNewHoursByEmployee}>
       <p className="SelectHour__Title">Selecciona una hora</p>
       <p className="SelectHour__Subtitle">
-        ¿No ves la hora que quieres disponible? Actualmente estas viendo el
-        horario del EMPLEADO #{numberEmployee}, prueba seleccionando otro
-        empleado.
+        {employeesByService.length > 1
+          ? `Actualmente estas viendo el horario del EMPLEADO ${numberEmployee}, en caso de no ver la hora que quieres, prueba seleccionando otro empleado.`
+          : `Actualmente estas viendo el horario del EMPLEADO ${numberEmployee}`}
       </p>
       <div className="SelectHour__Container--Employees">
         {employeesByService.map(({ idUsuario }, index) => (
