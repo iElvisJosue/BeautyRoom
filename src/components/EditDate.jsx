@@ -83,7 +83,7 @@ export default function EditDate({
     const selectedDateReason =
       event.target.selectedOptions[0].getAttribute("id");
     setDateReason(selectedDateReason);
-    const NombreServicio = selectedDateReason.split(".")[0];
+    const NombreServicio = event.target.selectedOptions[0].value;
     setCurrentNameService(NombreServicio);
   };
   const handleIdEmployeeAssigned = (event) => {
@@ -91,6 +91,7 @@ export default function EditDate({
     setNewEmployeeAssigned(selectedEmployee); // Actualizar el estado con el ID del option seleccionado
   };
   const checkNewDataDate = handleSubmit(async (data) => {
+    data.SubmotivoCita = document.getElementById("SubmotivoCita").value;
     data.idCita = currentDataDate.idCita;
     data.FechaCita = fechaCita;
     data.EmpleadoAsignado = newEmployeeAssigned;
@@ -207,14 +208,11 @@ export default function EditDate({
               <select
                 {...register("SubmotivoCita")}
                 className="EditDate__Container__Form--Inputs--Input"
+                id="SubmotivoCita"
               >
                 {subservicesByName.map(
                   ({ NombreSubservicio, idSubservicio }) => (
-                    <option
-                      key={idSubservicio}
-                      value={NombreSubservicio}
-                      id={idSubservicio}
-                    >
+                    <option key={idSubservicio} value={NombreSubservicio}>
                       {NombreSubservicio}
                     </option>
                   )
