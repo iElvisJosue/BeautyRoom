@@ -37,6 +37,10 @@ body {
   background: var(--WeakPurple);
 }
 
+input[type="file"] {
+  display: none;
+}
+
 ::-webkit-scrollbar {
   width: 12px; /* Ancho del scroll */
 }

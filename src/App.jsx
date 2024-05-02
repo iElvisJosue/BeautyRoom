@@ -6,11 +6,15 @@ import { ServicesProvider } from "./context/ServicesContext";
 
 // IMPORTAMOS LAS VISTAS
 import Login from "./views/Login";
+import Home from "./views/Home";
 import Date from "./views/Date";
-import DatingHistory from "./views/DatingHistory";
 import DateCreated from "./views/DateCreated";
-import AddUsers from "./views/AddUsers";
-import SalesInventory from "./views/SalesInventory";
+import PointOfSales from "./views/PointOfSales";
+import AdminDates from "./views/AdminDates";
+import AdminUsers from "./views/AdminUsers";
+import AdminProductsInventory from "./views/AdminProductsInventory";
+import AdminServicesInventory from "./views/AdminServicesInventory";
+import AdminInternalInventory from "./views/AdminInternalInventory";
 
 // PROTECCIÓN DE RUTAS
 import ProtectedByCookies from "./protection/ProtectedByCookies";
@@ -27,10 +31,23 @@ export default function App() {
               <Route path="/AgendarCita" element={<Date />} />
               <Route element={<ProtectedByCookies />}>
                 {/* <Route element={<ProtectedForAdmins />}> */}
-                <Route path="/HistorialDeCitas" element={<DatingHistory />} />
+                <Route path="/Principal" element={<Home />} />
+                <Route path="/AdministrarCitas" element={<AdminDates />} />
+                <Route path="/PuntoDeVenta" element={<PointOfSales />} />
                 <Route path="/AgendarCitaAdministrador" element={<Date />} />
-                <Route path="/AdministrarUsuarios" element={<AddUsers />} />
-                <Route path="/InventarioDeVenta" element={<SalesInventory />} />
+                <Route path="/AdministrarUsuarios" element={<AdminUsers />} />
+                <Route
+                  path="/AdministrarInventarioProductos"
+                  element={<AdminProductsInventory />}
+                />
+                <Route
+                  path="/AdministrarInventarioServicios"
+                  element={<AdminServicesInventory />}
+                />
+                <Route
+                  path="/AdministrarInventarioInterno"
+                  element={<AdminInternalInventory />}
+                />
                 {/* </Route> */}
               </Route>
               <Route path="/CitaCreada" element={<DateCreated />} />

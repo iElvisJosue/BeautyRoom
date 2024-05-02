@@ -1,0 +1,37 @@
+.SubMenu {
+  width: 100%;
+  height: auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  /* padding: 20px; */
+}
+.SubMenu__Container {
+  width: 100%;
+  height: 50px;
+
+  display: flex;
+}
+.SubMenu__Container--Button {
+  height: 100%;
+  width: 100%;
+  border: none;
+  background: none;
+  outline: none;
+  font-size: var(--NormalFontSize);
+  font-weight: bold;
+  color: var(--StrongPurple);
+  text-align: center;
+  cursor: pointer;
+  transition: 0.5s ease all;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+.SubMenu__Container--Button.Active {
+  background: var(--StrongPurple);
+  color: var(--White);
+}

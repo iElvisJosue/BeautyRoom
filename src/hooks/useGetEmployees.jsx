@@ -18,7 +18,6 @@ export default function useGetEmployees() {
         const res = await getAllEmployees();
         setEmployees(res.data);
       } catch (error) {
-        console.log(error);
         const { status, data } = error.response;
         handleResponseMessages({ status, data });
       }

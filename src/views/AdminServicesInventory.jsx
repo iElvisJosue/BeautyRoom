@@ -1,0 +1,77 @@
+// LIBRERÍAS A USAR
+import { useState } from "react";
+import { Toaster } from "sonner";
+
+// IMPORTAMOS LOS COMPONENTES
+import Navbar from "../components/Navbar";
+import SubMenu from "../components/SubMenu";
+import Loader from "../components/Loader";
+import AddService from "../components/AddService";
+import ServicesAndSubservices from "../components/ServicesAndSubservices";
+import ModalAdminSubservice from "../components/ModalAdminSubservice";
+
+// IMPORTAMOS LOS HOOKS A USAR
+import useSubMenu from "../hooks/useSubMenu";
+import useGetServicesAndSubservices from "../hooks/useGetServicesAndSubservices";
+import useModalAdminSubservice from "../hooks/useModalAdminSubservice";
+
+// IMPORTAMOS LOS ESTILOS
+import "../styles/AdminServicesInventory.css";
+
+export default function AdminServicesInventory() {
+  const {
+    services,
+    searchingServices,
+    getServicesAndSubservicesAgain,
+    setGetServicesAndSubservicesAgain,
+  } = useGetServicesAndSubservices();
+  const [renderSubmenu, setRenderSubmenu] = useState(true);
+  const [currentId, setCurrentId] = useState(null);
+  const [goingToUpdate, setGoingToUpdate] = useState(false);
+  const { showModalAdminSubservice, setShowModalAdminSubservice } =
+    useModalAdminSubservice();
+  const { optionSubMenu, setOptionSubMenu } = useSubMenu();
+
+  if (searchingServices) return <Loader />;
+
+  return (
+    <main className="AdminServicesInventory">
+      <Navbar>Inventario de Servicios</Navbar>
+      <SubMenu
+        NombreOpciónUno="Inventario General"
+        NombreOpciónDos="Agregar Servicio"
+        setOptionSubMenu={setOptionSubMenu}
+        setRenderSubmenu={setRenderSubmenu}
+        renderSubmenu={renderSubmenu}
+      />
+      <ModalAdminSubservice
+        services={services}
+        currentId={currentId}
+        setGoingToUpdate={setGoingToUpdate}
+        goingToUpdate={goingToUpdate}
+        showModalAdminSubservice={showModalAdminSubservice}
+        setShowModalAdminSubservice={setShowModalAdminSubservice}
+        getServicesAndSubservicesAgain={getServicesAndSubservicesAgain}
+        setGetServicesAndSubservicesAgain={setGetServicesAndSubservicesAgain}
+      />
+      {optionSubMenu === 0 ? (
+        <ServicesAndSubservices
+          services={services}
+          setCurrentId={setCurrentId}
+          setGoingToUpdate={setGoingToUpdate}
+          setShowModalAdminSubservice={setShowModalAdminSubservice}
+          getServicesAndSubservicesAgain={getServicesAndSubservicesAgain}
+          setGetServicesAndSubservicesAgain={setGetServicesAndSubservicesAgain}
+        />
+      ) : (
+        <AddService
+          setOptionSubMenu={setOptionSubMenu}
+          setGetServicesAndSubservicesAgain={setGetServicesAndSubservicesAgain}
+          getServicesAndSubservicesAgain={getServicesAndSubservicesAgain}
+          setRenderSubmenu={setRenderSubmenu}
+        />
+      )}
+      <Toaster position="top-right" richColors closeButton />
+    </main>
+  );
+}

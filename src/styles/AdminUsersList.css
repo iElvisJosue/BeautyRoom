@@ -1,0 +1,138 @@
+.AdminUsersList__Container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  padding: 20px;
+}
+.AdminUsersList__Container__Card {
+  min-height: 100px;
+  height: 100px;
+  border-radius: 25px;
+  padding: 20px;
+  transition: 0.5s ease all;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+}
+.AdminUsersList__Container__Card:nth-child(4n-3) {
+  background: var(--ContainerPurple);
+}
+.AdminUsersList__Container__Card:nth-child(4n-2) {
+  background: var(--ContainerGray);
+}
+.AdminUsersList__Container__Card:nth-child(4n-1) {
+  background: var(--ContainerBrown);
+}
+.AdminUsersList__Container__Card:nth-child(4n) {
+  background: var(--ContainerGreen);
+}
+.AdminUsersList__Container__Card--Details {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.AdminUsersList__Container__Card--Details--Img {
+  min-width: 60px;
+  width: 60px;
+  min-height: 60px;
+  height: 60px;
+  border: 2px solid var(--White);
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.AdminUsersList__Container__Card--Details--Img img {
+  width: 65%;
+  height: 65%;
+}
+.AdminUsersList__Container__Card--Details--Information {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 0 10px;
+}
+.AdminUsersList__Container__Card--Details--Information--Text {
+  font-size: var(--NormalFontSize);
+  color: var(--White);
+  font-weight: bold;
+  text-align: center;
+
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+.AdminUsersList__Container__Card--Details--Information--Text ion-icon {
+  font-size: var(--SubTittleFontSize);
+}
+.AdminUsersList__Container__Card--Details--Information--Button {
+  width: 50px;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.AdminUsersList__Container__Card--Details--Information--Button--View {
+  cursor: pointer;
+  background: var(--White);
+  outline: none;
+  border: none;
+  padding: 5px;
+  border-radius: 10px;
+  color: var(--Blue);
+
+  transition: 0.5s ease all;
+}
+.AdminUsersList__Container__Card--Details--Information--Button--View:hover {
+  background: var(--Blue);
+  transform: scale(1.1);
+}
+.AdminUsersList__Container__Card--Details--Information--Button--View ion-icon {
+  font-size: var(--IconFontSize);
+  transition: 0.5s ease all;
+}
+.AdminUsersList__Container__Card--Details--Information--Button--View:hover
+  ion-icon {
+  color: var(--White);
+}
+@media (width < 800px) {
+  .AdminUsersList__Container__Card--Details {
+    min-height: 130px;
+  }
+  .AdminUsersList__Container__Card--Details--Information--Text {
+    font-size: var(--SmallFontSize);
+  }
+  .AdminUsersList__Container__Card--Details--Information--Text ion-icon {
+    font-size: var(--NormalFontSize);
+  }
+}
+@media (width < 570px) {
+  .AdminUsersList__Container__Card--Details--Information--Text {
+    font-size: var(--NormalFontSize);
+  }
+  .AdminUsersList__Container__Card--Details--Information--Text ion-icon {
+    font-size: var(--IconFontSize);
+  }
+}
+@media (width < 360px) {
+  .AdminUsersList__Container__Card--Details--Information--Text {
+    font-size: var(--SmallFontSize);
+  }
+  .AdminUsersList__Container__Card--Details--Information--Text ion-icon {
+    font-size: var(--NormalFontSize);
+  }
+}
+
+@media (width < 570px) {
+  .AdminUsersList__Container {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

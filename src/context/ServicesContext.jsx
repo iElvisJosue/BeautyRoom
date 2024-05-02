@@ -3,9 +3,15 @@ import {
   getAllServices,
   getAllSubservices,
   getAllSubservicesByNameService,
+  getAllServicesAndSubservices,
   getAllHours,
   getAllHoursByEmployeeSelected,
   getHoursAvailableForDaySelected,
+  addNewSubservice,
+  deleteOneSubservice,
+  updateOneSubservice,
+  addNewImageService,
+  addNewService,
 } from "../api/authServices";
 
 export const ServicesContext = createContext();
@@ -70,15 +76,74 @@ export const ServicesProvider = ({ children }) => {
     }
   };
 
+  const getServicesAndSubservices = async () => {
+    try {
+      const res = await getAllServicesAndSubservices();
+      return res;
+    } catch (error) {
+      return error;
+    }
+  };
+
+  const addSubservice = async (data) => {
+    try {
+      const res = await addNewSubservice(data);
+      return res;
+    } catch (error) {
+      return error;
+    }
+  };
+
+  const deleteSubservice = async (data) => {
+    try {
+      const res = await deleteOneSubservice(data);
+      return res;
+    } catch (error) {
+      return error;
+    }
+  };
+
+  const updateSubservice = async (data) => {
+    try {
+      const res = await updateOneSubservice(data);
+      return res;
+    } catch (error) {
+      return error;
+    }
+  };
+
+  const addImageService = async (data) => {
+    try {
+      const res = await addNewImageService(data);
+      return res;
+    } catch (error) {
+      return error;
+    }
+  };
+  const addService = async (data) => {
+    try {
+      const res = await addNewService(data);
+      return res;
+    } catch (error) {
+      return error;
+    }
+  };
+
   return (
     <ServicesContext.Provider
       value={{
         getServices,
         getSubservices,
         getSubservicesByNameService,
+        getServicesAndSubservices,
         getHours,
         getHoursByEmployeeSelected,
         getHoursForDaySelected,
+        addSubservice,
+        deleteSubservice,
+        updateSubservice,
+        addImageService,
+        addService,
       }}
     >
       {children}

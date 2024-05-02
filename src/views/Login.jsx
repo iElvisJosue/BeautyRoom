@@ -31,7 +31,7 @@ export default function Login() {
     toast.success(
       `¡Tu sesión ha sido iniciada ${res.nombreUsuario.toUpperCase()}, bienvenido! 👋`
     );
-    setTimeout(() => navigate("/HistorialDeCitas"), 1500);
+    setTimeout(() => navigate("/Principal"), 1500);
   };
 
   const checkDataLogin = handleSubmit(async (data) => {

@@ -11,23 +11,37 @@
   background: none;
   outline: none;
   border: none;
-  font-size: var(--TittleFontSize);
+  color: var(--Black);
+  font-size: var(--NormalFontSize);
+  font-weight: bold;
   cursor: pointer;
 
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 5px;
 
   transition: 0.5s ease all;
 }
+.Navbar__Button ion-icon {
+  font-size: var(--IconFontSize);
+}
 .Navbar__Button:hover {
   color: var(--StrongPurple);
-  transform: scale(1.2) rotate(180deg);
+  transform: scale(1.1);
 }
 .Navbar__Tittle {
   font-size: var(--SubTittleFontSize);
   font-weight: bold;
+  text-align: center;
 }
 .Navbar__Logo {
   width: 40px;
+}
+
+@media (width < 500px) {
+  .Navbar__Tittle {
+    font-size: var(--NormalFontSize);
+    font-weight: bold;
+  }
 }

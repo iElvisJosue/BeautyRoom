@@ -1,0 +1,102 @@
+.Home {
+  position: relative;
+  width: 1024px;
+  min-height: 100vh;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+  background: var(--White);
+
+  overflow: hidden;
+}
+.Home__Container {
+  width: 100%;
+  height: auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+}
+.Home__Container--Title {
+  font-size: var(--SubTittleFontSize);
+  font-weight: bold;
+  color: var(--StrongPurple);
+  text-align: center;
+}
+.Home__Container--Options {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+/* ++++++++++++++++++++++++++++++ */
+.Home__Container--Options--Card {
+  min-height: 150px;
+  height: auto;
+  border-radius: 25px;
+  padding: 20px;
+  transition: 0.5s ease all;
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+.Home__Container--Options--Card:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+}
+.Home__Container--Options--Card:nth-child(4n-3) {
+  background: var(--ContainerPurple);
+}
+.Home__Container--Options--Card:nth-child(4n-2) {
+  background: var(--ContainerGray);
+}
+.Home__Container--Options--Card:nth-child(4n-1) {
+  background: var(--ContainerBrown);
+}
+.Home__Container--Options--Card:nth-child(4n) {
+  background: var(--ContainerGreen);
+}
+.Home__Container--Options--Card.Logout {
+  background: var(--Red);
+}
+.Home__Container--Options--Card--Img {
+  width: 100px;
+}
+.Home__Container--Options--Card--Title {
+  font-size: var(--NormalFontSize);
+  font-weight: bold;
+  color: var(--White);
+}
+@media (width < 1024px) {
+  .Home {
+    width: 100%;
+  }
+}
+@media (width < 700px) {
+  .Home__Container--Options--Card--Img {
+    width: 80px;
+  }
+}
+@media (width < 570px) {
+  .Home__Container--Options {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (width < 400px) {
+  .Home__Container--Title {
+    font-size: var(--NormalFontSize);
+  }
+  .Home__Container--Options--Card--Img {
+    width: 60px;
+  }
+  .Home__Container--Options--Card--Title {
+    font-size: var(--SmallFontSize);
+  }
+}

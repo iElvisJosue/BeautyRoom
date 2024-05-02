@@ -1,0 +1,137 @@
+.ServicesAndSubservices {
+  width: 100%;
+  height: auto;
+  padding: 20px;
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+.ServicesAndSubservices__Title {
+  grid-column: span 2;
+  padding: 10px;
+  background: var(--ContainerGreen);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.ServicesAndSubservices__Title.Inactivo {
+  filter: grayscale(1);
+}
+.ServicesAndSubservices__Title button {
+  cursor: pointer;
+  background: var(--White);
+  outline: none;
+  border: none;
+  padding: 5px;
+  color: var(--Blue);
+  font-size: var(--IconFontSize);
+  border-radius: 10px;
+
+  transition: 0.5s ease all;
+}
+.ServicesAndSubservices__Title button:hover {
+  background: var(--Blue);
+  transform: scale(1.1);
+  color: var(--White);
+}
+.ServicesAndSubservices__Title--Icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.ServicesAndSubservices__Title--Icon img {
+  width: 35px;
+  height: 35px;
+}
+.ServicesAndSubservices__Title--Icon p {
+  font-size: var(--NormalFontSize);
+  font-weight: bold;
+  color: var(--White);
+}
+.ServicesAndSubservices__Details {
+  grid-column: span 1;
+  background-color: var(--Transparent);
+  padding: 10px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.ServicesAndSubservices__Details--Text {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px;
+}
+.ServicesAndSubservices__Details--Text p {
+  font-size: var(--NormalFontSize);
+  font-weight: bold;
+  color: var(--StrongPurple);
+}
+.ServicesAndSubservices__Details--Buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.ServicesAndSubservices__Details--Buttons button {
+  background: none;
+  outline: none;
+  border: none;
+  width: 100%;
+  font-size: var(--NormalFontSize);
+  background-color: var(--White);
+  font-weight: bold;
+  padding: 5px;
+  cursor: pointer;
+  transition: 0.5s ease all;
+}
+.ServicesAndSubservices__Details--Buttons button:nth-child(1) {
+  color: var(--Blue);
+}
+.ServicesAndSubservices__Details--Buttons button:nth-child(2) {
+  color: var(--Red);
+}
+.ServicesAndSubservices__Details--Buttons button:nth-child(1):hover {
+  background-color: var(--Blue);
+  color: var(--White);
+  transform: scale(1.05);
+}
+.ServicesAndSubservices__Details--Buttons button:nth-child(2):hover {
+  background-color: var(--Red);
+  color: var(--White);
+  transform: scale(1.05);
+}
+.ServicesAndSubservices__Button {
+  grid-column: span 2;
+  height: 50px;
+  background-color: var(--StrongPurple);
+  font-size: var(--NormalFontSize);
+  color: var(--White);
+  font-weight: bold;
+  outline: none;
+  border: 2px solid var(--StrongPurple);
+
+  transition: 0.5s ease all;
+}
+.ServicesAndSubservices__Button:hover {
+  cursor: pointer;
+  background-color: var(--White);
+  color: var(--StrongPurple);
+  letter-spacing: 1px;
+}
+@media (width < 500px) {
+  .ServicesAndSubservices {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .ServicesAndSubservices__Title {
+    grid-column: span 1;
+  }
+  .ServicesAndSubservices__Button {
+    grid-column: span 1;
+  }
+}
