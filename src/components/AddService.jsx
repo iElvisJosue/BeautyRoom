@@ -18,7 +18,6 @@ export default function AddService({
   setOptionSubMenu,
   setGetServicesAndSubservicesAgain,
   getServicesAndSubservicesAgain,
-  setRenderSubmenu,
 }) {
   const [hasImage, setHasImage] = useState(null);
   const [showError, setShowError] = useState(false);
@@ -73,7 +72,6 @@ export default function AddService({
           const { status, data } = res;
           handleResponseMessages({ status, data });
           setGetServicesAndSubservicesAgain(!getServicesAndSubservicesAgain);
-          setRenderSubmenu(true);
           setOptionSubMenu(0);
         } catch (error) {
           const { status, data } = error.response;

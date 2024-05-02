@@ -24,6 +24,7 @@ export default function AdminUsers() {
           NombreOpciónUno="Lista de usuarios"
           NombreOpciónDos="Agregar Usuario"
           setOptionSubMenu={setOptionSubMenu}
+          optionSubMenu={optionSubMenu}
         />
         {optionSubMenu === 0 ? <AdminUsersList /> : <AdminUsersAdd />}
       </div>

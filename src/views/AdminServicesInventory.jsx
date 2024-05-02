@@ -25,7 +25,6 @@ export default function AdminServicesInventory() {
     getServicesAndSubservicesAgain,
     setGetServicesAndSubservicesAgain,
   } = useGetServicesAndSubservices();
-  const [renderSubmenu, setRenderSubmenu] = useState(true);
   const [currentId, setCurrentId] = useState(null);
   const [goingToUpdate, setGoingToUpdate] = useState(false);
   const { showModalAdminSubservice, setShowModalAdminSubservice } =
@@ -41,8 +40,7 @@ export default function AdminServicesInventory() {
         NombreOpciónUno="Inventario General"
         NombreOpciónDos="Agregar Servicio"
         setOptionSubMenu={setOptionSubMenu}
-        setRenderSubmenu={setRenderSubmenu}
-        renderSubmenu={renderSubmenu}
+        optionSubMenu={optionSubMenu}
       />
       <ModalAdminSubservice
         services={services}
@@ -68,7 +66,6 @@ export default function AdminServicesInventory() {
           setOptionSubMenu={setOptionSubMenu}
           setGetServicesAndSubservicesAgain={setGetServicesAndSubservicesAgain}
           getServicesAndSubservicesAgain={getServicesAndSubservicesAgain}
-          setRenderSubmenu={setRenderSubmenu}
         />
       )}
       <Toaster position="top-right" richColors closeButton />
