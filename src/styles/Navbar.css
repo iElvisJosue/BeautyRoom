@@ -1,11 +1,14 @@
 .Navbar {
-  width: 100%;
+  position: fixed;
+  width: 1024px;
   height: 75px;
   border-bottom: 1px solid var(--Transparent);
+  background: var(--White);
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 20px;
+  z-index: 999;
 }
 .Navbar__Button {
   background: none;
@@ -37,6 +40,12 @@
 }
 .Navbar__Logo {
   width: 40px;
+}
+
+@media (width < 1024px) {
+  .Navbar {
+    width: 100%;
+  }
 }
 
 @media (width < 500px) {

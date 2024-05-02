@@ -4,6 +4,7 @@
 
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  padding-top: 75px;
 }
 .DataClient__Container__DateInformation {
   background: var(--StrongPurple);

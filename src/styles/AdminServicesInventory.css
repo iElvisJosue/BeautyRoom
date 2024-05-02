@@ -10,6 +10,14 @@
   background: var(--White);
   overflow: hidden;
 }
+.AdminServicesInventory__Container {
+  width: 100%;
+  height: auto;
+
+  display: flex;
+  flex-direction: column;
+  padding-top: 75px;
+}
 @media (width < 1024px) {
   .AdminServicesInventory {
     width: 100%;

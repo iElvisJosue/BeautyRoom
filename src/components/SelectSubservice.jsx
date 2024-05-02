@@ -1,6 +1,4 @@
 /* eslint-disable react/prop-types */
-// IMPORTAMOS LOS ESTILOS
-import "../styles/SelectSubservice.css";
 
 // IMPORTAMOS LOS COMPONENTES
 import SubserviceDetails from "./SubserviceDetails";
@@ -8,6 +6,9 @@ import Loader from "../components/Loader";
 
 // IMPORTAMOS LOS HOOKS
 import useGetSubservices from "../hooks/useGetSubservices";
+
+// IMPORTAMOS LOS ESTILOS
+import "../styles/SelectSubservice.css";
 
 export default function SelectSubservice({
   dateInformation,

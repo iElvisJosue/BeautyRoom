@@ -1,6 +1,4 @@
 /* eslint-disable react/prop-types */
-// IMPORTAMOS LOS ESTILOS
-import "../styles/SelectServices.css";
 
 // IMPORTAMOS LOS COMPONENTES
 import ServiceDetails from "./ServiceDetails";
@@ -8,6 +6,9 @@ import Loader from "../components/Loader";
 
 // IMPORTAMOS LOS HOOKS
 import useGetServices from "../hooks/useGetServices";
+
+// IMPORTAMOS LOS ESTILOS
+import "../styles/SelectServices.css";
 
 export default function SelectService({ setProgressDate, setDateInformation }) {
   const { services, searchingServices } = useGetServices();

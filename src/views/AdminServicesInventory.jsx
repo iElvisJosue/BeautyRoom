@@ -36,38 +36,44 @@ export default function AdminServicesInventory() {
   return (
     <main className="AdminServicesInventory">
       <Navbar>Inventario de Servicios</Navbar>
-      <SubMenu
-        NombreOpciónUno="Inventario General"
-        NombreOpciónDos="Agregar Servicio"
-        setOptionSubMenu={setOptionSubMenu}
-        optionSubMenu={optionSubMenu}
-      />
-      <ModalAdminSubservice
-        services={services}
-        currentId={currentId}
-        setGoingToUpdate={setGoingToUpdate}
-        goingToUpdate={goingToUpdate}
-        showModalAdminSubservice={showModalAdminSubservice}
-        setShowModalAdminSubservice={setShowModalAdminSubservice}
-        getServicesAndSubservicesAgain={getServicesAndSubservicesAgain}
-        setGetServicesAndSubservicesAgain={setGetServicesAndSubservicesAgain}
-      />
-      {optionSubMenu === 0 ? (
-        <ServicesAndSubservices
+      <div className="AdminServicesInventory__Container">
+        <SubMenu
+          NombreOpciónUno="Inventario General"
+          NombreOpciónDos="Agregar Servicio"
+          setOptionSubMenu={setOptionSubMenu}
+          optionSubMenu={optionSubMenu}
+        />
+        <ModalAdminSubservice
           services={services}
-          setCurrentId={setCurrentId}
+          currentId={currentId}
           setGoingToUpdate={setGoingToUpdate}
+          goingToUpdate={goingToUpdate}
+          showModalAdminSubservice={showModalAdminSubservice}
           setShowModalAdminSubservice={setShowModalAdminSubservice}
           getServicesAndSubservicesAgain={getServicesAndSubservicesAgain}
           setGetServicesAndSubservicesAgain={setGetServicesAndSubservicesAgain}
         />
-      ) : (
-        <AddService
-          setOptionSubMenu={setOptionSubMenu}
-          setGetServicesAndSubservicesAgain={setGetServicesAndSubservicesAgain}
-          getServicesAndSubservicesAgain={getServicesAndSubservicesAgain}
-        />
-      )}
+        {optionSubMenu === 0 ? (
+          <ServicesAndSubservices
+            services={services}
+            setCurrentId={setCurrentId}
+            setGoingToUpdate={setGoingToUpdate}
+            setShowModalAdminSubservice={setShowModalAdminSubservice}
+            getServicesAndSubservicesAgain={getServicesAndSubservicesAgain}
+            setGetServicesAndSubservicesAgain={
+              setGetServicesAndSubservicesAgain
+            }
+          />
+        ) : (
+          <AddService
+            setOptionSubMenu={setOptionSubMenu}
+            setGetServicesAndSubservicesAgain={
+              setGetServicesAndSubservicesAgain
+            }
+            getServicesAndSubservicesAgain={getServicesAndSubservicesAgain}
+          />
+        )}
+      </div>
       <Toaster position="top-right" richColors closeButton />
     </main>
   );

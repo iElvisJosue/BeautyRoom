@@ -16,6 +16,7 @@
   flex-direction: column;
   gap: 20px;
   padding: 0 20px;
+  padding-top: 75px;
 }
 .EditDate__Container__Back {
   height: 50px;
@@ -105,5 +106,6 @@
   .EditDate__Container {
     width: 100%;
     padding: 20px;
+    padding-top: 95px;
   }
 }
