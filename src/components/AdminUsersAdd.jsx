@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 // LIBRERÍAS A USAR
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
@@ -6,12 +7,16 @@ import { toast } from "sonner";
 // IMPORTAMOS LOS CONTEXTOS A USAR
 import { useGlobal } from "../context/GlobalContext";
 
+// IMPORTAMOS LOS HOOKS A USAR
+import useGetServices from "../hooks/useGetServices";
+
 // IMPORTAMOS LAS AYUDAS
 import { dataUsersInputsProps } from "../helpers/DataUsers";
 import { handleResponseMessages } from "../helpers/RespuestasServidor";
 
-export default function AdminUsersAdd() {
+export default function AdminUsersAdd({ setOptionSubMenu }) {
   const { verifyUserExist, createNewUser } = useGlobal();
+  const { services } = useGetServices();
 
   const {
     handleSubmit,
@@ -23,27 +28,41 @@ export default function AdminUsersAdd() {
   });
 
   const verifyUserDuplicateExist = handleSubmit(async (data) => {
+    // CONVERTIMOS EL OBJETO A UN ARREGLO PERO CON LA CONDICIÓN DE QUE SOLO
+    // A PARTIR DEL 3° ELEMENTO
+    const dataUser = Object.keys(data).map(
+      (key, index) => index > 2 && data[key]
+    );
+
+    // FILTRAMOS LOS ELEMENTOS VACÍOS
+    const dataUserFiltered = dataUser.filter((value) => value !== "" && value);
+    const dataUserWithServices = {
+      Usuario: data.Usuario,
+      Contraseña: data.Contraseña,
+      RolUsuario: data.RolUsuario,
+      Servicios: dataUserFiltered,
+    };
     try {
-      const res = await verifyUserExist(data);
+      const res = await verifyUserExist(dataUserWithServices);
       if (res.data.length > 0) {
         return toast.error(
           "Ya existe un usuario con este nombre, por favor ingresa otro ❌"
         );
       } else {
-        createUser(data);
+        createUser(dataUserWithServices);
       }
     } catch (error) {
-      console.log(error);
       const { status, data } = error.response;
       handleResponseMessages({ status, data });
     }
   });
 
-  const createUser = async (dataUser) => {
+  const createUser = async (dataUserWithServices) => {
     try {
-      const res = await createNewUser(dataUser);
+      const res = await createNewUser(dataUserWithServices);
       const { status, data } = res;
       handleResponseMessages({ status, data });
+      setOptionSubMenu(0);
       reset();
     } catch (error) {
       const { status, data } = error.response;
@@ -64,9 +83,7 @@ export default function AdminUsersAdd() {
                 <p className="AddUsers__Container__Form--Data--Title">
                   {inputTitle}
                 </p>
-                {/* {secondIcon && iconPassword} */}
                 <input
-                  //   type={inputType}
                   type="text"
                   {...register(inputName, validator)}
                   className="AddUsers__Container__Form--Data--Input"
@@ -83,8 +100,8 @@ export default function AdminUsersAdd() {
                   {...register(inputName, validator)}
                   className="AddUsers__Container__Form--Data--Input"
                 >
-                  <option value="Administrador">Administrador</option>
                   <option value="Empleado">Empleado</option>
+                  <option value="Administrador">Administrador</option>
                 </select>
               </div>
             )}
@@ -106,6 +123,24 @@ export default function AdminUsersAdd() {
           </>
         )
       )}
+      <p className="AddUsers__Container__Form--Data--Title">
+        Selecciona los servicios para este usuario
+      </p>
+      {services &&
+        services.map(({ NombreServicio, idServicio }) => (
+          <div className="AddUsers__Container__Form--Services" key={idServicio}>
+            <p className="AddUsers__Container__Form--Services--Title">
+              {NombreServicio}
+            </p>
+            <select
+              className="AddUsers__Container__Form--Services--Input"
+              {...register(NombreServicio)}
+            >
+              <option value={idServicio}>Sí</option>
+              <option value="">No</option>
+            </select>
+          </div>
+        ))}
       <button type="submit" className="AddUsers__Container__Form--Data--Button">
         Agregar Usuario
       </button>

@@ -36,3 +36,6 @@ export const addNewService = (data) => axios.post("/services/addService", data);
 // PETICIÓN PARA ACTUALIZAR UN SERVICIO
 export const updateOneService = (data) =>
   axios.put("/services/updateService", data);
+// PETICIÓN PARA OBTENER LOS SERVICIOS DE UN EMPLEADO
+export const getAllServicesByUser = (data) =>
+  axios.post("/services/getServicesByUser", data);

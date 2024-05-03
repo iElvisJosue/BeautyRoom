@@ -2,6 +2,7 @@ import { createContext, useState, useContext, useEffect } from "react";
 import {
   login,
   createUser,
+  updateOneDataUser,
   verifyUser,
   getEmployees,
   getAllEmployeesByService,
@@ -117,6 +118,16 @@ export const GlobalProvider = ({ children }) => {
       return error;
     }
   };
+  const updateDataUser = async (data) => {
+    try {
+      const res = await updateOneDataUser(data);
+      return res;
+    } catch (error) {
+      setError();
+      return error;
+    }
+  };
+
   const logout = async () => {
     await logoutUser();
     return setError();
@@ -130,6 +141,7 @@ export const GlobalProvider = ({ children }) => {
         loading,
         isLogin,
         hasCookie,
+        updateDataUser,
         loginUser,
         createNewUser,
         verifyUserExist,

@@ -6,6 +6,9 @@ export const login = (data) => axios.post("/global/loginUser", data);
 export const verifyUser = (data) => axios.post("/global/verifyUserExist", data);
 // PETICIÓN PARA CREAR UN USUARIO
 export const createUser = (data) => axios.post("/global/createUser", data);
+// PETICIÓN PARA ACTUALIZAR LOS DATOS DEL USUARIO
+export const updateOneDataUser = (data) =>
+  axios.put("/global/updateDataUser", data);
 // PETICIÓN PARA CERRAR SESIÓN
 export const logoutUser = () => axios.post("/global/logout");
 // PETICIÓN PARA OBTENER A LOS EMPLEADOS

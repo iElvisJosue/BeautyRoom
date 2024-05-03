@@ -13,6 +13,7 @@ import {
   addNewImageService,
   addNewService,
   updateOneService,
+  getAllServicesByUser,
 } from "../api/authServices";
 
 export const ServicesContext = createContext();
@@ -139,6 +140,15 @@ export const ServicesProvider = ({ children }) => {
     }
   };
 
+  const getServicesByUser = async (data) => {
+    try {
+      const res = await getAllServicesByUser(data);
+      return res;
+    } catch (error) {
+      return error;
+    }
+  };
+
   return (
     <ServicesContext.Provider
       value={{
@@ -155,6 +165,7 @@ export const ServicesProvider = ({ children }) => {
         addImageService,
         addService,
         updateService,
+        getServicesByUser,
       }}
     >
       {children}

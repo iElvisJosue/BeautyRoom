@@ -1,0 +1,13 @@
+.AdminUserEdit {
+  width: 100%;
+  height: auto;
+  padding: 20px;
+}
+.AdminUserEdit__Title {
+  font-size: var(--NormalFontSize);
+  padding: 10px;
+  font-weight: bold;
+  color: var(--White);
+  text-align: center;
+  background-color: var(--StrongPurple);
+}
