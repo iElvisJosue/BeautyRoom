@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { GlobalProvider } from "./context/GlobalContext";
 import { DatesProvider } from "./context/DatesContext";
 import { ServicesProvider } from "./context/ServicesContext";
+import { ProductsProvider } from "./context/ProductsContext";
 
 // IMPORTAMOS LAS VISTAS
 import Login from "./views/Login";
@@ -25,34 +26,36 @@ export default function App() {
     <GlobalProvider>
       <DatesProvider>
         <ServicesProvider>
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Login />} />
-              <Route path="/AgendarCita" element={<Date />} />
-              <Route element={<ProtectedByCookies />}>
-                {/* <Route element={<ProtectedForAdmins />}> */}
-                <Route path="/Principal" element={<Home />} />
-                <Route path="/AdministrarCitas" element={<AdminDates />} />
-                <Route path="/PuntoDeVenta" element={<PointOfSales />} />
-                <Route path="/AgendarCitaAdministrador" element={<Date />} />
-                <Route path="/AdministrarUsuarios" element={<AdminUsers />} />
-                <Route
-                  path="/AdministrarInventarioProductos"
-                  element={<AdminProductsInventory />}
-                />
-                <Route
-                  path="/AdministrarInventarioServicios"
-                  element={<AdminServicesInventory />}
-                />
-                <Route
-                  path="/AdministrarInventarioInterno"
-                  element={<AdminInternalInventory />}
-                />
-                {/* </Route> */}
-              </Route>
-              <Route path="/CitaCreada" element={<DateCreated />} />
-            </Routes>
-          </BrowserRouter>
+          <ProductsProvider>
+            <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<Login />} />
+                <Route path="/AgendarCita" element={<Date />} />
+                <Route element={<ProtectedByCookies />}>
+                  {/* <Route element={<ProtectedForAdmins />}> */}
+                  <Route path="/Principal" element={<Home />} />
+                  <Route path="/AdministrarCitas" element={<AdminDates />} />
+                  <Route path="/PuntoDeVenta" element={<PointOfSales />} />
+                  <Route path="/AgendarCitaAdministrador" element={<Date />} />
+                  <Route path="/AdministrarUsuarios" element={<AdminUsers />} />
+                  <Route
+                    path="/AdministrarInventarioProductos"
+                    element={<AdminProductsInventory />}
+                  />
+                  <Route
+                    path="/AdministrarInventarioServicios"
+                    element={<AdminServicesInventory />}
+                  />
+                  <Route
+                    path="/AdministrarInventarioInterno"
+                    element={<AdminInternalInventory />}
+                  />
+                  {/* </Route> */}
+                </Route>
+                <Route path="/CitaCreada" element={<DateCreated />} />
+              </Routes>
+            </BrowserRouter>
+          </ProductsProvider>
         </ServicesProvider>
       </DatesProvider>
     </GlobalProvider>

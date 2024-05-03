@@ -1,0 +1,144 @@
+.AdminCategoryProductsList {
+  width: 100%;
+  height: auto;
+  padding: 20px;
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+.AdminCategoryProductsList__Title {
+  grid-column: span 2;
+  padding: 10px;
+  background: var(--ContainerGreen);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.AdminCategoryProductsList__Title.Inactivo {
+  filter: grayscale(1);
+}
+.AdminCategoryProductsList__Title button {
+  cursor: pointer;
+  background: var(--White);
+  outline: none;
+  border: none;
+  padding: 5px;
+  color: var(--Blue);
+  font-size: var(--IconFontSize);
+  border-radius: 10px;
+
+  transition: 0.5s ease all;
+}
+.AdminCategoryProductsList__Title button:hover {
+  background: var(--Blue);
+  transform: scale(1.1);
+  color: var(--White);
+}
+.AdminCategoryProductsList__Title--Icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.AdminCategoryProductsList__Title--Icon img {
+  width: 35px;
+  height: 35px;
+}
+.AdminCategoryProductsList__Title--Icon p {
+  font-size: var(--NormalFontSize);
+  font-weight: bold;
+  color: var(--White);
+}
+.AdminCategoryProductsList__Details {
+  grid-column: span 1;
+  background-color: var(--Transparent);
+  padding: 10px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 5px;
+}
+.AdminCategoryProductsList__Details--Details {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 5px;
+}
+.AdminCategoryProductsList__Details--Details p {
+  width: 100%;
+  font-size: var(--NormalFontSize);
+  font-weight: bold;
+  color: var(--StrongPurple);
+  text-align: center;
+}
+.AdminCategoryProductsList__Details--Details img {
+  height: 100px;
+}
+.AdminCategoryProductsList__Details--Buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.AdminCategoryProductsList__Details--Buttons button {
+  background: none;
+  outline: none;
+  border: none;
+  width: 100%;
+  font-size: var(--NormalFontSize);
+  background-color: var(--White);
+  font-weight: bold;
+  padding: 5px;
+  cursor: pointer;
+  transition: 0.5s ease all;
+}
+.AdminCategoryProductsList__Details--Buttons button:nth-child(1) {
+  color: var(--Blue);
+}
+.AdminCategoryProductsList__Details--Buttons button:nth-child(2) {
+  color: var(--Red);
+}
+.AdminCategoryProductsList__Details--Buttons button:nth-child(1):hover {
+  background-color: var(--Blue);
+  color: var(--White);
+  transform: scale(1.05);
+}
+.AdminCategoryProductsList__Details--Buttons button:nth-child(2):hover {
+  background-color: var(--Red);
+  color: var(--White);
+  transform: scale(1.05);
+}
+.AdminCategoryProductsList__Button {
+  grid-column: span 2;
+  height: 50px;
+  background-color: var(--StrongPurple);
+  font-size: var(--NormalFontSize);
+  color: var(--White);
+  font-weight: bold;
+  outline: none;
+  border: 2px solid var(--StrongPurple);
+
+  transition: 0.5s ease all;
+}
+.AdminCategoryProductsList__Button:hover {
+  cursor: pointer;
+  background-color: var(--White);
+  color: var(--StrongPurple);
+  letter-spacing: 1px;
+}
+@media (width < 500px) {
+  .AdminCategoryProductsList {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .AdminCategoryProductsList__Title {
+    grid-column: span 1;
+  }
+  .AdminCategoryProductsList__Button {
+    grid-column: span 1;
+  }
+}

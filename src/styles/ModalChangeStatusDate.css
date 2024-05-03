@@ -13,7 +13,7 @@
   align-items: center;
   justify-content: center;
 
-  transition: 0.5s ease all;
+  /* transition: 0.5s ease all; */
   opacity: 0;
 }
 .ModalChangeStatusDate.Show {
@@ -73,10 +73,12 @@
 .ModalChangeStatusDate__Container__Text {
   width: 100%;
   font-size: var(--NormalFontSize);
+  text-align: center;
 }
 .ModalChangeStatusDate__Container__Text b {
-  color: var(--StrongPurple);
+  color: var(--Red);
   font-weight: bold;
+  text-transform: uppercase;
 }
 .ModalChangeStatusDate__Container__Message {
   font-style: italic;

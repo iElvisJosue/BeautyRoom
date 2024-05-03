@@ -1,4 +1,4 @@
-.ModalAdminSubservice {
+.ModalDeleteProduct {
   position: fixed;
   top: 0;
   left: 0;
@@ -16,11 +16,11 @@
   /* transition: 0.5s ease all; */
   opacity: 0;
 }
-.ModalAdminSubservice.Show {
+.ModalDeleteProduct.Show {
   opacity: 1;
   z-index: 1000;
 }
-.ModalAdminSubservice__Container {
+.ModalDeleteProduct__Container {
   position: relative;
   width: 500px;
   min-height: 200px;
@@ -35,7 +35,7 @@
   align-items: center;
   gap: 20px;
 }
-.ModalAdminSubservice__Container__Close {
+.ModalDeleteProduct__Container__Close {
   position: absolute;
   top: -25px;
   right: -25px;
@@ -54,62 +54,38 @@
   align-items: center;
   justify-content: center;
 }
-.ModalAdminSubservice__Container__Close:hover {
+.ModalDeleteProduct__Container__Close:hover {
   transform: scale(1.1);
 }
-.ModalAdminSubservice__Container__Title {
+.ModalDeleteProduct__Container__Title {
   font-size: var(--SubTittleFontSize);
   font-weight: bold;
   color: var(--Black);
   text-align: center;
   text-transform: uppercase;
 }
-.ModalAdminSubservice__Container__Divisor {
+.ModalDeleteProduct__Container__Divisor {
   width: 100%;
   height: 1px;
   border: none;
   background: var(--Gray);
 }
-.ModalAdminSubservice__Container__Text {
+.ModalDeleteProduct__Container__Text {
   width: 100%;
   font-size: var(--NormalFontSize);
+  text-align: center;
 }
-.ModalAdminSubservice__Container__Text b {
-  color: var(--StrongPurple);
+.ModalDeleteProduct__Container__Text b {
+  color: var(--Red);
   font-weight: bold;
+  text-transform: uppercase;
 }
-.ModalAdminSubservice__Container__Message {
+.ModalDeleteProduct__Container__Message {
   font-style: italic;
   color: var(--Gray);
   text-align: center;
 }
-.ModalAdminSubservice__Container__Form {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-.ModalAdminSubservice__Container__Form--Title {
-  font-size: var(--NormalFontSize);
-  font-weight: bold;
-  color: var(--Gray);
-}
-.ModalAdminSubservice__Container__Form--Input {
-  width: 100%;
-  height: 50px;
-  padding: 10px;
-  border: none;
-  outline: none;
-  background-color: var(--Transparent);
-  font-size: var(--NormalFontSize);
-  color: var(--Black);
-  font-weight: bold;
-}
-.ModalAdminSubservice__Container__Form--Input::placeholder {
-  color: var(--Gray);
-  font-weight: bold;
-}
-.ModalAdminSubservice__Container__Form--Button {
+.ModalDeleteProduct__Container__Form--Button {
   width: 100%;
   height: 50px;
   background-color: var(--StrongPurple);
@@ -121,26 +97,22 @@
 
   transition: 0.5s ease all;
 }
-.ModalAdminSubservice__Container__Form--Button:hover {
+.ModalDeleteProduct__Container__Form--Button:hover {
   cursor: pointer;
   background-color: var(--White);
   color: var(--StrongPurple);
   letter-spacing: 1px;
 }
-.ModalAdminSubservice__Container__Form--SmallError {
-  font-weight: bold;
-  color: var(--Red);
-}
 @media (width < 400px) {
-  .ModalAdminSubservice__Container {
+  .ModalDeleteProduct__Container {
     min-height: auto;
     padding: 20px;
     gap: 20px;
   }
-  .ModalAdminSubservice__Container__Title {
+  .ModalDeleteProduct__Container__Title {
     font-size: var(--IconFontSize);
   }
-  .ModalAdminSubservice__Container__Form--Button {
+  .ModalDeleteProduct__Container__Form--Button {
     font-size: var(--SmallFontSize);
   }
 }

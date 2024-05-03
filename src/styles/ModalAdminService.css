@@ -108,7 +108,7 @@
 }
 .ModalAdminService__Container__Form--File {
   max-width: 100%;
-  height: 40px;
+  height: 50px;
   background-color: var(--StrongPurple);
   color: var(--White);
   font-size: var(--NormalFontSize);
@@ -176,6 +176,20 @@
 .ModalAdminService__Container__Form--SmallError {
   font-weight: bold;
   color: var(--Red);
+}
+@media (width < 500px) {
+  .ModalAdminService__Container__Title {
+    font-size: var(--IconFontSize);
+  }
+  .ModalAdminService__Container__Form--Picture {
+    width: 85px;
+    height: 85px;
+  }
+  .ModalAdminService__Container__Form--Input,
+  .ModalAdminService__Container__Form--File,
+  .ModalAdminService__Container__Form--Button {
+    height: 40px;
+  }
 }
 @media (width < 400px) {
   .ModalAdminService__Container {
