@@ -8,7 +8,6 @@ export default function SubMenu({
   setOptionSubMenu,
   optionSubMenu,
 }) {
-  console.log(optionSubMenu);
   const setOptionOneSubmenu = () => {
     setOptionSubMenu(0);
   };

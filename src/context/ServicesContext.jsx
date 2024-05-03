@@ -12,6 +12,7 @@ import {
   updateOneSubservice,
   addNewImageService,
   addNewService,
+  updateOneService,
 } from "../api/authServices";
 
 export const ServicesContext = createContext();
@@ -129,6 +130,15 @@ export const ServicesProvider = ({ children }) => {
     }
   };
 
+  const updateService = async (data) => {
+    try {
+      const res = await updateOneService(data);
+      return res;
+    } catch (error) {
+      return error;
+    }
+  };
+
   return (
     <ServicesContext.Provider
       value={{
@@ -144,6 +154,7 @@ export const ServicesProvider = ({ children }) => {
         updateSubservice,
         addImageService,
         addService,
+        updateService,
       }}
     >
       {children}

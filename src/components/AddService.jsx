@@ -19,6 +19,7 @@ export default function AddService({
   setGetServicesAndSubservicesAgain,
   getServicesAndSubservicesAgain,
 }) {
+  const [image, setImage] = useState("SeleccionarImagen.png");
   const [hasImage, setHasImage] = useState(null);
   const [showError, setShowError] = useState(false);
 
@@ -34,11 +35,16 @@ export default function AddService({
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
+      // ESTABLECEMOS LA IMAGEN SELECCIONADA EN EL INPUT FILE
+      const reader = new FileReader();
+      reader.onload = () => {
+        setImage(reader.result);
+      };
+      reader.readAsDataURL(file);
       setHasImage(file);
       setShowError(false);
     }
   };
-
   const validateImage = handleSubmit(async (data) => {
     if (hasImage) {
       if (!hasImage.type.startsWith("image")) {
@@ -66,7 +72,10 @@ export default function AddService({
     formData.append("ImagenServicio", hasImage);
     try {
       const res = await addImageService(formData);
-      if (res.status === 200) {
+      if (res.response) {
+        const { status, data } = res.response;
+        handleResponseMessages({ status, data });
+      } else {
         try {
           const res = await addService(dataService);
           const { status, data } = res;
@@ -91,7 +100,7 @@ export default function AddService({
       encType="multipart/form-data"
     >
       <picture className="AddService__Picture">
-        <img src="./SeleccionarImagen.png" alt="Agregar Imagen del Servicio" />
+        <img src={image} alt="Agregar Imagen del Servicio" />
       </picture>
       <p className="AddService__Description">
         Por favor, selecciona una imagen en formato PNG, JPG o JPEG con un

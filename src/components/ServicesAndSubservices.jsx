@@ -17,6 +17,7 @@ export default function ServicesAndSubservices({
   setShowModalAdminSubservice,
   getServicesAndSubservicesAgain,
   setGetServicesAndSubservicesAgain,
+  setShowModalAdminService,
 }) {
   const { deleteSubservice } = useServices();
 
@@ -43,6 +44,11 @@ export default function ServicesAndSubservices({
     }
   };
 
+  const handleService = (idServicio) => {
+    setCurrentId(idServicio);
+    setShowModalAdminService(true);
+  };
+
   return (
     <section className="ServicesAndSubservices">
       {services.map(
@@ -62,7 +68,7 @@ export default function ServicesAndSubservices({
                 />
                 <p>{`${NombreServicio} (${EstadoServicio.toUpperCase()})`}</p>
               </span>
-              <button onClick={() => alert(idServicio)}>
+              <button onClick={() => handleService(idServicio)}>
                 <ion-icon name="brush-outline"></ion-icon>
               </button>
             </div>

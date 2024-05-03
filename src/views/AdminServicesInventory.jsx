@@ -9,11 +9,13 @@ import Loader from "../components/Loader";
 import AddService from "../components/AddService";
 import ServicesAndSubservices from "../components/ServicesAndSubservices";
 import ModalAdminSubservice from "../components/ModalAdminSubservice";
+import ModalAdminService from "../components/ModalAdminService";
 
 // IMPORTAMOS LOS HOOKS A USAR
 import useSubMenu from "../hooks/useSubMenu";
 import useGetServicesAndSubservices from "../hooks/useGetServicesAndSubservices";
 import useModalAdminSubservice from "../hooks/useModalAdminSubservice";
+import useModalAdminService from "../hooks/useModalAdminService";
 
 // IMPORTAMOS LOS ESTILOS
 import "../styles/AdminServicesInventory.css";
@@ -29,6 +31,8 @@ export default function AdminServicesInventory() {
   const [goingToUpdate, setGoingToUpdate] = useState(false);
   const { showModalAdminSubservice, setShowModalAdminSubservice } =
     useModalAdminSubservice();
+  const { showModalAdminService, setShowModalAdminService } =
+    useModalAdminService();
   const { optionSubMenu, setOptionSubMenu } = useSubMenu();
 
   if (searchingServices) return <Loader />;
@@ -53,6 +57,14 @@ export default function AdminServicesInventory() {
           getServicesAndSubservicesAgain={getServicesAndSubservicesAgain}
           setGetServicesAndSubservicesAgain={setGetServicesAndSubservicesAgain}
         />
+        <ModalAdminService
+          services={services}
+          currentId={currentId}
+          showModalAdminService={showModalAdminService}
+          setShowModalAdminService={setShowModalAdminService}
+          getServicesAndSubservicesAgain={getServicesAndSubservicesAgain}
+          setGetServicesAndSubservicesAgain={setGetServicesAndSubservicesAgain}
+        />
         {optionSubMenu === 0 ? (
           <ServicesAndSubservices
             services={services}
@@ -63,6 +75,7 @@ export default function AdminServicesInventory() {
             setGetServicesAndSubservicesAgain={
               setGetServicesAndSubservicesAgain
             }
+            setShowModalAdminService={setShowModalAdminService}
           />
         ) : (
           <AddService

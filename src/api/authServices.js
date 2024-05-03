@@ -33,3 +33,6 @@ export const addNewImageService = (data) =>
   axios.post("/services/addImageService", data);
 // PETICIÓN PARA AGREGAR UN SERVICIO
 export const addNewService = (data) => axios.post("/services/addService", data);
+// PETICIÓN PARA ACTUALIZAR UN SERVICIO
+export const updateOneService = (data) =>
+  axios.put("/services/updateService", data);

@@ -3,6 +3,7 @@
 // IMPORTAMOS LOS COMPONENTES
 import ServiceDetails from "./ServiceDetails";
 import Loader from "../components/Loader";
+import NotResults from "../components/NotResults";
 
 // IMPORTAMOS LOS HOOKS
 import useGetServices from "../hooks/useGetServices";
@@ -18,7 +19,7 @@ export default function SelectService({ setProgressDate, setDateInformation }) {
   return (
     <div className="SelectService__Container">
       <p className="SelectService__Title">Selecciona un tipo de servicio</p>
-      {services.length > 0 && (
+      {services.length > 0 ? (
         <div className="SelectService__Details">
           {services.map(({ NombreServicio, ImagenServicio, idServicio }) => (
             <ServiceDetails
@@ -31,6 +32,8 @@ export default function SelectService({ setProgressDate, setDateInformation }) {
             />
           ))}
         </div>
+      ) : (
+        <NotResults> No hay servicios disponibles</NotResults>
       )}
     </div>
   );
