@@ -77,7 +77,7 @@ export default function AdminAddProduct({
     dataProduct.ImagenProducto = hasImage.name;
     dataProduct.idCategoriaProducto = currentId;
     const formData = new FormData();
-    formData.append("ImagenProducto", hasImage);
+    formData.append("Imagen", hasImage);
     try {
       const res = await addImageProduct(formData);
       if (res.response) {
@@ -121,7 +121,7 @@ export default function AdminAddProduct({
         <input
           type="file"
           accept="image/*"
-          name="ImagenProducto"
+          name="Imagen"
           onChange={handleFileChange}
         />
         {hasImage ? hasImage?.name : "Seleccionar Imagen"}

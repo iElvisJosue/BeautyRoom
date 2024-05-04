@@ -91,7 +91,7 @@ export default function ModalAdminService({
     dataService.idServicio = currentId;
     if (hasImage) {
       const formData = new FormData();
-      formData.append("ImagenServicio", hasImage);
+      formData.append("Imagen", hasImage);
       try {
         const res = await addImageService(formData);
         console.log(res);
@@ -161,7 +161,7 @@ export default function ModalAdminService({
             <input
               type="file"
               accept="image/*"
-              name="ImagenServicio"
+              name="Imagen"
               onChange={handleFileChange}
             />
             {hasImage ? hasImage?.name : "Seleccionar Imagen"}

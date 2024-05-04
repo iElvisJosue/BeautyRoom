@@ -69,7 +69,7 @@ export default function AddService({
   const addImage = async (dataService) => {
     dataService.ImagenServicio = hasImage.name;
     const formData = new FormData();
-    formData.append("ImagenServicio", hasImage);
+    formData.append("Imagen", hasImage);
     try {
       const res = await addImageService(formData);
       if (res.response) {
@@ -110,7 +110,7 @@ export default function AddService({
         <input
           type="file"
           accept="image/*"
-          name="ImagenServicio"
+          name="Imagen"
           onChange={handleFileChange}
         />
         {hasImage ? hasImage?.name : "Seleccionar Imagen"}
