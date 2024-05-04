@@ -66,6 +66,7 @@
   font-size: var(--IconFontSize);
   font-weight: bold;
   color: var(--Gray);
+  width: 100%;
 }
 .AdminAddProduct__ContainerInputs--Input {
   height: 65px;

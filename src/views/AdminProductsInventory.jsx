@@ -9,12 +9,15 @@ import Loader from "../components/Loader";
 import AdminAddCategory from "../components/AdminAddCategory";
 import AdminCategoryProductsList from "../components/AdminCategoryProductsList";
 import AdminAddProduct from "../components/AdminAddProduct";
+import AdminEditProduct from "../components/AdminEditProduct";
 import ModalDeleteProduct from "../components/ModalDeleteProduct";
+import ModalEditCategory from "../components/ModalEditCategory";
 
 // IMPORTAMOS LOS HOOKS A USAR
 import useSubMenu from "../hooks/useSubMenu";
 import useGetCategoriesAndProducts from "../hooks/useGetCategoriesAndProducts";
 import useModalDeleteProduct from "../hooks/useModalDeleteProduct";
+import useModalEditCategory from "../hooks/useModalEditCategory";
 
 // IMPORTAMOS LOS ESTILOS
 import "../styles/AdminProductsInventory.css";
@@ -30,7 +33,8 @@ export default function AdminProductsInventory() {
   const [currentId, setCurrentId] = useState(null);
   const { showModalDeleteProduct, setShowModalDeleteProduct } =
     useModalDeleteProduct();
-  // const [goingToUpdate, setGoingToUpdate] = useState(false);
+  const { showModalEditCategory, setShowModalEditCategory } =
+    useModalEditCategory();
 
   const productsInventoryProps = {
     categoriesAndProducts,
@@ -42,12 +46,15 @@ export default function AdminProductsInventory() {
     setGetCategoriesAndProductsAgain,
     showModalDeleteProduct,
     setShowModalDeleteProduct,
+    showModalEditCategory,
+    setShowModalEditCategory,
   };
 
   const currentViewAdminProductsInventory = {
     0: AdminCategoryProductsList,
     1: AdminAddCategory,
     2: AdminAddProduct,
+    3: AdminEditProduct,
   };
 
   const OptionAdminProductsInventory =
@@ -60,6 +67,9 @@ export default function AdminProductsInventory() {
       <Navbar>Inventario de Productos</Navbar>
       {showModalDeleteProduct && (
         <ModalDeleteProduct {...productsInventoryProps} />
+      )}
+      {showModalEditCategory && (
+        <ModalEditCategory {...productsInventoryProps} />
       )}
       <div className="AdminProductsInventory__Container">
         <SubMenu

@@ -5,7 +5,9 @@ import {
   getAllCategoriesAndProducts,
   addNewImageProduct,
   addNewProduct,
+  updateOneProduct,
   deleteOneProduct,
+  updateOneCategory,
 } from "../api/authProducts";
 
 export const ProductsContext = createContext();
@@ -75,6 +77,24 @@ export const ProductsProvider = ({ children }) => {
     }
   };
 
+  const updateProduct = async (data) => {
+    try {
+      const res = await updateOneProduct(data);
+      return res;
+    } catch (error) {
+      return error;
+    }
+  };
+
+  const updateCategory = async (data) => {
+    try {
+      const res = await updateOneCategory(data);
+      return res;
+    } catch (error) {
+      return error;
+    }
+  };
+
   return (
     <ProductsContext.Provider
       value={{
@@ -84,6 +104,8 @@ export const ProductsProvider = ({ children }) => {
         addImageProduct,
         addProduct,
         deleteProduct,
+        updateProduct,
+        updateCategory,
       }}
     >
       {children}

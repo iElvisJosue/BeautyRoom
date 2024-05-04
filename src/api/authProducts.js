@@ -11,8 +11,14 @@ export const getAllCategoriesAndProducts = () =>
   axios.get("/products/getACategoriesAndProducts");
 export const addNewImageProduct = (data) =>
   axios.post("/products/addImageProduct", data);
-// PETICIÓN PARA AGREGAR UN SERVICIO
+// PETICIÓN PARA AGREGAR UN PRODUCTO
 export const addNewProduct = (data) => axios.post("/products/addProduct", data);
+// PETICIÓN PARA ACTUALIZAR UN PRODUCTO
+export const updateOneProduct = (data) =>
+  axios.put("/products/updateProduct", data);
 // PETICIÓN PARA ELIMINAR UN PRODUCTO
 export const deleteOneProduct = (idProducto) =>
   axios.delete(`/products/deleteProduct/${idProducto}`);
+// PETICIÓN PARA ACTUALIZAR UNA CATEGORIA
+export const updateOneCategory = (data) =>
+  axios.put("/products/updateCategory", data);
