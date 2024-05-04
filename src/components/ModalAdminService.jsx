@@ -99,6 +99,7 @@ export default function ModalAdminService({
           const { status, data } = res.response;
           handleResponseMessages({ status, data });
         } else {
+          dataService.updateService = true;
           handleUpdateService(dataService);
         }
       } catch (error) {
@@ -106,6 +107,7 @@ export default function ModalAdminService({
         handleResponseMessages({ status, data });
       }
     } else {
+      dataService.updateService = false;
       handleUpdateService(dataService);
     }
   };
