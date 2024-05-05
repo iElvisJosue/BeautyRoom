@@ -1,10 +1,14 @@
 /* eslint-disable react/prop-types */
 
+// IMPORTAMOS LOS CONTEXTOS A USAR
+import { useProducts } from "../context/ProductsContext";
+
 // IMPORTAMOS LOS COMPONENTES A USAR
 import NotResults from "./NotResults";
 
 // IMPORTAMOS LAS AYUDAS
 import { HOST_IMG } from "../helpers/Urls";
+import { handleResponseMessages } from "../helpers/RespuestasServidor";
 
 // IMPORTAMOS LOS ESTILOS
 import "../styles/AdminCategoryProductsList.css";
@@ -15,7 +19,11 @@ export default function AdminCategoryProductsList({
   setOptionSubMenu,
   setShowModalDeleteProduct,
   setShowModalEditCategory,
+  getCategoriesAndProductsAgain,
+  setGetCategoriesAndProductsAgain,
 }) {
+  const { deleteCategory } = useProducts();
+
   const handleSectionAddProduct = (idServicio) => {
     setCurrentId(idServicio);
     setOptionSubMenu(2);
@@ -36,6 +44,18 @@ export default function AdminCategoryProductsList({
     setShowModalEditCategory(true);
   };
 
+  const handleDeleteService = async (idCategoriaProducto) => {
+    try {
+      const res = await deleteCategory(idCategoriaProducto);
+      const { status, data } = res;
+      handleResponseMessages({ status, data });
+      setGetCategoriesAndProductsAgain(!getCategoriesAndProductsAgain);
+    } catch (error) {
+      const { status, data } = error.response;
+      handleResponseMessages({ status, data });
+    }
+  };
+
   return (
     <section className="AdminCategoryProductsList">
       {categoriesAndProducts?.length > 0 ? (
@@ -52,9 +72,25 @@ export default function AdminCategoryProductsList({
                   productos)
                 </p>
               </span>
-              <button onClick={() => handleCategory(category)}>
-                <ion-icon name="brush-outline"></ion-icon>
-              </button>
+              <span className="AdminCategoryProductsList__Title--Buttons">
+                <button
+                  onClick={() => handleCategory(category)}
+                  className="AdminCategoryProductsList__Title--Buttons--Button Edit"
+                >
+                  <ion-icon name="brush-outline"></ion-icon>
+                </button>
+                {/* SI NO HAY PRODUCTOS EN L A CATEGORIA, PODEMOS ELIMINARLA */}
+                {category.Productos?.length === 0 && (
+                  <button
+                    onClick={() =>
+                      handleDeleteService(category.idCategoriaProducto)
+                    }
+                    className="AdminCategoryProductsList__Title--Buttons--Button Delete"
+                  >
+                    <ion-icon name="trash-bin-outline"></ion-icon>
+                  </button>
+                )}
+              </span>
             </div>
             {category.Productos?.map((Producto, index) => (
               <div className="AdminCategoryProductsList__Details" key={index}>

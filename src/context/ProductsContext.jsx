@@ -8,6 +8,7 @@ import {
   updateOneProduct,
   deleteOneProduct,
   updateOneCategory,
+  deleteOneCategory,
 } from "../api/authProducts";
 
 export const ProductsContext = createContext();
@@ -95,6 +96,15 @@ export const ProductsProvider = ({ children }) => {
     }
   };
 
+  const deleteCategory = async (data) => {
+    try {
+      const res = await deleteOneCategory(data);
+      return res;
+    } catch (error) {
+      return error;
+    }
+  };
+
   return (
     <ProductsContext.Provider
       value={{
@@ -106,6 +116,7 @@ export const ProductsProvider = ({ children }) => {
         deleteProduct,
         updateProduct,
         updateCategory,
+        deleteCategory,
       }}
     >
       {children}

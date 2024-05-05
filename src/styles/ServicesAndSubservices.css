@@ -19,23 +19,6 @@
 .ServicesAndSubservices__Title.Inactivo {
   filter: grayscale(1);
 }
-.ServicesAndSubservices__Title button {
-  cursor: pointer;
-  background: var(--White);
-  outline: none;
-  border: none;
-  padding: 5px;
-  color: var(--Blue);
-  font-size: var(--IconFontSize);
-  border-radius: 10px;
-
-  transition: 0.5s ease all;
-}
-.ServicesAndSubservices__Title button:hover {
-  background: var(--Blue);
-  transform: scale(1.1);
-  color: var(--White);
-}
 .ServicesAndSubservices__Title--Icon {
   display: flex;
   align-items: center;
@@ -45,6 +28,41 @@
 .ServicesAndSubservices__Title--Icon img {
   width: 35px;
   height: 35px;
+}
+.ServicesAndSubservices__Title--Buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.ServicesAndSubservices__Title--Buttons--Button {
+  cursor: pointer;
+  background: var(--White);
+  outline: none;
+  border: none;
+  padding: 5px;
+  font-size: var(--IconFontSize);
+  transition: 0.5s ease all;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ServicesAndSubservices__Title--Buttons--Button.Edit {
+  color: var(--Blue);
+}
+.ServicesAndSubservices__Title--Buttons--Button.Delete {
+  color: var(--Red);
+}
+.ServicesAndSubservices__Title--Buttons--Button.Edit:hover {
+  background: var(--Blue);
+  transform: scale(1.1);
+  color: var(--White);
+}
+.ServicesAndSubservices__Title--Buttons--Button.Delete:hover {
+  background: var(--Red);
+  transform: scale(1.1);
+  color: var(--White);
 }
 .ServicesAndSubservices__Title--Icon p {
   font-size: var(--NormalFontSize);

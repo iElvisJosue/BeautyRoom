@@ -22,3 +22,6 @@ export const deleteOneProduct = (idProducto) =>
 // PETICIÓN PARA ACTUALIZAR UNA CATEGORIA
 export const updateOneCategory = (data) =>
   axios.put("/products/updateCategory", data);
+// PETICIÓN PARA ELIMINAR UNA CATEGORIA
+export const deleteOneCategory = (idCategoriaProducto) =>
+  axios.delete(`/products/deleteCategory/${idCategoriaProducto}`);

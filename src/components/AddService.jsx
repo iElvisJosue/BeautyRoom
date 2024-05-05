@@ -31,7 +31,7 @@ export default function AddService({
     criteriaMode: "all",
   });
 
-  const { addImageService, addService } = useServices();
+  const { verifyService, addImageService, addService } = useServices();
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -61,16 +61,32 @@ export default function AddService({
         });
         return;
       }
-      addImage(data);
+      verifyServiceExist(data);
     } else {
       setShowError(true);
     }
   });
+  const verifyServiceExist = async (data) => {
+    const { NombreServicio } = data;
+    try {
+      const res = await verifyService({ NombreServicio });
+      if (res.response) {
+        const { status, data } = res.response;
+        handleResponseMessages({ status, data });
+      } else {
+        addImage(data);
+      }
+    } catch (error) {
+      const { status, data } = error.response;
+      handleResponseMessages({ status, data });
+    }
+  };
   const addImage = async (dataService) => {
     dataService.ImagenServicio = hasImage.name;
-    const formData = new FormData();
-    formData.append("Imagen", hasImage);
     try {
+      const formData = new FormData();
+      formData.append("TituloImagen", "Servicio");
+      formData.append("Imagen", hasImage);
       const res = await addImageService(formData);
       if (res.response) {
         const { status, data } = res.response;

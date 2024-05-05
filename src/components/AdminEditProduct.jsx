@@ -85,9 +85,12 @@ export default function AdminEditProduct({
   const handleUpdateProductImage = async (dataProduct) => {
     dataProduct.ImagenProducto = hasImage ? hasImage.name : image;
     dataProduct.idProducto = currentId.idProducto;
+
+    // CREAMOS EL FORM DATA QUE ENVIARA LA IMAGEN
+    const formData = new FormData();
+    formData.append("TituloImagen", "Producto");
+    formData.append("Imagen", hasImage);
     if (hasImage) {
-      const formData = new FormData();
-      formData.append("Imagen", hasImage);
       try {
         const res = await addImageProduct(formData);
         console.log(res);

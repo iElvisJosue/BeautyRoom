@@ -76,7 +76,10 @@ export default function AdminAddProduct({
   const addImage = async (dataProduct) => {
     dataProduct.ImagenProducto = hasImage.name;
     dataProduct.idCategoriaProducto = currentId;
+
+    // CREAMOS EL FORM DATA QUE ENVIARA LA IMAGEN
     const formData = new FormData();
+    formData.append("TituloImagen", "Producto");
     formData.append("Imagen", hasImage);
     try {
       const res = await addImageProduct(formData);

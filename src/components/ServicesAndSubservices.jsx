@@ -19,19 +19,16 @@ export default function ServicesAndSubservices({
   setGetServicesAndSubservicesAgain,
   setShowModalAdminService,
 }) {
-  const { deleteSubservice } = useServices();
-
+  const { deleteSubservice, deleteService } = useServices();
   const handleModalAddSubservice = (idServicio) => {
     setCurrentId(idServicio);
     setShowModalAdminSubservice(true);
   };
-
   const handleEditSubservice = (idSubservicio) => {
     setCurrentId(idSubservicio);
     setGoingToUpdate(true);
     setShowModalAdminSubservice(true);
   };
-
   const handleDeleteSubservice = async (idSubservicio) => {
     try {
       const res = await deleteSubservice(idSubservicio);
@@ -43,12 +40,21 @@ export default function ServicesAndSubservices({
       handleResponseMessages({ status, data });
     }
   };
-
+  const handleDeleteService = async (idServicio) => {
+    try {
+      const res = await deleteService(idServicio);
+      const { status, data } = res;
+      handleResponseMessages({ status, data });
+      setGetServicesAndSubservicesAgain(!getServicesAndSubservicesAgain);
+    } catch (error) {
+      const { status, data } = error.response;
+      handleResponseMessages({ status, data });
+    }
+  };
   const handleService = (idServicio) => {
     setCurrentId(idServicio);
     setShowModalAdminService(true);
   };
-
   return (
     <section className="ServicesAndSubservices">
       {services.map(
@@ -68,9 +74,22 @@ export default function ServicesAndSubservices({
                 />
                 <p>{`${NombreServicio} (${EstadoServicio.toUpperCase()})`}</p>
               </span>
-              <button onClick={() => handleService(idServicio)}>
-                <ion-icon name="brush-outline"></ion-icon>
-              </button>
+              <span className="ServicesAndSubservices__Title--Buttons">
+                <button
+                  onClick={() => handleService(idServicio)}
+                  className="ServicesAndSubservices__Title--Buttons--Button Edit"
+                >
+                  <ion-icon name="brush-outline"></ion-icon>
+                </button>
+                {Subservicios.length === 0 && (
+                  <button
+                    onClick={() => handleDeleteService(idServicio)}
+                    className="ServicesAndSubservices__Title--Buttons--Button Delete"
+                  >
+                    <ion-icon name="trash-bin-outline"></ion-icon>
+                  </button>
+                )}
+              </span>
             </div>
             {Subservicios.map(
               (

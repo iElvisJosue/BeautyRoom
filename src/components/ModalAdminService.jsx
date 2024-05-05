@@ -46,7 +46,7 @@ export default function ModalAdminService({
     setImage(serviceToUpdate?.ImagenServicio);
   }, [showModalAdminService]);
 
-  const { addImageService, updateService } = useServices();
+  const { verifyService, addImageService, updateService } = useServices();
 
   const classModalAddSubservice = showModalAdminService
     ? "ModalAdminService Show"
@@ -83,18 +83,37 @@ export default function ModalAdminService({
         return;
       }
     }
-    handleUpdateServiceImage(data);
+    verifyServiceExist(data);
   });
+
+  const verifyServiceExist = async (dataService) => {
+    const { NombreServicio } = dataService;
+    try {
+      const res = await verifyService({
+        NombreServicio,
+        idServicio: currentId,
+      });
+      if (res.response) {
+        const { status, data } = res.response;
+        handleResponseMessages({ status, data });
+      } else {
+        handleUpdateServiceImage(dataService);
+      }
+    } catch (error) {
+      const { status, data } = error.response;
+      handleResponseMessages({ status, data });
+    }
+  };
 
   const handleUpdateServiceImage = async (dataService) => {
     dataService.ImagenServicio = hasImage ? hasImage.name : image;
     dataService.idServicio = currentId;
     if (hasImage) {
       const formData = new FormData();
+      formData.append("TituloImagen", "Servicio");
       formData.append("Imagen", hasImage);
       try {
         const res = await addImageService(formData);
-        console.log(res);
         if (res.response) {
           const { status, data } = res.response;
           handleResponseMessages({ status, data });

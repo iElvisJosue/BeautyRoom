@@ -14,6 +14,8 @@ import {
   addNewService,
   updateOneService,
   getAllServicesByUser,
+  deleteOneService,
+  verifyAllServices,
 } from "../api/authServices";
 
 export const ServicesContext = createContext();
@@ -149,6 +151,24 @@ export const ServicesProvider = ({ children }) => {
     }
   };
 
+  const deleteService = async (data) => {
+    try {
+      const res = await deleteOneService(data);
+      return res;
+    } catch (error) {
+      return error;
+    }
+  };
+
+  const verifyService = async (data) => {
+    try {
+      const res = await verifyAllServices(data);
+      return res;
+    } catch (error) {
+      return error;
+    }
+  };
+
   return (
     <ServicesContext.Provider
       value={{
@@ -166,6 +186,8 @@ export const ServicesProvider = ({ children }) => {
         addService,
         updateService,
         getServicesByUser,
+        deleteService,
+        verifyService,
       }}
     >
       {children}

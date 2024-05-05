@@ -19,23 +19,6 @@
 .AdminCategoryProductsList__Title.Inactivo {
   filter: grayscale(1);
 }
-.AdminCategoryProductsList__Title button {
-  cursor: pointer;
-  background: var(--White);
-  outline: none;
-  border: none;
-  padding: 5px;
-  color: var(--Blue);
-  font-size: var(--IconFontSize);
-  border-radius: 10px;
-
-  transition: 0.5s ease all;
-}
-.AdminCategoryProductsList__Title button:hover {
-  background: var(--Blue);
-  transform: scale(1.1);
-  color: var(--White);
-}
 .AdminCategoryProductsList__Title--Icon {
   display: flex;
   align-items: center;
@@ -49,6 +32,41 @@
 .AdminCategoryProductsList__Title--Icon p {
   font-size: var(--NormalFontSize);
   font-weight: bold;
+  color: var(--White);
+}
+.AdminCategoryProductsList__Title--Buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.AdminCategoryProductsList__Title--Buttons--Button {
+  cursor: pointer;
+  background: var(--White);
+  outline: none;
+  border: none;
+  padding: 5px;
+  font-size: var(--IconFontSize);
+  transition: 0.5s ease all;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.AdminCategoryProductsList__Title--Buttons--Button.Edit {
+  color: var(--Blue);
+}
+.AdminCategoryProductsList__Title--Buttons--Button.Delete {
+  color: var(--Red);
+}
+.AdminCategoryProductsList__Title--Buttons--Button.Edit:hover {
+  background: var(--Blue);
+  transform: scale(1.1);
+  color: var(--White);
+}
+.AdminCategoryProductsList__Title--Buttons--Button.Delete:hover {
+  background: var(--Red);
+  transform: scale(1.1);
   color: var(--White);
 }
 .AdminCategoryProductsList__Details {

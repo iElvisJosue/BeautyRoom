@@ -39,3 +39,9 @@ export const updateOneService = (data) =>
 // PETICIÓN PARA OBTENER LOS SERVICIOS DE UN EMPLEADO
 export const getAllServicesByUser = (data) =>
   axios.post("/services/getServicesByUser", data);
+// PETICIÓN PARA ELIMINAR UN SERVICIO
+export const deleteOneService = (idServicio) =>
+  axios.delete(`/services/deleteService/${idServicio}`);
+// PETICIÓN PARA VERIFICAR SI YA EXISTE UN SERVICIO
+export const verifyAllServices = (data) =>
+  axios.post("/services/verifyServices", data);
