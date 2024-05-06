@@ -1,5 +1,8 @@
 /* eslint-disable react/prop-types */
 
+// IMPORTAMOS LOS COMPONENTES A USAR
+import NotResults from "./NotResults";
+
 // IMPORTAMOS LOS CONTEXTOS A USAR
 import { useServices } from "../context/ServicesContext";
 
@@ -57,71 +60,81 @@ export default function ServicesAndSubservices({
   };
   return (
     <section className="ServicesAndSubservices">
-      {services.map(
-        ({
-          idServicio,
-          NombreServicio,
-          Subservicios,
-          ImagenServicio,
-          EstadoServicio,
-        }) => (
-          <>
-            <div className={`ServicesAndSubservices__Title ${EstadoServicio}`}>
-              <span className="ServicesAndSubservices__Title--Icon">
-                <img
-                  src={`${HOST_IMG}/${ImagenServicio}`}
-                  alt={`Icono de ${NombreServicio}`}
-                />
-                <p>{`${NombreServicio} (${EstadoServicio.toUpperCase()})`}</p>
-              </span>
-              <span className="ServicesAndSubservices__Title--Buttons">
-                <button
-                  onClick={() => handleService(idServicio)}
-                  className="ServicesAndSubservices__Title--Buttons--Button Edit"
-                >
-                  <ion-icon name="brush-outline"></ion-icon>
-                </button>
-                {Subservicios.length === 0 && (
+      {services.length > 0 ? (
+        services.map(
+          ({
+            idServicio,
+            NombreServicio,
+            Subservicios,
+            ImagenServicio,
+            EstadoServicio,
+          }) => (
+            <>
+              <div
+                className={`ServicesAndSubservices__Title ${EstadoServicio}`}
+              >
+                <span className="ServicesAndSubservices__Title--Icon">
+                  <img
+                    src={`${HOST_IMG}/${ImagenServicio}`}
+                    alt={`Icono de ${NombreServicio}`}
+                  />
+                  <p>{`${NombreServicio} (${EstadoServicio.toUpperCase()})`}</p>
+                </span>
+                <span className="ServicesAndSubservices__Title--Buttons">
                   <button
-                    onClick={() => handleDeleteService(idServicio)}
-                    className="ServicesAndSubservices__Title--Buttons--Button Delete"
+                    onClick={() => handleService(idServicio)}
+                    className="ServicesAndSubservices__Title--Buttons--Button Edit"
                   >
-                    <ion-icon name="trash-bin-outline"></ion-icon>
+                    <ion-icon name="brush-outline"></ion-icon>
                   </button>
-                )}
-              </span>
-            </div>
-            {Subservicios.map(
-              (
-                { NombreSubservicio, CostoSubservicio, idSubservicio },
-                index
-              ) => (
-                <div className="ServicesAndSubservices__Details" key={index}>
-                  <span className="ServicesAndSubservices__Details--Text">
-                    <p>{NombreSubservicio}</p>
-                    <p>${CostoSubservicio}</p>
-                  </span>
-                  <span className="ServicesAndSubservices__Details--Buttons">
-                    <button onClick={() => handleEditSubservice(idSubservicio)}>
-                      <ion-icon name="brush-outline"></ion-icon>
-                    </button>
+                  {Subservicios.length === 0 && (
                     <button
-                      onClick={() => handleDeleteSubservice(idSubservicio)}
+                      onClick={() => handleDeleteService(idServicio)}
+                      className="ServicesAndSubservices__Title--Buttons--Button Delete"
                     >
                       <ion-icon name="trash-bin-outline"></ion-icon>
                     </button>
-                  </span>
-                </div>
-              )
-            )}
-            <button
-              className="ServicesAndSubservices__Button"
-              onClick={() => handleModalAddSubservice(idServicio)}
-            >
-              Agregar Subservicio
-            </button>
-          </>
+                  )}
+                </span>
+              </div>
+              {Subservicios.map(
+                (
+                  { NombreSubservicio, CostoSubservicio, idSubservicio },
+                  index
+                ) => (
+                  <div className="ServicesAndSubservices__Details" key={index}>
+                    <span className="ServicesAndSubservices__Details--Text">
+                      <p>{NombreSubservicio}</p>
+                      <p>${CostoSubservicio}</p>
+                    </span>
+                    <span className="ServicesAndSubservices__Details--Buttons">
+                      <button
+                        onClick={() => handleEditSubservice(idSubservicio)}
+                      >
+                        <ion-icon name="brush-outline"></ion-icon>
+                      </button>
+                      <button
+                        onClick={() => handleDeleteSubservice(idSubservicio)}
+                      >
+                        <ion-icon name="trash-bin-outline"></ion-icon>
+                      </button>
+                    </span>
+                  </div>
+                )
+              )}
+              <button
+                className="ServicesAndSubservices__Button"
+                onClick={() => handleModalAddSubservice(idServicio)}
+              >
+                Agregar Subservicio
+              </button>
+            </>
+          )
         )
+      ) : (
+        <NotResults responsive>
+          No se encontraron servicios disponibles
+        </NotResults>
       )}
     </section>
   );

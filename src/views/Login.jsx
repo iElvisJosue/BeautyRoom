@@ -110,9 +110,9 @@ export default function Login() {
           >
             Iniciar Sesión
           </button>
-          <span className="Login__Container__Form__Right--CreateAccount">
+          {/* <span className="Login__Container__Form__Right--CreateAccount">
             ¿No tienes una cuenta? <a href="#">Registrate</a>
-          </span>
+          </span> */}
         </aside>
       </form>
       <Toaster richColors position="top-right" closeButton />

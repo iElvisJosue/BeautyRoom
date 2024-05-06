@@ -1,4 +1,4 @@
-.AdminCategoryProductsList {
+.AdminCategoryInternalList {
   width: 100%;
   height: auto;
   padding: 20px;
@@ -7,7 +7,7 @@
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
 }
-.AdminCategoryProductsList__Title {
+.AdminCategoryInternalList__Title {
   grid-column: span 2;
   padding: 10px;
   background: var(--ContainerGreen);
@@ -16,31 +16,31 @@
   align-items: center;
   justify-content: space-between;
 }
-.AdminCategoryProductsList__Title.Inactivo {
+.AdminCategoryInternalList__Title.Inactivo {
   filter: grayscale(1);
 }
-.AdminCategoryProductsList__Title--Icon {
+.AdminCategoryInternalList__Title--Icon {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
 }
-.AdminCategoryProductsList__Title--Icon img {
+.AdminCategoryInternalList__Title--Icon img {
   width: 35px;
   height: 35px;
 }
-.AdminCategoryProductsList__Title--Icon p {
+.AdminCategoryInternalList__Title--Icon p {
   font-size: var(--NormalFontSize);
   font-weight: bold;
   color: var(--White);
 }
-.AdminCategoryProductsList__Title--Buttons {
+.AdminCategoryInternalList__Title--Buttons {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
 }
-.AdminCategoryProductsList__Title--Buttons--Button {
+.AdminCategoryInternalList__Title--Buttons--Button {
   cursor: pointer;
   background: var(--White);
   outline: none;
@@ -53,23 +53,23 @@
   align-items: center;
   justify-content: center;
 }
-.AdminCategoryProductsList__Title--Buttons--Button.Edit {
+.AdminCategoryInternalList__Title--Buttons--Button.Edit {
   color: var(--Blue);
 }
-.AdminCategoryProductsList__Title--Buttons--Button.Delete {
+.AdminCategoryInternalList__Title--Buttons--Button.Delete {
   color: var(--Red);
 }
-.AdminCategoryProductsList__Title--Buttons--Button.Edit:hover {
+.AdminCategoryInternalList__Title--Buttons--Button.Edit:hover {
   background: var(--Blue);
   transform: scale(1.1);
   color: var(--White);
 }
-.AdminCategoryProductsList__Title--Buttons--Button.Delete:hover {
+.AdminCategoryInternalList__Title--Buttons--Button.Delete:hover {
   background: var(--Red);
   transform: scale(1.1);
   color: var(--White);
 }
-.AdminCategoryProductsList__Details {
+.AdminCategoryInternalList__Details {
   grid-column: span 1;
   background-color: var(--Transparent);
   padding: 10px;
@@ -79,7 +79,7 @@
   justify-content: space-between;
   gap: 5px;
 }
-.AdminCategoryProductsList__Details--Details {
+.AdminCategoryInternalList__Details--Details {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -87,24 +87,24 @@
   justify-content: flex-end;
   gap: 5px;
 }
-.AdminCategoryProductsList__Details--Details p {
+.AdminCategoryInternalList__Details--Details p {
   width: 100%;
   font-size: var(--NormalFontSize);
   font-weight: bold;
   color: var(--StrongPurple);
   text-align: center;
 }
-.AdminCategoryProductsList__Details--Details img {
+.AdminCategoryInternalList__Details--Details img {
   max-width: 100%;
   height: 100px;
 }
-.AdminCategoryProductsList__Details--Buttons {
+.AdminCategoryInternalList__Details--Buttons {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
 }
-.AdminCategoryProductsList__Details--Buttons button {
+.AdminCategoryInternalList__Details--Buttons button {
   background: none;
   outline: none;
   border: none;
@@ -116,23 +116,23 @@
   cursor: pointer;
   transition: 0.5s ease all;
 }
-.AdminCategoryProductsList__Details--Buttons button:nth-child(1) {
+.AdminCategoryInternalList__Details--Buttons button:nth-child(1) {
   color: var(--Blue);
 }
-.AdminCategoryProductsList__Details--Buttons button:nth-child(2) {
+.AdminCategoryInternalList__Details--Buttons button:nth-child(2) {
   color: var(--Red);
 }
-.AdminCategoryProductsList__Details--Buttons button:nth-child(1):hover {
+.AdminCategoryInternalList__Details--Buttons button:nth-child(1):hover {
   background-color: var(--Blue);
   color: var(--White);
   transform: scale(1.05);
 }
-.AdminCategoryProductsList__Details--Buttons button:nth-child(2):hover {
+.AdminCategoryInternalList__Details--Buttons button:nth-child(2):hover {
   background-color: var(--Red);
   color: var(--White);
   transform: scale(1.05);
 }
-.AdminCategoryProductsList__Button {
+.AdminCategoryInternalList__Button {
   grid-column: span 2;
   height: 50px;
   background-color: var(--StrongPurple);
@@ -144,20 +144,20 @@
 
   transition: 0.5s ease all;
 }
-.AdminCategoryProductsList__Button:hover {
+.AdminCategoryInternalList__Button:hover {
   cursor: pointer;
   background-color: var(--White);
   color: var(--StrongPurple);
   letter-spacing: 1px;
 }
 @media (width < 500px) {
-  .AdminCategoryProductsList {
+  .AdminCategoryInternalList {
     grid-template-columns: repeat(1, 1fr);
   }
-  .AdminCategoryProductsList__Title {
+  .AdminCategoryInternalList__Title {
     grid-column: span 1;
   }
-  .AdminCategoryProductsList__Button {
+  .AdminCategoryInternalList__Button {
     grid-column: span 1;
   }
 }

@@ -126,7 +126,10 @@ export default function AdminCategoryProductsList({
           </>
         ))
       ) : (
-        <NotResults responsive> No hay categorías disponibles</NotResults>
+        <NotResults responsive>
+          {" "}
+          No se encontraron productos disponibles
+        </NotResults>
       )}
     </section>
   );

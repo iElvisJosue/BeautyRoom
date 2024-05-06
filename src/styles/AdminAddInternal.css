@@ -1,4 +1,4 @@
-.AdminAddProduct {
+.AdminAddInternal {
   width: 500px;
   margin: 0 auto;
   display: flex;
@@ -7,7 +7,7 @@
   gap: 20px;
   padding: 20px;
 }
-.AdminAddProduct__Title {
+.AdminAddInternal__Title {
   width: 100%;
   padding: 10px;
   text-align: center;
@@ -16,21 +16,21 @@
   color: var(--White);
   background-color: var(--StrongPurple);
 }
-.AdminAddProduct__Picture {
+.AdminAddInternal__Picture {
   max-width: 100%;
   height: 100px;
 }
-.AdminAddProduct__Picture img {
+.AdminAddInternal__Picture img {
   width: 100%;
   height: 100%;
 }
-.AdminAddProduct__Description {
+.AdminAddInternal__Description {
   text-align: center;
   font-size: var(--NormalFontSize);
   font-weight: bold;
   color: var(--Black);
 }
-.AdminAddProduct__File {
+.AdminAddInternal__File {
   max-width: 100%;
   height: 40px;
   background-color: var(--StrongPurple);
@@ -48,27 +48,27 @@
   align-items: center;
   justify-content: center;
 }
-.AdminAddProduct__File:hover {
+.AdminAddInternal__File:hover {
   background-color: transparent;
   color: var(--StrongPurple);
 }
-.AdminAddProduct__File--SmallError {
+.AdminAddInternal__File--SmallError {
   width: 100%;
   text-align: center;
   font-size: var(--NormalFontSize);
   color: var(--Red);
   font-weight: bold;
 }
-.AdminAddProduct__ContainerInputs {
+.AdminAddInternal__ContainerInputs {
   width: 100%;
 }
-.AdminAddProduct__ContainerInputs--Title {
+.AdminAddInternal__ContainerInputs--Title {
   font-size: var(--IconFontSize);
   font-weight: bold;
   color: var(--Gray);
   width: 100%;
 }
-.AdminAddProduct__ContainerInputs--Input {
+.AdminAddInternal__ContainerInputs--Input {
   height: 65px;
   width: 100%;
   border: none;
@@ -78,22 +78,22 @@
   font-weight: bold;
   color: var(--Black);
 }
-.AdminAddProduct__ContainerInputs--Input.TextArea {
+.AdminAddInternal__ContainerInputs--Input.TextArea {
   resize: vertical;
   min-height: 65px;
   max-height: 300px;
   padding: 20px 0;
 }
-.AdminAddProduct__ContainerInputs--Input::placeholder {
+.AdminAddInternal__ContainerInputs--Input::placeholder {
   font-weight: bold;
   color: var(--Gray);
 }
-.AdminAddProduct__ContainerInputs--SmallError {
+.AdminAddInternal__ContainerInputs--SmallError {
   width: 100%;
   font-weight: bold;
   color: var(--Red);
 }
-.AddUsers__Button {
+.AdminAddInternal__Button {
   width: 100%;
   height: 50px;
   background-color: var(--StrongPurple);
@@ -105,12 +105,12 @@
   transition: 0.5s ease all;
   text-align: center;
 }
-.AddUsers__Button:hover {
+.AdminAddInternal__Button:hover {
   background-color: var(--White);
   color: var(--StrongPurple);
 }
 @media (width < 600px) {
-  .AdminAddProduct {
+  .AdminAddInternal {
     width: 100%;
   }
 }
