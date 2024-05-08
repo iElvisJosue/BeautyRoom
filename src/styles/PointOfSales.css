@@ -1,6 +1,6 @@
 .PointOfSales {
   position: relative;
-  width: 1024px;
+  width: 100%;
   min-height: 100vh;
   height: auto;
   display: flex;
@@ -10,17 +10,40 @@
   background: var(--White);
   overflow: hidden;
 }
+.PointOfSales__ButtonCart {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 75px;
+  height: 75px;
+  cursor: pointer;
+  transition: 0.5s ease all;
+  font-size: var(--TittleFontSize);
+  border-radius: 50%;
+  background-color: var(--StrongPurple);
+  color: var(--White);
+  border: 2px solid var(--StrongPurple);
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.PointOfSales__ButtonCart:hover {
+  background-color: var(--White);
+  color: var(--StrongPurple);
+  transform: scale(1.1);
+}
 .PointOfSales__Container {
   width: 100%;
   height: auto;
 
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  /* padding: 20px; */
+  padding-top: 75px;
 }
-@media (width < 1024px) {
+@media (width > 1920px) {
   .PointOfSales {
-    width: 100%;
+    width: 1024px;
   }
 }

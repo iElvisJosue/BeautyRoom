@@ -1,0 +1,224 @@
+.PointOfSalesProducts {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  padding: 20px;
+}
+.PointOfSalesProducts__Container {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.PointOfSalesProducts__Title {
+  font-size: var(--SubTittleFontSize);
+  font-weight: bold;
+  color: var(--Black);
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.PointOfSalesProducts__Title ion-icon {
+  font-size: var(--IconFontSize);
+  color: var(--StrongPurple);
+}
+.PointOfSalesProducts__Filters {
+  display: flex;
+  gap: 10px;
+  overflow: auto;
+}
+.PointOfSalesProducts__Filters--Button {
+  min-width: 100px;
+  min-height: 50px;
+  padding: 10px;
+  border: none;
+  outline: none;
+  background: var(--SecondaryGray);
+  font-size: var(--NormalFontSize);
+  font-weight: bold;
+  color: var(--Black);
+  cursor: pointer;
+  border-radius: 25px;
+  border: 2px solid var(--SecondaryGray);
+  transition: 0.5s ease all;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+.PointOfSalesProducts__Filters--Button:hover {
+  border: 2px solid var(--Black);
+}
+.PointOfSalesProducts__Filters--Button ion-icon {
+  font-size: var(--NormalFontSize);
+}
+.PointOfSalesProducts__Products {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+}
+.PointOfSalesProducts__Products--Title {
+  grid-column: span 5;
+  font-size: var(--SubTittleFontSize);
+  font-weight: bold;
+  color: var(--Black);
+}
+.PointOfSalesProducts__Products--Title b {
+  color: var(--StrongPurple);
+  font-weight: bold;
+}
+.PointOfSalesProducts__Products--Container {
+  grid-column: span 1;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+}
+.PointOfSalesProducts__Products--Container--Img {
+  position: relative;
+  min-height: 200px;
+  height: 200px;
+  max-height: 200px;
+  border-radius: 15px;
+  overflow: hidden;
+  background: var(--SecondaryGray);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.PointOfSalesProducts__Products--Container--Discount {
+  position: absolute;
+  top: -85px;
+  left: -85px;
+  width: 150px;
+  height: 150px;
+  background: var(--Red);
+  transform: rotate(-45deg);
+  color: var(--White);
+  font-weight: bold;
+  padding: 10px;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.PointOfSalesProducts__Products--Container--Img img {
+  max-width: 80%;
+  max-height: 80%;
+  border-radius: 10px;
+}
+.PointOfSalesProducts__Products--Container--Details {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+}
+.PointOfSalesProducts__Products--Container--NameAndPrice {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+.PointOfSalesProducts__Products--Container--Name,
+.PointOfSalesProducts__Products--Container--Price {
+  font-weight: bold;
+  color: var(--Black);
+  font-size: var(--NormalFontSize);
+}
+.PointOfSalesProducts__Products--Container--Price.Discount {
+  color: var(--Red);
+}
+.PointOfSalesProducts__Products--Container--Description {
+  font-size: var(--NormalFontSize);
+  color: var(--Black);
+  height: 100%;
+}
+.PointOfSalesProducts__Products--Container--Stock {
+  text-align: end;
+  font-size: var(--SmallFontSize);
+  font-style: italic;
+  color: var(--StrongPurple);
+  font-weight: bold;
+}
+.PointOfSalesProducts__Products--Container--Button {
+  width: 100%;
+  height: 50px;
+  padding: 10px;
+  border: none;
+  outline: none;
+  background: var(--StrongPurple);
+  font-size: var(--NormalFontSize);
+  font-weight: bold;
+  color: var(--White);
+  border: 2px solid var(--StrongPurple);
+  cursor: pointer;
+  border-radius: 25px;
+  transition: 0.5s ease all;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+.PointOfSalesProducts__Products--Container--Button ion-icon {
+  font-size: var(--IconFontSize);
+}
+.PointOfSalesProducts__Products--Container--Button:hover {
+  background: var(--White);
+  color: var(--StrongPurple);
+  letter-spacing: 1px;
+}
+@media (width > 1920px) {
+  .PointOfSalesProducts__Products {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .PointOfSalesProducts__Products--Title {
+    grid-column: span 3;
+  }
+}
+@media (width < 1440px) {
+  .PointOfSalesProducts__Products {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .PointOfSalesProducts__Products--Title {
+    grid-column: span 3;
+  }
+}
+@media (width < 1024px) {
+  /* .PointOfSalesProducts__Filters {
+    grid-template-columns: repeat(3, 1fr);
+  } */
+  .PointOfSalesProducts__Products {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .PointOfSalesProducts__Products--Title {
+    grid-column: span 2;
+  }
+}
+@media (width < 500px) {
+  /* .PointOfSalesProducts__Filters {
+    grid-template-columns: repeat(2, 1fr);
+  } */
+  .PointOfSalesProducts__Products {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .PointOfSalesProducts__Products--Title {
+    grid-column: span 1;
+  }
+}
+@media (width < 420px) {
+  .PointOfSalesProducts__Title {
+    font-size: var(--NormalFontSize);
+  }
+  .PointOfSalesProducts__Products--Title {
+    font-size: var(--NormalFontSize);
+  }
+}

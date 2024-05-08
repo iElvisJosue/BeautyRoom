@@ -6,9 +6,12 @@ export const addOneCategoryProduct = (data) =>
 // PETICIÓN PARA VERIFICAR SI YA EXISTE UNA CATEGORIA
 export const verifyAllsCategoryProduct = (data) =>
   axios.post("/products/verifyCategoryExist", data);
-// PETICIÓN PARA OBTENER TODAS LAS CATEGORÍAS
+// PETICIÓN PARA OBTENER TODAS LAS CATEGORÍAS Y SUS PRODUCTOS
 export const getAllCategoriesAndProducts = () =>
-  axios.get("/products/getACategoriesAndProducts");
+  axios.get("/products/getCategoriesAndProducts");
+// PETICIÓN PARA OBTENER TODAS LAS CATEGORÍAS Y SUS PRODUCTOS POR FILTROS
+export const getAllCategoriesAndProductsByFilter = (filter) =>
+  axios.post("/products/getCategoriesAndProductsByFilter/", filter);
 export const addNewImageProduct = (data) =>
   axios.post("/products/addImageProduct", data);
 // PETICIÓN PARA AGREGAR UN PRODUCTO

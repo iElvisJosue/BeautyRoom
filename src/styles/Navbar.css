@@ -10,6 +10,9 @@
   padding: 20px;
   z-index: 999;
 }
+.Navbar.FullScreen {
+  width: 100%;
+}
 .Navbar__Button {
   background: none;
   outline: none;
@@ -41,14 +44,24 @@
 .Navbar__Logo {
   width: 40px;
 }
+@media (width > 1920px) {
+  .Navbar.FullScreen {
+    width: 1024px;
+  }
+}
 
 @media (width < 1024px) {
   .Navbar {
     width: 100%;
   }
 }
-
 @media (width < 500px) {
+  .Navbar__Tittle {
+    font-size: var(--IconFontSize);
+    font-weight: bold;
+  }
+}
+@media (width < 400px) {
   .Navbar__Tittle {
     font-size: var(--NormalFontSize);
     font-weight: bold;

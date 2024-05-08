@@ -45,3 +45,6 @@ export const deleteOneService = (idServicio) =>
 // PETICIÓN PARA VERIFICAR SI YA EXISTE UN SERVICIO
 export const verifyAllServices = (data) =>
   axios.post("/services/verifyServices", data);
+// PETICIÓN PARA OBTENER LOS SERVICIOS Y SUBSERVICIOS CON FILTRO
+export const getAllServicesAndSubservicesByFilter = (data) =>
+  axios.post("/services/getServicesAndSubservicesByFilter", data);

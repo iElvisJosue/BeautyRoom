@@ -1,0 +1,23 @@
+.EmptyCart {
+  width: 100%;
+  height: auto;
+  padding: 20px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+.EmptyCart.Responsive {
+  grid-column: span 2;
+}
+.EmptyCart__Img {
+  width: 200px;
+}
+.EmptyCart__Title {
+  font-size: var(--SubTittleFontSize);
+  font-weight: bold;
+  color: var(--White);
+  text-align: center;
+}

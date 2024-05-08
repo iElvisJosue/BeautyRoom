@@ -1,0 +1,233 @@
+.PointOfSalesServices {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  padding: 20px;
+}
+.PointOfSalesServices__Container {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.PointOfSalesServices__Title {
+  font-size: var(--SubTittleFontSize);
+  font-weight: bold;
+  color: var(--Black);
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.PointOfSalesServices__Title ion-icon {
+  font-size: var(--IconFontSize);
+  color: var(--StrongPurple);
+}
+.PointOfSalesServices__Filters {
+  display: flex;
+  gap: 10px;
+  overflow: auto;
+}
+.PointOfSalesServices__Filters--Button {
+  min-width: 100px;
+  min-height: 50px;
+  padding: 10px;
+  border: none;
+  outline: none;
+  background: var(--SecondaryGray);
+  font-size: var(--NormalFontSize);
+  font-weight: bold;
+  color: var(--Black);
+  cursor: pointer;
+  border-radius: 25px;
+  border: 2px solid var(--SecondaryGray);
+  transition: 0.5s ease all;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+.PointOfSalesServices__Filters--Button:hover {
+  border: 2px solid var(--Black);
+}
+.PointOfSalesServices__Filters--Button ion-icon {
+  font-size: var(--NormalFontSize);
+}
+.PointOfSalesServices__Products {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 20px;
+}
+.PointOfSalesServices__Products--Title {
+  grid-column: span 7;
+  font-size: var(--SubTittleFontSize);
+  font-weight: bold;
+  color: var(--Black);
+}
+.PointOfSalesServices__Products--Title b {
+  color: var(--StrongPurple);
+  font-weight: bold;
+}
+.PointOfSalesServices__Products--Container {
+  grid-column: span 1;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+}
+.PointOfSalesServices__Products--Container--Img {
+  position: relative;
+  min-height: 150px;
+  height: 150px;
+  max-height: 150px;
+  border-radius: 15px;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.PointOfSalesServices__Products--Container:nth-child(4n-3)
+  .PointOfSalesServices__Products--Container--Img {
+  background: var(--ContainerPurple);
+}
+.PointOfSalesServices__Products--Container:nth-child(4n-2)
+  .PointOfSalesServices__Products--Container--Img {
+  background: var(--ContainerGray);
+}
+.PointOfSalesServices__Products--Container:nth-child(4n-1)
+  .PointOfSalesServices__Products--Container--Img {
+  background: var(--ContainerBrown);
+}
+.PointOfSalesServices__Products--Container:nth-child(4n)
+  .PointOfSalesServices__Products--Container--Img {
+  background: var(--ContainerGreen);
+}
+.PointOfSalesServices__Products--Container--Discount {
+  position: absolute;
+  top: -85px;
+  left: -85px;
+  width: 150px;
+  height: 150px;
+  background: var(--Red);
+  transform: rotate(-45deg);
+  color: var(--White);
+  font-weight: bold;
+  padding: 10px;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.PointOfSalesServices__Products--Container--Img img {
+  max-width: 80%;
+  max-height: 80%;
+  border-radius: 10px;
+}
+.PointOfSalesServices__Products--Container--Details {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+}
+.PointOfSalesServices__Products--Container--NameAndPrice {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+.PointOfSalesServices__Products--Container--Name,
+.PointOfSalesServices__Products--Container--Price {
+  font-weight: bold;
+  color: var(--Black);
+  font-size: var(--NormalFontSize);
+}
+.PointOfSalesServices__Products--Container--Price.Discount {
+  color: var(--Red);
+}
+.PointOfSalesServices__Products--Container--Description {
+  font-size: var(--NormalFontSize);
+  color: var(--Black);
+  height: 100%;
+}
+.PointOfSalesServices__Products--Container--Stock {
+  text-align: end;
+  font-size: var(--SmallFontSize);
+  font-style: italic;
+  color: var(--StrongPurple);
+  font-weight: bold;
+}
+.PointOfSalesServices__Products--Container--Button {
+  width: 100%;
+  height: 50px;
+  padding: 10px;
+  border: none;
+  outline: none;
+  background: var(--StrongPurple);
+  font-size: var(--NormalFontSize);
+  font-weight: bold;
+  color: var(--White);
+  border: 2px solid var(--StrongPurple);
+  cursor: pointer;
+  border-radius: 25px;
+  transition: 0.5s ease all;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+.PointOfSalesServices__Products--Container--Button ion-icon {
+  font-size: var(--IconFontSize);
+}
+.PointOfSalesServices__Products--Container--Button:hover {
+  background: var(--White);
+  color: var(--StrongPurple);
+  letter-spacing: 1px;
+}
+@media (width > 1920px) {
+  .PointOfSalesServices__Products {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .PointOfSalesServices__Products--Title {
+    grid-column: span 4;
+  }
+}
+@media (width < 1440px) {
+  .PointOfSalesServices__Products {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  .PointOfSalesServices__Products--Title {
+    grid-column: span 5;
+  }
+}
+@media (width < 1024px) {
+  .PointOfSalesServices__Products {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .PointOfSalesServices__Products--Title {
+    grid-column: span 3;
+  }
+}
+@media (width < 600px) {
+  .PointOfSalesServices__Products {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .PointOfSalesServices__Products--Title {
+    grid-column: span 2;
+  }
+}
+@media (width < 420px) {
+  .PointOfSalesServices__Title {
+    font-size: var(--NormalFontSize);
+  }
+  .PointOfSalesServices__Products--Title {
+    font-size: var(--NormalFontSize);
+  }
+}

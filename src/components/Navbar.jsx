@@ -5,13 +5,15 @@ import "../styles/Navbar.css";
 // IMPORTAMOS LOS CONTEXTOS A USAR
 // import { useGlobal } from "../context/GlobalContext";
 
-export default function Navbar({ children }) {
+export default function Navbar({ fullScreen = false, children }) {
   // const { user } = useGlobal();
 
   // const seeOptionMenu = user ? true : false;
 
+  const classNameNavbar = fullScreen ? "Navbar FullScreen" : "Navbar";
+
   return (
-    <nav className="Navbar">
+    <nav className={classNameNavbar}>
       {/* {seeOptionMenu ? (
         <a className="Navbar__Button" href="/Principal">
           <ion-icon name="home"></ion-icon>

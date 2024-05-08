@@ -3,6 +3,7 @@ import {
   addOneCategoryProduct,
   verifyAllsCategoryProduct,
   getAllCategoriesAndProducts,
+  getAllCategoriesAndProductsByFilter,
   addNewImageProduct,
   addNewProduct,
   updateOneProduct,
@@ -45,6 +46,14 @@ export const ProductsProvider = ({ children }) => {
   const getCategoriesAndProducts = async () => {
     try {
       const res = await getAllCategoriesAndProducts();
+      return res;
+    } catch (error) {
+      return error;
+    }
+  };
+  const getCategoriesAndProductsByFilter = async (data) => {
+    try {
+      const res = await getAllCategoriesAndProductsByFilter(data);
       return res;
     } catch (error) {
       return error;
@@ -111,6 +120,7 @@ export const ProductsProvider = ({ children }) => {
         addCategoryProduct,
         verifyCategoryProductExist,
         getCategoriesAndProducts,
+        getCategoriesAndProductsByFilter,
         addImageProduct,
         addProduct,
         deleteProduct,

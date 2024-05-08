@@ -6,6 +6,7 @@ import {
   getAllServicesAndSubservices,
   getAllHours,
   getAllHoursByEmployeeSelected,
+  getAllServicesAndSubservicesByFilter,
   getHoursAvailableForDaySelected,
   addNewSubservice,
   deleteOneSubservice,
@@ -169,6 +170,15 @@ export const ServicesProvider = ({ children }) => {
     }
   };
 
+  const getServicesAndSubservicesByFilter = async (data) => {
+    try {
+      const res = await getAllServicesAndSubservicesByFilter(data);
+      return res;
+    } catch (error) {
+      return error;
+    }
+  };
+
   return (
     <ServicesContext.Provider
       value={{
@@ -188,6 +198,7 @@ export const ServicesProvider = ({ children }) => {
         getServicesByUser,
         deleteService,
         verifyService,
+        getServicesAndSubservicesByFilter,
       }}
     >
       {children}

@@ -3,23 +3,68 @@ import { Toaster } from "sonner";
 
 // IMPORTAMOS LOS COMPONENTES
 import Navbar from "../components/Navbar";
-// import Menu from "../components/Menu";
+import SubMenuPointOfSales from "../components/SubMenuPointOfSales";
+import PointOfSalesCart from "../components/PointOfSalesCart";
+import PointOfSalesProducts from "../components/PointOfSalesProducts";
+import PointOfSalesServices from "../components/PointOfSalesServices";
+import PointOfSalesInternal from "../components/PointOfSalesInternal";
 
 // IMPORTAMOS LOS HOOKS
-// import useMenu from "../hooks/useMenu";
-// import usePassword from "../hooks/usePassword";
+import useSubMenuPointOfSales from "../hooks/useSubMenuPointOfSales";
+import useShowCart from "../hooks/useShowCart";
+import useGetCart from "../hooks/useGetCart";
 
 // IMPORTAMOS LOS ESTILOS
 import "../styles/PointOfSales.css";
 
 export default function PointOfSales() {
-  // const { showMenu, setShowMenu } = useMenu();
+  const { showCart, setShowCart } = useShowCart();
+  const { optionSubMenuPointOfSales, setOptionSubMenuPointOfSales } =
+    useSubMenuPointOfSales();
+  const { cart, setCart, getCartAgain, setGetCartAgain } = useGetCart();
+
+  const pointOfSalesProps = {
+    optionSubMenuPointOfSales,
+    setOptionSubMenuPointOfSales,
+    cart,
+    setCart,
+    getCartAgain,
+    setGetCartAgain,
+    showCart,
+    setShowCart,
+  };
+
+  const currentPointOfSales = {
+    0: PointOfSalesProducts,
+    1: PointOfSalesServices,
+    2: PointOfSalesInternal,
+  };
+
+  const PointOfSalesToRender = currentPointOfSales[optionSubMenuPointOfSales];
 
   return (
     <main className="PointOfSales">
-      <Navbar>Punto de Venta</Navbar>
-      {/* <Menu showMenu={showMenu} setShowMenu={setShowMenu}></Menu> */}
-      <Toaster position="top-right" richColors closeButton />
+      <Navbar fullScreen={true}>Punto de Venta</Navbar>
+      {showCart && <PointOfSalesCart {...pointOfSalesProps} />}
+      {!showCart && (
+        <button
+          className="PointOfSales__ButtonCart"
+          onClick={() => setShowCart(true)}
+        >
+          <ion-icon name="cart"></ion-icon>
+        </button>
+      )}
+      <div className="PointOfSales__Container">
+        <SubMenuPointOfSales
+          NombreOpciónUno="Venta"
+          NombreOpciónDos="Servicios"
+          NombreOpciónTres="Interno"
+          {...pointOfSalesProps}
+        ></SubMenuPointOfSales>
+        <PointOfSalesToRender {...pointOfSalesProps} />
+      </div>
+
+      <Toaster position="top-left" richColors closeButton />
     </main>
   );
 }
