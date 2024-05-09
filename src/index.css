@@ -1,3 +1,9 @@
+/* IMPORTAMOS LA FUENTE */
+@font-face {
+  font-family: "Raleway";
+  src: url("../public/Raleway.ttf") format("truetype");
+}
+
 /* CONFIGURACIÓN GENERAL */
 :root {
   --TittleFontSize: 32px;
