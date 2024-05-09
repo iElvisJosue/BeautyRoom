@@ -11,8 +11,10 @@ export const updateOneDataUser = (data) =>
   axios.put("/global/updateDataUser", data);
 // PETICIÓN PARA CERRAR SESIÓN
 export const logoutUser = () => axios.post("/global/logout");
-// PETICIÓN PARA OBTENER A LOS EMPLEADOS
+// PETICIÓN PARA OBTENER A LOS EMPLEADOS (NO ADMIN  )
 export const getEmployees = () => axios.get("/global/getEmployees");
+// PETICIÓN PARA OBTENER A LOS EMPLEADOS  (TODOS)
+export const getAllEmployeesExist = () => axios.get("/global/getAllEmployees");
 // PETICIÓN PARA OBTENER A LOS EMPLEADOS POR SERVICIO
 export const getAllEmployeesByService = (data) =>
   axios.post("/global/getEmployeesByService", data);

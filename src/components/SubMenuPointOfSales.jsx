@@ -5,7 +5,7 @@ import "../styles/SubMenuPointOfSales.css";
 export default function SubMenuPointOfSales({
   NombreOpciónUno = "Opción Uno",
   NombreOpciónDos = "Opción Dos",
-  NombreOpciónTres = "Opción Tres",
+  // NombreOpciónTres = "Opción Tres",
   optionSubMenuPointOfSales,
   setOptionSubMenuPointOfSales,
 }) {
@@ -15,9 +15,9 @@ export default function SubMenuPointOfSales({
   const setOptionTwoSubmenu = () => {
     setOptionSubMenuPointOfSales(1);
   };
-  const setOptionThreeSubmenu = () => {
-    setOptionSubMenuPointOfSales(2);
-  };
+  // const setOptionThreeSubmenu = () => {
+  //   setOptionSubMenuPointOfSales(2);
+  // };
 
   return (
     <div className="SubMenuPointOfSales">
@@ -28,7 +28,7 @@ export default function SubMenuPointOfSales({
           }`}
           onClick={setOptionOneSubmenu}
         >
-          <ion-icon name="cash-outline"></ion-icon> {NombreOpciónUno}
+          <ion-icon name="basket-outline"></ion-icon> {NombreOpciónUno}
         </button>
         <button
           className={`SubMenuPointOfSales__Container--Button ${
@@ -38,14 +38,14 @@ export default function SubMenuPointOfSales({
         >
           <ion-icon name="cut-outline"></ion-icon> {NombreOpciónDos}
         </button>
-        <button
+        {/* <button
           className={`SubMenuPointOfSales__Container--Button ${
             optionSubMenuPointOfSales === 2 && "Active"
           }`}
           onClick={setOptionThreeSubmenu}
         >
           <ion-icon name="cube-outline"></ion-icon> {NombreOpciónTres}
-        </button>
+        </button> */}
       </span>
     </div>
   );

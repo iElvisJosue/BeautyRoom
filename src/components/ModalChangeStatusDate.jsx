@@ -35,7 +35,6 @@ export default function ModalChangeStatusDate({
       setShowModalChangeStatusDate(false);
       setFilter(!filter);
     } catch (error) {
-      console.log(error);
       const { status, data } = error.response;
       handleResponseMessages({ status, data });
     }

@@ -9,6 +9,12 @@ import { handleSubtractProductToCart } from "../helpers/HandleSubtractProductToC
 import { handleAddServiceToCart } from "../helpers/HandleAddServiceToCart";
 import { handleSubtractServiceToCart } from "../helpers/HandleSubtractServiceToCart";
 
+// IMPORTAMOS EL CREADOR DEL PDF
+// import CreateTicket from "../PDF/CreateTicket";
+
+// IMPORTAMOS EL LINK DE DESCARGAR
+// import { PDFDownloadLink } from "@react-pdf/renderer";
+
 // IMPORTAMOS LOS ESTILOS
 import "../styles/PointOfSalesCart.css";
 
@@ -19,6 +25,7 @@ export default function PointOfSalesCart({
   setShowCart,
   getCartAgain,
   setGetCartAgain,
+  setShowModalPayCart,
 }) {
   const classPointOfSalesCart = showCart
     ? "PointOfSalesCart Show"
@@ -152,7 +159,17 @@ export default function PointOfSalesCart({
           >
             Cancelar Carrito
           </button>
-          <button className="PointOfSalesCart__Footer--ButtonPay">
+          {/* <PDFDownloadLink
+            document={<CreateTicket cart={cart} />}
+            fileName="TicketPago.pdf"
+            className="PointOfSalesCart__Footer--ButtonPay"
+          >
+            Pagar ${getTotal().toLocaleString()}
+          </PDFDownloadLink> */}
+          <button
+            className="PointOfSalesCart__Footer--ButtonPay"
+            onClick={() => setShowModalPayCart(true)}
+          >
             Pagar ${getTotal().toLocaleString()}
           </button>
         </footer>

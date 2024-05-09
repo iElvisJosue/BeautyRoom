@@ -154,6 +154,11 @@
   color: var(--White);
   cursor: pointer;
   transition: 0.5s ease all;
+  font-size: calc(var(--SmallFontSize) + 1px);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .PointOfSalesCart__Footer--ButtonCancel {
   border: 2px solid var(--SecondaryBlack);

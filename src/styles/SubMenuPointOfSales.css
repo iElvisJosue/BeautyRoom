@@ -31,6 +31,9 @@
   justify-content: center;
   gap: 5px;
 }
+.SubMenuPointOfSales__Container--Button ion-icon {
+  font-size: var(--IconFontSize);
+}
 .SubMenuPointOfSales__Container--Button.Active {
   background: var(--StrongPurple);
   color: var(--White);

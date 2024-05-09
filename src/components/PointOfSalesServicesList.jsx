@@ -12,8 +12,8 @@ export default function PointOfSalesServicesList({
   setGetCartAgain,
   setShowCart,
 }) {
-  const handleCart = (Subservicio) => {
-    Subservicio.ImagenProducto = Content[0].ImagenServicio;
+  const handleCart = (Subservicio, ImagenServicio) => {
+    Subservicio.ImagenProducto = ImagenServicio;
     Subservicio.NombreProducto = Subservicio.NombreSubservicio;
     handleAddServiceToCart(
       Subservicio,
@@ -57,7 +57,7 @@ export default function PointOfSalesServicesList({
                 </div>
                 <button
                   className="PointOfSalesServices__Products--Container--Button"
-                  onClick={() => handleCart(Subservicio)}
+                  onClick={() => handleCart(Subservicio, ImagenServicio)}
                 >
                   Agregar al carrito <ion-icon name="cart"></ion-icon>
                 </button>

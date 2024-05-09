@@ -7,12 +7,14 @@ import SubMenuPointOfSales from "../components/SubMenuPointOfSales";
 import PointOfSalesCart from "../components/PointOfSalesCart";
 import PointOfSalesProducts from "../components/PointOfSalesProducts";
 import PointOfSalesServices from "../components/PointOfSalesServices";
-import PointOfSalesInternal from "../components/PointOfSalesInternal";
+// import PointOfSalesInternal from "../components/PointOfSalesInternal";
+import ModalPayCart from "../components/ModalPayCart";
 
 // IMPORTAMOS LOS HOOKS
 import useSubMenuPointOfSales from "../hooks/useSubMenuPointOfSales";
 import useShowCart from "../hooks/useShowCart";
 import useGetCart from "../hooks/useGetCart";
+import useModalPayCart from "../hooks/useModalPayCart";
 
 // IMPORTAMOS LOS ESTILOS
 import "../styles/PointOfSales.css";
@@ -22,6 +24,7 @@ export default function PointOfSales() {
   const { optionSubMenuPointOfSales, setOptionSubMenuPointOfSales } =
     useSubMenuPointOfSales();
   const { cart, setCart, getCartAgain, setGetCartAgain } = useGetCart();
+  const { showModalPayCart, setShowModalPayCart } = useModalPayCart();
 
   const pointOfSalesProps = {
     optionSubMenuPointOfSales,
@@ -32,12 +35,13 @@ export default function PointOfSales() {
     setGetCartAgain,
     showCart,
     setShowCart,
+    setShowModalPayCart,
   };
 
   const currentPointOfSales = {
     0: PointOfSalesProducts,
     1: PointOfSalesServices,
-    2: PointOfSalesInternal,
+    // 2: PointOfSalesInternal,
   };
 
   const PointOfSalesToRender = currentPointOfSales[optionSubMenuPointOfSales];
@@ -54,11 +58,12 @@ export default function PointOfSales() {
           <ion-icon name="cart"></ion-icon>
         </button>
       )}
+      {showModalPayCart && <ModalPayCart {...pointOfSalesProps} />}
       <div className="PointOfSales__Container">
         <SubMenuPointOfSales
-          NombreOpciónUno="Venta"
+          NombreOpciónUno="Productos"
           NombreOpciónDos="Servicios"
-          NombreOpciónTres="Interno"
+          // NombreOpciónTres="Interno"
           {...pointOfSalesProps}
         ></SubMenuPointOfSales>
         <PointOfSalesToRender {...pointOfSalesProps} />

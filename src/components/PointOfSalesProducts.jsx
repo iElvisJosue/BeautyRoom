@@ -42,8 +42,6 @@ export default function PointOfSalesProducts({
   const categoriesWithProducts = categoriesAndProducts.filter(
     ({ Productos }) => Productos.length > 0
   );
-  console.log(categoriesWithProducts);
-
   const pointOfSalesProductsProps = {
     cart,
     setCart,
