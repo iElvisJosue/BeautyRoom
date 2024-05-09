@@ -1,20 +1,4 @@
-.PointOfSalesCart {
-  position: fixed;
-  top: 0;
-  right: -100%;
-  width: 400px;
-  height: 100vh;
-  z-index: 1000;
-  background: var(--SecondaryBlack);
-
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-.PointOfSalesCart.Show {
-  right: 0;
-}
-.PointOfSalesCart__Close {
+.PointOfSalesPay__Cart__Close {
   position: absolute;
   top: 20px;
   right: 15px;
@@ -29,11 +13,11 @@
   align-items: center;
   justify-content: center;
 }
-.PointOfSalesCart__Close ion-icon {
+.PointOfSalesPay__Cart__Close ion-icon {
   font-size: var(--TittleFontSize);
   color: var(--White);
 }
-.PointOfSalesCart__Header {
+.PointOfSalesPay__Cart__Header {
   width: 100%;
   min-height: 75px;
   max-height: 75px;
@@ -48,7 +32,7 @@
   justify-content: start;
   gap: 10px;
 }
-.PointOfSalesCart__Header--Total {
+.PointOfSalesPay__Cart__Header--Total {
   width: 30px;
   height: 30px;
   border-radius: 50%;
@@ -60,12 +44,12 @@
   align-items: center;
   justify-content: center;
 }
-.PointOfSalesCart__Container {
+.PointOfSalesPay__Cart__Container {
   overflow: auto;
   height: 100%;
   padding: 0 20px;
 }
-.PointOfSalesCart__Container__Content {
+.PointOfSalesPay__Cart__Container__Content {
   min-height: 75px;
   padding: 20px;
   border-bottom: 1px solid #302e33;
@@ -74,17 +58,17 @@
   align-items: center;
   gap: 10px;
 }
-.PointOfSalesCart__Container--Img {
+.PointOfSalesPay__Cart__Container--Img {
   width: 55px;
 
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.PointOfSalesCart__Container--Img img {
+.PointOfSalesPay__Cart__Container--Img img {
   width: 100%;
 }
-.PointOfSalesCart__Container--Details {
+.PointOfSalesPay__Cart__Container--Details {
   width: 100%;
   height: 100%;
   display: flex;
@@ -92,30 +76,30 @@
   justify-content: space-between;
   gap: 10px;
 }
-.PointOfSalesCart__Container--Details--NameAndPrice {
+.PointOfSalesPay__Cart__Container--Details--NameAndPrice {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 10px;
 }
-.PointOfSalesCart__Container--Details--NameAndPrice--Name {
+.PointOfSalesPay__Cart__Container--Details--NameAndPrice--Name {
   font-size: var(--SmallFontSize);
   color: var(--White);
 }
-.PointOfSalesCart__Container--Details--NameAndPrice--Price {
+.PointOfSalesPay__Cart__Container--Details--NameAndPrice--Price {
   font-size: var(--SmallFontSize);
   color: var(--White);
   font-weight: bold;
 }
-.PointOfSalesCart__Container--Buttons {
+.PointOfSalesPay__Cart__Container--Buttons {
   display: flex;
 
   align-items: center;
   justify-content: flex-start;
 }
-.PointOfSalesCart__Container--Buttons--Subtract,
-.PointOfSalesCart__Container--Buttons--Amount,
-.PointOfSalesCart__Container--Buttons--Add {
+.PointOfSalesPay__Cart__Container--Buttons--Subtract,
+.PointOfSalesPay__Cart__Container--Buttons--Amount,
+.PointOfSalesPay__Cart__Container--Buttons--Add {
   width: 20px;
   height: 20px;
   background-color: #302e33;
@@ -128,24 +112,47 @@
   align-items: center;
   justify-content: center;
 }
-.PointOfSalesCart__Container--Buttons--Amount {
+.PointOfSalesPay__Cart__Container--Buttons--Amount {
   background: none;
   border: 1px solid #302e33;
   font-size: var(--SmallFontSize);
 }
-.PointOfSalesCart__Footer {
+.PointOfSalesPay__Cart__Footer {
   width: 100%;
-  min-height: 100px;
+  min-height: 120px;
   background-color: #302e33;
   padding: 20px;
 
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  gap: 20px;
+  gap: 10px;
 }
-.PointOfSalesCart__Footer--ButtonCancel,
-.PointOfSalesCart__Footer--ButtonPay {
+.PointOfSalesPay__Cart__Footer--Employees {
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+}
+.PointOfSalesPay__Cart__Footer--Employees--Text {
+  font-size: var(--SmallFontSize);
+  color: var(--White);
+  font-weight: bold;
+}
+.PointOfSalesPay__Cart__Footer--Employees--Select {
+  background: var(--White);
+  color: var(--StrongPurple);
+  outline: none;
+  border: 1px solid var(--StrongPurple);
+}
+.PointOfSalesPay__Cart__Footer--Buttons {
+  width: 100%;
+  display: flex;
+  gap: 10px;
+}
+.PointOfSalesPay__Cart__Footer--ButtonCancel,
+.PointOfSalesPay__Cart__Footer--ButtonPay {
   width: 100%;
   height: 50px;
   border: none;
@@ -160,31 +167,31 @@
   align-items: center;
   justify-content: center;
 }
-.PointOfSalesCart__Footer--ButtonCancel {
+.PointOfSalesPay__Cart__Footer--ButtonCancel {
   border: 2px solid var(--SecondaryBlack);
   background-color: var(--SecondaryBlack);
 }
-.PointOfSalesCart__Footer--ButtonPay {
+.PointOfSalesPay__Cart__Footer--ButtonPay {
   border: 2px solid var(--StrongPurple);
   background-color: var(--StrongPurple);
 }
-.PointOfSalesCart__Footer--ButtonCancel:hover {
+.PointOfSalesPay__Cart__Footer--ButtonCancel:hover {
   background-color: var(--White);
   color: var(--SecondaryBlack);
 }
-.PointOfSalesCart__Footer--ButtonPay:hover {
+.PointOfSalesPay__Cart__Footer--ButtonPay:hover {
   background-color: var(--White);
   color: var(--StrongPurple);
 }
-.PointOfSalesCart__Footer--ButtonCancel:hover,
-.PointOfSalesCart__Footer--ButtonPay:hover {
+.PointOfSalesPay__Cart__Footer--ButtonCancel:hover,
+.PointOfSalesPay__Cart__Footer--ButtonPay:hover {
   letter-spacing: 1px;
 }
 @media (width < 500px) {
-  .PointOfSalesCart {
+  .PointOfSalesPay {
     width: 100%;
   }
-  .PointOfSalesCart__Container {
+  .PointOfSalesPay__Cart__Container {
     padding: 0;
   }
 }

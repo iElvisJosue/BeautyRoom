@@ -4,17 +4,16 @@ import { Toaster } from "sonner";
 // IMPORTAMOS LOS COMPONENTES
 import Navbar from "../components/Navbar";
 import SubMenuPointOfSales from "../components/SubMenuPointOfSales";
-import PointOfSalesCart from "../components/PointOfSalesCart";
+import PointOfSalesPay from "../components/PointOfSalesPay";
 import PointOfSalesProducts from "../components/PointOfSalesProducts";
 import PointOfSalesServices from "../components/PointOfSalesServices";
 // import PointOfSalesInternal from "../components/PointOfSalesInternal";
-import ModalPayCart from "../components/ModalPayCart";
 
 // IMPORTAMOS LOS HOOKS
 import useSubMenuPointOfSales from "../hooks/useSubMenuPointOfSales";
 import useShowCart from "../hooks/useShowCart";
 import useGetCart from "../hooks/useGetCart";
-import useModalPayCart from "../hooks/useModalPayCart";
+import useGetAllEmployees from "../hooks/useGetAllEmployees";
 
 // IMPORTAMOS LOS ESTILOS
 import "../styles/PointOfSales.css";
@@ -24,7 +23,7 @@ export default function PointOfSales() {
   const { optionSubMenuPointOfSales, setOptionSubMenuPointOfSales } =
     useSubMenuPointOfSales();
   const { cart, setCart, getCartAgain, setGetCartAgain } = useGetCart();
-  const { showModalPayCart, setShowModalPayCart } = useModalPayCart();
+  const { employeesExist } = useGetAllEmployees();
 
   const pointOfSalesProps = {
     optionSubMenuPointOfSales,
@@ -35,7 +34,7 @@ export default function PointOfSales() {
     setGetCartAgain,
     showCart,
     setShowCart,
-    setShowModalPayCart,
+    employeesExist,
   };
 
   const currentPointOfSales = {
@@ -49,7 +48,7 @@ export default function PointOfSales() {
   return (
     <main className="PointOfSales">
       <Navbar fullScreen={true}>Punto de Venta</Navbar>
-      {showCart && <PointOfSalesCart {...pointOfSalesProps} />}
+      {showCart && <PointOfSalesPay {...pointOfSalesProps} />}
       {!showCart && (
         <button
           className="PointOfSales__ButtonCart"
@@ -58,7 +57,6 @@ export default function PointOfSales() {
           <ion-icon name="cart"></ion-icon>
         </button>
       )}
-      {showModalPayCart && <ModalPayCart {...pointOfSalesProps} />}
       <div className="PointOfSales__Container">
         <SubMenuPointOfSales
           NombreOpciónUno="Productos"

@@ -1,0 +1,66 @@
+.PointOfSalesPaySuccess__Cart {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  height: 100%;
+  padding: 20px;
+  gap: 20px;
+}
+.PointOfSalesPaySuccess__Cart--Img {
+  width: 100px;
+  margin: 0 auto;
+}
+.PointOfSalesPaySuccess__Cart--Text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.PointOfSalesPaySuccess__Cart--Text--Title {
+  font-size: var(--SubTittleFontSize);
+  color: var(--White);
+  font-weight: bold;
+}
+.PointOfSalesPaySuccess__Cart--Text--Subtitle {
+  font-size: var(--NormalFontSize);
+  color: var(--Gray);
+}
+.PointOfSalesPaySuccess__Cart--Divider {
+  width: 100%;
+  height: 1px;
+  background-color: var(--Gray);
+  border: none;
+}
+.PointOfSalesPaySuccess__Cart--PaymentDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px 0;
+}
+.PointOfSalesPaySuccess__Cart--PaymentDetails--Title {
+  font-size: var(--SmallFontSize);
+  color: var(--Gray);
+}
+.PointOfSalesPaySuccess__Cart--PaymentDetails--Subtitle {
+  font-size: var(--NormalFontSize);
+  color: var(--White);
+
+  display: flex;
+  justify-content: space-between;
+}
+.PointOfSalesPaySuccess__Cart--PaymentDetails--Button {
+  width: 100%;
+  min-height: 50px;
+  background-color: var(--White);
+  font-size: var(--NormalFontSize);
+  color: var(--StrongPurple);
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: 0.5s ease all;
+}
+.PointOfSalesPaySuccess__Cart--PaymentDetails--Button:hover {
+  background-color: var(--StrongPurple);
+  color: var(--White);
+  letter-spacing: 1px;
+}

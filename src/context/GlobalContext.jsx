@@ -9,6 +9,7 @@ import {
   getAllEmployeesByService,
   verifyToken,
   logoutUser,
+  createOneTicket,
 } from "../api/authGlobal";
 import Cookies from "js-cookie";
 
@@ -143,6 +144,16 @@ export const GlobalProvider = ({ children }) => {
     return setError();
   };
 
+  const createTicket = async (data) => {
+    try {
+      const res = await createOneTicket(data);
+      return res;
+    } catch (error) {
+      setError();
+      return error;
+    }
+  };
+
   return (
     <GlobalContext.Provider
       value={{
@@ -158,6 +169,7 @@ export const GlobalProvider = ({ children }) => {
         getAllEmployees,
         getEmployeesExist,
         getEmployeesByService,
+        createTicket,
       }}
     >
       {children}

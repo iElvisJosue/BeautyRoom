@@ -44,7 +44,6 @@ export default function Login() {
         handleSuccessResponse(res);
       }
     } catch (error) {
-      console.log(error);
       const { status, data } = error.response;
       handleResponseMessages({ status, data });
     }

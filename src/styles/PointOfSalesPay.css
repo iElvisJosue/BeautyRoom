@@ -1,0 +1,21 @@
+.PointOfSalesPay {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 400px;
+  height: 100vh;
+  z-index: 1000;
+  background: var(--SecondaryBlack);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.PointOfSalesPay.Show {
+  right: 0;
+}
+@media (width < 500px) {
+  .PointOfSalesPay {
+    width: 100%;
+  }
+}

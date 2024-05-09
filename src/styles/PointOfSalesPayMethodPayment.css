@@ -1,0 +1,114 @@
+.PointOfSalesPayMethodPayment__Cart {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  height: 100%;
+}
+.PointOfSalesPayMethodPayment__Cart__Header {
+  position: relative;
+  width: 100%;
+  min-height: 75px;
+  padding: 20px;
+  max-height: 75px;
+  border-bottom: 1px solid #302e33;
+  font-size: var(--IconFontSize);
+  font-weight: bold;
+  color: var(--White);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.PointOfSalesPayMethodPayment__Cart__Header--Button {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+
+  top: calc(50% - 15px);
+  left: 20px;
+}
+.PointOfSalesPayMethodPayment__Cart__Header--Button ion-icon {
+  font-size: var(--IconFontSize);
+  color: var(--White);
+}
+.PointOfSalesPayMethodPayment__Cart__Header--Content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+}
+.PointOfSalesPayMethodPayment__Cart__Header--Content--Button {
+  width: 100%;
+  height: 75px;
+  border: none;
+  outline: none;
+  background: var(--Transparent);
+  font-size: var(--NormalFontSize);
+  font-weight: bold;
+  color: var(--StrongPurple);
+  cursor: pointer;
+  transition: 0.5s ease all;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.PointOfSalesPayMethodPayment__Cart__Header--Content--Button.Active {
+  color: var(--White);
+  background: var(--StrongPurple);
+  border: 1px solid var(--White);
+  letter-spacing: 1px;
+}
+.PointOfSalesPayMethodPayment__Cart__Header--Content--Button ion-icon {
+  font-size: var(--IconFontSize);
+}
+.PointOfSalesPayMethodPayment__Cart__Header--Content--Button:hover {
+  color: var(--White);
+  background: var(--StrongPurple);
+  letter-spacing: 1px;
+}
+.PointOfSalesPayMethodPayment__Cart__Header--Content--Input {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.PointOfSalesPayMethodPayment__Cart__Header--Content--Input--Title {
+  font-size: var(--NormalFontSize);
+  color: var(--White);
+}
+.PointOfSalesPayMethodPayment__Cart__Header--Content--Input--Input {
+  width: 100%;
+  height: 50px;
+  border: none;
+  outline: none;
+  background: var(--Transparent);
+  font-size: var(--NormalFontSize);
+  color: var(--StrongPurple);
+
+  padding: 0 10px;
+}
+.PointOfSalesPayMethodPayment__Cart__Header--Content--Input--Button {
+  width: 100%;
+  height: 50px;
+  border: none;
+  outline: none;
+  background: var(--StrongPurple);
+  font-size: var(--NormalFontSize);
+  color: var(--White);
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.5s ease all;
+}
+.PointOfSalesPayMethodPayment__Cart__Header--Content--Input--Button:hover {
+  color: var(--StrongPurple);
+  background: var(--White);
+  letter-spacing: 1px;
+}

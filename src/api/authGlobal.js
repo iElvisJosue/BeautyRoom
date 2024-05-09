@@ -20,3 +20,6 @@ export const getAllEmployeesByService = (data) =>
   axios.post("/global/getEmployeesByService", data);
 // PETICIÓN PARA VERIFICAR TOKEN DEL NAVEGADOR
 export const verifyToken = () => axios.get("/global/verifyToken");
+// RUTA PARA CREAR EL TICKET
+export const createOneTicket = (data) =>
+  axios.post("/global/createTicket", data);

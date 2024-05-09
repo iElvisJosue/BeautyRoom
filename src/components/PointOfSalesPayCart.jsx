@@ -3,34 +3,25 @@
 import EmptyCart from "./EmptyCart";
 
 // IMPORTAMOS LAS AYUDAS
-import { HOST_IMG } from "../helpers/Urls";
 import { handleAddProductToCart } from "../helpers/HandleAddProductToCart";
 import { handleSubtractProductToCart } from "../helpers/HandleSubtractProductToCart";
 import { handleAddServiceToCart } from "../helpers/HandleAddServiceToCart";
 import { handleSubtractServiceToCart } from "../helpers/HandleSubtractServiceToCart";
-
-// IMPORTAMOS EL CREADOR DEL PDF
-// import CreateTicket from "../PDF/CreateTicket";
-
-// IMPORTAMOS EL LINK DE DESCARGAR
-// import { PDFDownloadLink } from "@react-pdf/renderer";
+import { generateFolio } from "../helpers/GenerateFolio";
+import { HOST_IMG } from "../helpers/Urls";
 
 // IMPORTAMOS LOS ESTILOS
-import "../styles/PointOfSalesCart.css";
+import "../styles/PointOfSalesPayCart.css";
 
-export default function PointOfSalesCart({
+export default function PointOfSalesPayCart({
   cart,
   setCart,
-  showCart,
   setShowCart,
   getCartAgain,
   setGetCartAgain,
-  setShowModalPayCart,
+  setProgressPay,
+  employeesExist,
 }) {
-  const classPointOfSalesCart = showCart
-    ? "PointOfSalesCart Show"
-    : "PointOfSalesCart";
-
   const handleSubtractCart = (Product) => {
     const { idProducto, idSubservicio } = Product;
     if (idProducto) {
@@ -92,53 +83,66 @@ export default function PointOfSalesCart({
     );
     return total;
   };
+  const handleUpdateCart = () => {
+    const Folio = generateFolio();
+    cart.map((product) => {
+      // product.MetodoDePago = document.querySelector("#payment").value;
+      product.EmpleadoAsignado = document.querySelector("#employee").value;
+      product.NumeroDeFolio = Folio;
+    });
+    setCart(cart);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    setProgressPay(1);
+  };
 
   return (
-    <aside className={classPointOfSalesCart}>
+    <>
       <button
-        className="PointOfSalesCart__Close"
+        className="PointOfSalesPay__Cart__Close"
         onClick={() => setShowCart(false)}
       >
         <ion-icon name="close-outline"></ion-icon>
       </button>
-      <header className="PointOfSalesCart__Header">
-        <p className="PointOfSalesCart__Header--Title">Carrito</p>
-        <p className="PointOfSalesCart__Header--Total">{getTotalItems()}</p>
+      <header className="PointOfSalesPay__Cart__Header">
+        <p className="PointOfSalesPay__Cart__Header--Title">Carrito</p>
+        <p className="PointOfSalesPay__Cart__Header--Total">
+          {getTotalItems()}
+        </p>
       </header>
-      <div className="PointOfSalesCart__Container">
+      <div className="PointOfSalesPay__Cart__Container">
         {cart.length > 0 ? (
           cart.map((product, index) => (
             <section
-              className="PointOfSalesCart__Container__Content"
+              className="PointOfSalesPay__Cart__Container__Content"
               key={index}
             >
-              <picture className="PointOfSalesCart__Container--Img">
+              <picture className="PointOfSalesPay__Cart__Container--Img">
                 <img
                   src={`${HOST_IMG}/${product.ImagenProducto}`}
                   alt="Imagen representativa del producto"
                 />
               </picture>
-              <div className="PointOfSalesCart__Container--Details">
-                <span className="PointOfSalesCart__Container--Details--NameAndPrice">
-                  <p className="PointOfSalesCart__Container--Details--NameAndPrice--Name">
+              <div className="PointOfSalesPay__Cart__Container--Details">
+                <span className="PointOfSalesPay__Cart__Container--Details--NameAndPrice">
+                  <p className="PointOfSalesPay__Cart__Container--Details--NameAndPrice--Name">
                     {product.NombreProducto}
                   </p>
-                  <p className="PointOfSalesCart__Container--Details--NameAndPrice--Price">
+                  <p className="PointOfSalesPay__Cart__Container--Details--NameAndPrice--Price">
                     ${product.PrecioTotal.toLocaleString()}
                   </p>
                 </span>
-                <span className="PointOfSalesCart__Container--Buttons">
+                <span className="PointOfSalesPay__Cart__Container--Buttons">
                   <button
-                    className="PointOfSalesCart__Container--Buttons--Subtract"
+                    className="PointOfSalesPay__Cart__Container--Buttons--Subtract"
                     onClick={() => handleSubtractCart(product)}
                   >
                     -
                   </button>
-                  <p className="PointOfSalesCart__Container--Buttons--Amount">
+                  <p className="PointOfSalesPay__Cart__Container--Buttons--Amount">
                     {product.CantidadEnCarrito}
                   </p>
                   <button
-                    className="PointOfSalesCart__Container--Buttons--Add"
+                    className="PointOfSalesPay__Cart__Container--Buttons--Add"
                     onClick={() => handleAddCart(product)}
                   >
                     +
@@ -152,28 +156,39 @@ export default function PointOfSalesCart({
         )}
       </div>
       {cart.length > 0 && (
-        <footer className="PointOfSalesCart__Footer">
-          <button
-            className="PointOfSalesCart__Footer--ButtonCancel"
-            onClick={handleDeleteCart}
-          >
-            Cancelar Carrito
-          </button>
-          {/* <PDFDownloadLink
-            document={<CreateTicket cart={cart} />}
-            fileName="TicketPago.pdf"
-            className="PointOfSalesCart__Footer--ButtonPay"
-          >
-            Pagar ${getTotal().toLocaleString()}
-          </PDFDownloadLink> */}
-          <button
-            className="PointOfSalesCart__Footer--ButtonPay"
-            onClick={() => setShowModalPayCart(true)}
-          >
-            Pagar ${getTotal().toLocaleString()}
-          </button>
+        <footer className="PointOfSalesPay__Cart__Footer">
+          <span className="PointOfSalesPay__Cart__Footer--Employees">
+            <p className="PointOfSalesPay__Cart__Footer--Employees--Text">
+              Asignar empleado
+            </p>
+            <select
+              className="PointOfSalesPay__Cart__Footer--Employees--Select"
+              id="employee"
+            >
+              {employeesExist &&
+                employeesExist.map((employee) => (
+                  <option value={employee.Usuario} key={employee.idUsuario}>
+                    {employee.Usuario}
+                  </option>
+                ))}
+            </select>
+          </span>
+          <span className="PointOfSalesPay__Cart__Footer--Buttons">
+            <button
+              className="PointOfSalesPay__Cart__Footer--ButtonCancel"
+              onClick={handleDeleteCart}
+            >
+              Cancelar Carrito
+            </button>
+            <button
+              className="PointOfSalesPay__Cart__Footer--ButtonPay"
+              onClick={handleUpdateCart}
+            >
+              Pagar ${getTotal().toLocaleString()}
+            </button>
+          </span>
         </footer>
-      )}
-    </aside>
+      )}{" "}
+    </>
   );
 }
