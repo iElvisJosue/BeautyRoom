@@ -16,6 +16,7 @@ export default function ModalChangeStatusDate({
   idDateUpdate,
   setFilter,
   filter,
+  getDatesWaiting,
 }) {
   const { updateStatusDate } = useDates();
 
@@ -34,6 +35,8 @@ export default function ModalChangeStatusDate({
       handleResponseMessages({ status, data });
       setShowModalChangeStatusDate(false);
       setFilter(!filter);
+      // ESTA FUNCIÓN SOLO SIRVE PARA LOS EMPLEADOS
+      getDatesWaiting();
     } catch (error) {
       const { status, data } = error.response;
       handleResponseMessages({ status, data });

@@ -27,12 +27,10 @@ export const useGlobal = () => {
 // eslint-disable-next-line react/prop-types
 export const GlobalProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [isLogin, setIsLogin] = useState(false);
   const [hasCookie, setHasCookie] = useState(false);
   const [loading, setLoading] = useState(true);
   const setError = () => {
     setUser(null);
-    setIsLogin(false);
     setHasCookie(false);
     setLoading(false);
   };
@@ -56,12 +54,10 @@ export const GlobalProvider = ({ children }) => {
         if (!res.data) {
           setError();
           return;
+        } else {
+          setSuccess(res.data);
+          return;
         }
-        setSuccess(res.data);
-        if (res.data.online) {
-          setIsLogin(true);
-        }
-        return;
       } catch (error) {
         setError();
         return;
@@ -76,7 +72,9 @@ export const GlobalProvider = ({ children }) => {
       if (!res.data) {
         return setError();
       }
-      Cookies.set("accessToken", res.data.accessToken);
+      Cookies.set("accessToken", res.data.accessToken, {
+        expires: 1,
+      });
       return setSuccess(res.data.user);
     } catch (error) {
       setError();
@@ -160,7 +158,6 @@ export const GlobalProvider = ({ children }) => {
         user,
         logout,
         loading,
-        isLogin,
         hasCookie,
         updateDataUser,
         loginUser,

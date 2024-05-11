@@ -23,3 +23,7 @@ export const updateDateByStatus = (data) =>
 
 // PETICIÓN PARA CREAR UNA ORDEN DE PAGO PARA LA CITA
 export const createPayment = (data) => axios.post("/dates/createOrder", data);
+
+// PETICIÓN PARA OBTENER LAS CITAS DE UN EMPLEADO
+export const getAllDatesByFilterUser = (data) =>
+  axios.post("/dates/getDatesFilteredByUser", data);

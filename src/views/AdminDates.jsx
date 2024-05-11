@@ -23,6 +23,7 @@ import "../styles/AdminDates.css";
 
 export default function AdminDates() {
   const [idDateUpdate, setIdDateUpdate] = useState(null);
+  const [optionSubMenu, setOptionSubMenu] = useState(0);
   const { services } = useGetServices();
   const { hours, searchingHours } = useGetHours();
   const { totalDates, searchingDates, setFilter, filter } = useGetDates();
@@ -37,6 +38,7 @@ export default function AdminDates() {
   } = useModalChangeStatusDate();
 
   const getDatesByFilters = (event) => {
+    setOptionSubMenu(4);
     const value = event.target.value;
     // Utilizamos una expresión regular para permitir letras, números y "-"
     const regex = /^[a-zA-Z0-9\sáéíóúÁÉÍÓÚüÜ-]*$/;
@@ -45,6 +47,18 @@ export default function AdminDates() {
       const filter = event.target.value;
       setFilter(filter);
     }
+  };
+  const getDatesWaiting = () => {
+    setFilter("Espera");
+    setOptionSubMenu(0);
+  };
+  const getDatesCompleted = () => {
+    setFilter("Completada");
+    setOptionSubMenu(1);
+  };
+  const getDatesNotAttended = () => {
+    setFilter("No asistio");
+    setOptionSubMenu(2);
   };
 
   // PROBABLEMENTE DEBA PONER UN
@@ -86,6 +100,32 @@ export default function AdminDates() {
               className="DatingHistory__Container--Filters--Input"
               onChange={getDatesByFilters}
             />
+          </div>
+          <div className="DatingHistory__Container--Status">
+            <button
+              className={`DatingHistory__Container--Status--Button ${
+                optionSubMenu === 0 ? "Active" : ""
+              }`}
+              onClick={getDatesWaiting}
+            >
+              <ion-icon name="time-outline"></ion-icon> Espera
+            </button>
+            <button
+              className={`DatingHistory__Container--Status--Button ${
+                optionSubMenu === 1 ? "Active" : ""
+              }`}
+              onClick={getDatesCompleted}
+            >
+              <ion-icon name="checkmark-circle-outline"></ion-icon> Completada
+            </button>
+            <button
+              className={`DatingHistory__Container--Status--Button ${
+                optionSubMenu === 2 ? "Active" : ""
+              }`}
+              onClick={getDatesNotAttended}
+            >
+              <ion-icon name="close-circle-outline"></ion-icon> No Asistió
+            </button>
           </div>
           <div className="DatingHistory__Container--Dates">
             {searchingDates ? (

@@ -1,12 +1,11 @@
 /* eslint-disable react/prop-types */
 // LIBRERÍAS A USAR
-// import { useState } from "react
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
+import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 // IMPORTAMOS LAS AYUDAS
-// import { listOfServices } from "../helpers/ListServices";
 import { HOST_IMG } from "../helpers/Urls";
 import {
   listOfPaymentsForAdmin,
@@ -22,7 +21,6 @@ import { useGlobal } from "../context/GlobalContext";
 
 // IMPORTAMOS LOS HOOKS A USAR
 import useModalPay from "../hooks/useModalPay";
-// import useDataClient from "../hooks/useDataClient";
 
 // IMPORTAMOS LOS COMPONENTES
 import ModalPay from "../components/ModalPay";
@@ -43,11 +41,10 @@ export default function DataClient({
   } = useForm({
     criteriaMode: "all",
   });
+  const navigate = useNavigate();
   const { user } = useGlobal();
   const { showModalPay, setShowModalPay } = useModalPay();
-  // const { dataClient, setDataClient } = useDataClient();
   const { verifyDateExist, adminCreateNewDate } = useDates();
-  // const [selectedIndex, setSelectedIndex] = useState(0);
   const {
     DíaCitaNombre,
     DíaCita,
@@ -59,17 +56,6 @@ export default function DataClient({
     NombreSubservicio,
   } = dateInformation;
 
-  // const handleSelectChange = (event) => {
-  //   const index = event.target.selectedIndex;
-  //   setSelectedIndex(index);
-  // };
-
-  // const validateDataClient = handleSubmit(async (data) => {
-  //   selectedIndex === 0
-  //     ? toast.error("Por favor selecciona un servicio ❌")
-  //     : formatDataClient(data);
-  // });
-
   const handleDataClient = handleSubmit(async (data) => {
     const dateFormatted = DateFormatted(AñoCita, monthNumber, DíaCita);
     data.FechaCita = dateFormatted;
@@ -77,16 +63,6 @@ export default function DataClient({
     const dataClient = { ...dateInformation, ...data };
     verifyDateDuplicateExist(dataClient);
   });
-
-  // const formatDataClient = (data) => {
-  //   const dateFormatted = DateFormatted(AñoCita, monthNumber, DíaCita);
-  //   data.FechaCita = dateFormatted;
-  //   data.HoraCita = HoraCita;
-  //   data.ImagenCita = selectedIndex - 1;
-
-  //   setDataClient(data);
-  //   verifyDateDuplicateExist(data);
-  // };
 
   const verifyDateDuplicateExist = async (dataClient) => {
     try {
@@ -111,7 +87,7 @@ export default function DataClient({
       const res = await adminCreateNewDate(dataInfo);
       const { status, data } = res;
       handleResponseMessages({ status, data });
-      // setProgressDate(0);
+      navigate("/CitaCreada");
     } catch (error) {
       const { status, data } = error.response;
       handleResponseMessages({ status, data });
@@ -131,11 +107,6 @@ export default function DataClient({
           showModalPay={showModalPay}
           setShowModalPay={setShowModalPay}
           dateInformation={dateInformation}
-          // dataClient={dataClient}
-          // dayName={dayName}
-          // day={day}
-          // monthDay={monthDay}
-          // year={year}
         />
       )}
       <aside className="DataClient__Container__DateInformation">
@@ -212,20 +183,6 @@ export default function DataClient({
               </>
             )
           )}
-          {/* <div
-            className="DataClient__Container__Form--Data--Inputs"
-            onChange={handleSelectChange}
-          >
-            <p className="DataClient__Container__Form--Data--Inputs--Title">
-              Motivo de la cita
-            </p>
-            <select
-              {...register("MotivoCita")}
-              className="DataClient__Container__Form--Data--Inputs--Input"
-            >
-              {listOfServices}
-            </select>
-          </div> */}
           <div className="DataClient__Container__Form--Data--Inputs">
             <p className="DataClient__Container__Form--Data--Inputs--Title">
               Método de pago
@@ -234,7 +191,9 @@ export default function DataClient({
               {...register("MetodoPago")}
               className="DataClient__Container__Form--Data--Inputs--Input"
             >
-              {user ? listOfPaymentsForAdmin : listOfPaymentsForClient}
+              {user?.rolUsuario === "Administrador"
+                ? listOfPaymentsForAdmin
+                : listOfPaymentsForClient}
             </select>
           </div>
           <button className="DataClient__Container__Form--Button">

@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
-// IMPORTAMOS LAS AYUDAS
-// import { imgListOfServices2 } from "../helpers/ListServices";
+// IMPORTAMOS LOS CONTEXTOS A USAR
+import { useGlobal } from "../context/GlobalContext";
 
 // IMPORTAMOS LAS AYUDAS
 import { HOST_IMG } from "../helpers/Urls";
@@ -19,6 +19,7 @@ export default function DateInformation({
   setTextModalChangeStatusDate,
   setIdDateUpdate,
 }) {
+  const { user } = useGlobal();
   const { formatDate } = useCalendar();
   const {
     idCita,
@@ -82,7 +83,7 @@ export default function DateInformation({
             ⌚ {HoraCita}
           </p>
         </span>
-        {EstadoCita === "Espera" && (
+        {EstadoCita === "Espera" && user.rolUsuario === "Administrador" && (
           <span className="DatingHistory__Container--Dates--Card--Container--Button">
             <button
               className="DatingHistory__Container--Dates--Card--Container--Button--View"

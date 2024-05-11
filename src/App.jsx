@@ -17,10 +17,12 @@ import AdminUsers from "./views/AdminUsers";
 import AdminProductsInventory from "./views/AdminProductsInventory";
 import AdminServicesInventory from "./views/AdminServicesInventory";
 import AdminInternalInventory from "./views/AdminInternalInventory";
+import MyDates from "./views/MyDates";
 
 // PROTECCIÓN DE RUTAS
-// import ProtectedByCookies from "./protection/ProtectedByCookies";
-// import ProtectedForAdmins from "./protection/ProtectedForAdmins";
+import ProtectedByCookies from "./protection/ProtectedByCookies";
+import ProtectedForAdmins from "./protection/ProtectedForAdmins";
+import ProtectedForEmployees from "./protection/ProtectedForEmployees";
 
 export default function App() {
   return (
@@ -33,27 +35,42 @@ export default function App() {
                 <Routes>
                   <Route path="/" element={<Login />} />
                   <Route path="/AgendarCita" element={<Date />} />
-                  {/* <Route element={<ProtectedByCookies />}> */}
-                  {/* <Route element={<ProtectedForAdmins />}> */}
-                  <Route path="/Principal" element={<Home />} />
-                  <Route path="/AdministrarCitas" element={<AdminDates />} />
-                  <Route path="/PuntoDeVenta" element={<PointOfSales />} />
-                  <Route path="/AgendarCitaAdministrador" element={<Date />} />
-                  <Route path="/AdministrarUsuarios" element={<AdminUsers />} />
-                  <Route
-                    path="/AdministrarInventarioProductos"
-                    element={<AdminProductsInventory />}
-                  />
-                  <Route
-                    path="/AdministrarInventarioServicios"
-                    element={<AdminServicesInventory />}
-                  />
-                  <Route
-                    path="/AdministrarInventarioInterno"
-                    element={<AdminInternalInventory />}
-                  />
-                  {/* </Route> */}
-                  {/* </Route> */}
+                  {/* RUTAS PROTEGIDAS PARA USUARIOS LOGUEADOS */}
+                  <Route element={<ProtectedByCookies />}>
+                    <Route path="/Principal" element={<Home />} />
+                    {/* RUTAS PROTEGIDAS PARA EMPLEADOS */}
+                    <Route element={<ProtectedForEmployees />}>
+                      <Route path="/MisCitas" element={<MyDates />} />
+                    </Route>
+                    {/* RUTAS PROTEGIDAS PARA ADMINISTRADORES */}
+                    <Route element={<ProtectedForAdmins />}>
+                      <Route
+                        path="/AdministrarCitas"
+                        element={<AdminDates />}
+                      />
+                      <Route path="/PuntoDeVenta" element={<PointOfSales />} />
+                      <Route
+                        path="/AgendarCitaAdministrador"
+                        element={<Date />}
+                      />
+                      <Route
+                        path="/AdministrarUsuarios"
+                        element={<AdminUsers />}
+                      />
+                      <Route
+                        path="/AdministrarInventarioProductos"
+                        element={<AdminProductsInventory />}
+                      />
+                      <Route
+                        path="/AdministrarInventarioServicios"
+                        element={<AdminServicesInventory />}
+                      />
+                      <Route
+                        path="/AdministrarInventarioInterno"
+                        element={<AdminInternalInventory />}
+                      />
+                    </Route>
+                  </Route>
                   <Route path="/CitaCreada" element={<DateCreated />} />
                 </Routes>
               </BrowserRouter>

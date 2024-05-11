@@ -41,7 +41,6 @@ export default function ModalPay({
       const res = await createOrder(dateInformation);
       window.location.href = res.data.links[1].href;
     } catch (error) {
-      console.log(error);
       const { status, data } = error.response;
       handleResponseMessages({ status, data });
     }

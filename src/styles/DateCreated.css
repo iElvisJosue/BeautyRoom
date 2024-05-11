@@ -33,16 +33,11 @@
   font-size: var(--NormalFontSize);
   color: #8a90a1;
 }
-.DateCreated__Container--Button {
-  /* margin-top: 0px;
-  padding: 10px 20px;
-  font-size: var(--NormalFontSize);
-  font-weight: bold;
-  color: var(--White);
-  background: var(--StrongPurple);
-  outline: none;
-  border: 2px solid var(--StrongPurple);
-  transition: 0.5s ease all; */
+.DateCreated__Container--Buttons {
+  display: flex;
+  gap: 10px;
+}
+.DateCreated__Container--Buttons--Button {
   color: #8a90a1;
   font-size: var(--NormalFontSize);
   font-weight: bold;
@@ -53,8 +48,7 @@
   justify-content: center;
   gap: 5px;
 }
-
-.DateCreated__Container--Button:hover {
+.DateCreated__Container--Buttons--Button:hover {
   cursor: pointer;
   background-color: var(--White);
   color: var(--StrongPurple);
