@@ -50,7 +50,7 @@ export const GlobalProvider = ({ children }) => {
         return;
       }
       try {
-        const res = await verifyToken(cookies.accessToken);
+        const res = await verifyToken({ cookie: cookies.accessToken });
         if (!res.data) {
           setError();
           return;
