@@ -8,27 +8,41 @@ export default function useCalendar() {
   const [calendarDetails, setCalendarDetails] = useState([]);
   const [staticMonthNumber, setStaticMonthNumber] = useState(null);
   const [staticDay, setStaticDay] = useState(null);
+  const [optionYear, setOptionYear] = useState(0);
 
   useEffect(() => {
-    const getCurrentDate = new Date();
-    const getCurrentYear = getCurrentDate.getFullYear();
-    const getCurrentMonth = getCurrentDate.getMonth() + 1;
-    const getCurrentDay = getCurrentDate.getDate();
-    setCurrentYear(getCurrentYear);
-    setMonthNumber(getCurrentMonth);
-    setStaticMonthNumber(getCurrentMonth);
-    setStaticDay(getCurrentDay);
-    updateCalendar(getCurrentYear, getCurrentMonth);
-  }, []);
+    optionYear <= 0 ? getCurrentCalendar() : getNextYearCalendar();
+  }, [optionYear]);
+
+  const getCurrentCalendar = () => {
+    const getDate = new Date();
+    setDetailsCalendar(getDate);
+  };
+  const getNextYearCalendar = () => {
+    const getDate = new Date(currentYear + 1, 0, 1);
+    setDetailsCalendar(getDate);
+  };
+  const setDetailsCalendar = (yearSelected) => {
+    const getYear = yearSelected.getFullYear();
+    const getMonth = yearSelected.getMonth() + 1;
+    const getDay = yearSelected.getDate();
+    setCurrentYear(getYear);
+    setMonthNumber(getMonth);
+    setStaticMonthNumber(getMonth);
+    setStaticDay(getDay);
+    updateCalendar(getYear, getMonth);
+  };
 
   useEffect(() => {
     if (monthNumber !== null) {
-      const getCurrentDate = new Date();
-      const getCurrentYear = getCurrentDate.getFullYear();
-      updateCalendar(getCurrentYear, monthNumber);
+      const getDate =
+        optionYear <= 0 ? new Date() : new Date(currentYear, 0, 1);
+      const getYear = getDate.getFullYear();
+      updateCalendar(getYear, monthNumber);
     }
   }, [monthNumber]);
 
+  // ESTE NO SE VA A TOCAR
   function updateCalendar(year, month) {
     const monthDays = new Date(year, month, 0).getDate();
     const details = [];
@@ -45,7 +59,6 @@ export default function useCalendar() {
         shortMonthName: shortMonthNames[month - 1],
       });
     }
-
     setCalendarDetails(details);
   }
 
@@ -72,5 +85,6 @@ export default function useCalendar() {
     monthNumber,
     currentYear,
     formatDate,
+    setOptionYear,
   };
 }

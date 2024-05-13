@@ -14,22 +14,40 @@
   font-weight: bold;
   color: var(--StrongPurple);
 }
-
 .SelectDay__Months {
+  width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   font-size: var(--SubTittleFontSize);
-
   gap: 10px;
 }
-.SelectDay__Months p:first-child {
+.SelectDay__Months--Years {
+  padding: 10px 20px;
+  border-radius: 20px;
+  background: var(--StrongPurple);
+  outline: none;
+  border: 2px solid var(--StrongPurple);
+  color: var(--White);
+  font-weight: bold;
+  transition: 0.5s ease all;
+}
+.SelectDay__Months--Years:hover {
+  background: var(--White);
+  color: var(--StrongPurple);
+  cursor: pointer;
+}
+.SelectDay__Months--Options {
+  display: flex;
+  gap: 10px;
+}
+.SelectDay__Months--Options p:first-child {
   color: var(--Gray);
 }
-.SelectDay__Months p:last-child {
+.SelectDay__Months--Options p:last-child {
   color: var(--Gray);
 }
-.SelectDay__Months--Button {
+.SelectDay__Months--Options--Button {
   font-size: var(--IconFontSize);
   background: none;
   outline: none;
@@ -39,4 +57,9 @@
   justify-content: center;
   cursor: pointer;
   color: var(--Black);
+}
+@media (width < 500px) {
+  .SelectDay__Months {
+    flex-direction: column;
+  }
 }

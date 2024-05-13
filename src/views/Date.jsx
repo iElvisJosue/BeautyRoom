@@ -8,23 +8,26 @@ import SelectSubservice from "../components/SelectSubservice";
 import SelectDay from "../components/SelectDay";
 import SelectHour from "../components/SelectHour";
 import DataClient from "../components/DataClient";
-// import Menu from "../components/Menu";
 
 // IMPORTAMOS LOS HOOKS
 import useDate from "../hooks/useDate";
 import useCalendar from "../hooks/useCalendar";
 import useProgressDate from "../hooks/useProgressDate";
-// import useMenu from "../hooks/useMenu";
 
 // IMPORTAMOS LOS ESTILOS
 import "../styles/Date.css";
 
 export default function Date() {
-  // const { showMenu, setShowMenu } = useMenu();
   const { progressDate, setProgressDate } = useProgressDate();
   const { dateInformation, setDateInformation } = useDate();
-  const { calendarDetails, currentYear, monthNumber, nextMonth, prevMonth } =
-    useCalendar();
+  const {
+    calendarDetails,
+    currentYear,
+    monthNumber,
+    nextMonth,
+    prevMonth,
+    setOptionYear,
+  } = useCalendar();
 
   const dateProps = {
     dateInformation,
@@ -36,6 +39,7 @@ export default function Date() {
     monthNumber,
     nextMonth,
     prevMonth,
+    setOptionYear,
   };
 
   const currentProgressDate = {
@@ -51,7 +55,6 @@ export default function Date() {
   return (
     <main className="Date">
       <Navbar seeOptionMenu={false}>Agendar Cita</Navbar>
-      {/* <Menu showMenu={showMenu} setShowMenu={setShowMenu}></Menu> */}
       <ProgressDateToRender {...dateProps} />
       <Toaster richColors position="top-right" closeButton />
     </main>

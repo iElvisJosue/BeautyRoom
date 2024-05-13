@@ -14,7 +14,6 @@ export default function DayDetails({
   dayName,
   shortMonthName,
   monthNumber,
-  // setDayDate,
   dateInformation,
   setDateInformation,
   currentYear,

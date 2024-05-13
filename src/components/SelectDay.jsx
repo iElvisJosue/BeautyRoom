@@ -2,10 +2,6 @@
 
 // IMPORTAMOS LOS COMPONENTES
 import DayDetails from "./DayDetails";
-// import Loader from "./Loader";
-
-// IMPORTAMOS LOS HOOKS
-// import useGetEmployeesByService from "../hooks/useGetEmployeesByService";
 
 // IMPORTAMOS LAS AYUDAS
 import { shortMonthNames } from "../helpers/Calendar";
@@ -14,8 +10,6 @@ import { shortMonthNames } from "../helpers/Calendar";
 import "../styles/SelectDay.css";
 
 export default function SelectDay({
-  // dayDate,
-  // setDayDate,
   dateInformation,
   setDateInformation,
   progressDate,
@@ -25,13 +19,9 @@ export default function SelectDay({
   monthNumber,
   nextMonth,
   prevMonth,
+  setOptionYear,
 }) {
-  // const { NombreServicio } = dateInformation;
-  // const { amountEmployees, searchingEmployees } = useGetEmployeesByService({
-  //   NombreServicio,
-  // });
-  // if (searchingEmployees) return <Loader />;
-  // dateInformation.EmpleadosDisponibles = amountEmployees.length;
+  const getDate = new Date();
 
   return (
     <div className="SelectDay__Container">
@@ -39,15 +29,37 @@ export default function SelectDay({
       {calendarDetails.length > 0 && (
         <>
           <div className="SelectDay__Months">
-            <p>{shortMonthNames[monthNumber - 2 < 0 ? 11 : monthNumber - 2]}</p>
-            <button onClick={prevMonth} className="SelectDay__Months--Button">
-              <ion-icon name="chevron-back-outline"></ion-icon>
+            <button
+              className="SelectDay__Months--Years"
+              onClick={() => setOptionYear(0)}
+            >
+              {getDate.getFullYear()}
             </button>
-            <p>{shortMonthNames[monthNumber - 1]}</p>
-            <button onClick={nextMonth} className="SelectDay__Months--Button">
-              <ion-icon name="chevron-forward-outline"></ion-icon>
+            <span className="SelectDay__Months--Options">
+              <p>
+                {shortMonthNames[monthNumber - 2 < 0 ? 11 : monthNumber - 2]}
+              </p>
+              <button
+                onClick={prevMonth}
+                className="SelectDay__Months--Options--Button"
+              >
+                <ion-icon name="chevron-back-outline"></ion-icon>
+              </button>
+              <p>{shortMonthNames[monthNumber - 1]}</p>
+              <button
+                onClick={nextMonth}
+                className="SelectDay__Months--Options--Button"
+              >
+                <ion-icon name="chevron-forward-outline"></ion-icon>
+              </button>
+              <p>{shortMonthNames[monthNumber % 12]}</p>
+            </span>
+            <button
+              className="SelectDay__Months--Years"
+              onClick={() => setOptionYear(1)}
+            >
+              {getDate.getFullYear() + 1}
             </button>
-            <p>{shortMonthNames[monthNumber % 12]}</p>
           </div>
           <div className="SelectDay__Calendar">
             {calendarDetails.map(({ day, dayName, shortMonthName }, index) => (
@@ -56,8 +68,6 @@ export default function SelectDay({
                 day={day}
                 dayName={dayName}
                 shortMonthName={shortMonthName}
-                // dayDate={dayDate}
-                // setDayDate={setDayDate}
                 dateInformation={dateInformation}
                 setDateInformation={setDateInformation}
                 currentYear={currentYear}
