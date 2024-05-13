@@ -19,6 +19,7 @@
   flex-direction: column;
   gap: 20px;
   padding-top: 75px;
+  padding-bottom: 20px;
 }
 .Sales__Container--Title {
   font-size: var(--SubTittleFontSize);

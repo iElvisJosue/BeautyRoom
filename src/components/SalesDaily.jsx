@@ -1,3 +1,6 @@
+// LIBRERÍAS A USAR
+import { useState } from "react";
+
 // IMPORTAMOS LOS COMPONENTES
 import Loader from "../components/Loader";
 import NotResults from "../components/NotResults";
@@ -12,9 +15,17 @@ import { HOST_IMG, HOST_PDF } from "../helpers/Urls";
 import "../styles/SalesDaily.css";
 
 export default function SalesDaily() {
+  const [fecha, setFecha] = useState(getFechaActual());
   const { salesDaily, searchingSales, setDate } = useGetSalesDaily();
 
+  function getFechaActual() {
+    const now = new Date();
+    const tzoffset = now.getTimezoneOffset() * 60000; // offset en milisegundos
+    return new Date(now - tzoffset).toISOString().split("T")[0];
+  }
+
   const getSalesByDate = (event) => {
+    setFecha(event.target.value);
     const value = event.target.value;
     setDate(value);
   };
@@ -25,6 +36,7 @@ export default function SalesDaily() {
           type="date"
           name="SalesDate"
           id="SalesDate"
+          value={fecha}
           className="Sales__Daily--Buttons--Button"
           onChange={getSalesByDate}
         />
