@@ -58,4 +58,11 @@ export const listMenuOptions = [
     hrefOption: `${HOST}/AdministrarInventarioInterno`,
     userRol: "Administrador",
   },
+  {
+    imgMenuOption: "Ventas.png",
+    altImgMenuOption: "Icono menú Ventas",
+    nameMenuOption: "Reporte de Ventas",
+    hrefOption: `${HOST}/ReporteVentas`,
+    userRol: "Administrador",
+  },
 ];

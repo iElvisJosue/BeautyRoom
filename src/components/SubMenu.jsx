@@ -7,6 +7,8 @@ export default function SubMenu({
   NombreOpciónDos = "Opción Dos",
   setOptionSubMenu,
   optionSubMenu,
+  firstIcon = "apps-outline",
+  secondIcon = "add-circle-outline",
 }) {
   const setOptionOneSubmenu = () => {
     setOptionSubMenu(0);
@@ -24,7 +26,7 @@ export default function SubMenu({
           }`}
           onClick={setOptionOneSubmenu}
         >
-          <ion-icon name="apps-outline"></ion-icon> {NombreOpciónUno}
+          <ion-icon name={firstIcon}></ion-icon> {NombreOpciónUno}
         </button>
         <button
           className={`SubMenu__Container--Button ${
@@ -32,7 +34,7 @@ export default function SubMenu({
           }`}
           onClick={setOptionTwoSubmenu}
         >
-          <ion-icon name="add-circle-outline"></ion-icon> {NombreOpciónDos}
+          <ion-icon name={secondIcon}></ion-icon> {NombreOpciónDos}
         </button>
       </span>
     </div>

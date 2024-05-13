@@ -23,3 +23,9 @@ export const verifyToken = (data) => axios.post("/global/verifyToken", data);
 // RUTA PARA CREAR EL TICKET
 export const createOneTicket = (data) =>
   axios.post("/global/createTicket", data);
+// RUTA PARA OBTENER TODAS LAS VENTAS POR DIA
+export const getAllSalesPerDay = (data) =>
+  axios.post("/global/getSalesPerDay", data);
+// RUTA PARA OBTENER LAS VENTAS POR FILTRO
+export const getAllSalesByFilter = (data) =>
+  axios.post("/global/getSalesByFilter", data);

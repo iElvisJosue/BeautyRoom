@@ -1,0 +1,165 @@
+.Sales__All {
+  width: 100%;
+  height: auto;
+  padding: 0 20px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.Sales__All--SubTitle {
+  font-size: var(--SubTittleFontSize);
+  font-weight: bold;
+  color: var(--StrongPurple);
+}
+.Sales__All--Input {
+  background: var(--Transparent);
+  width: 100%;
+  padding: 0 20px;
+  height: 50px;
+  border-radius: 50px;
+  border: 2px solid var(--Transparent);
+  outline: none;
+}
+.Sales__All--Buttons {
+  width: 100%;
+  height: 50px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px;
+}
+.Sales__All--Buttons--Button {
+  height: 100%;
+  padding: 0 10px;
+  border-radius: 50px;
+  border: none;
+  outline: none;
+  background: var(--Transparent);
+  color: var(--Black);
+  font-size: var(--NormalFontSize);
+  border: 2px solid var(--Transparent);
+  font-weight: bold;
+  transition: 0.5s ease all;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+.Sales__All--Buttons--Button ion-icon {
+  font-size: var(--IconFontSize);
+}
+.Sales__All--Buttons--Button:hover {
+  background-color: var(--White);
+  border-color: var(--StrongPurple);
+  color: var(--StrongPurple);
+  cursor: pointer;
+}
+.Sales__All--TableList--Header {
+  min-height: 50px;
+  padding: 10px;
+  background: var(--StrongPurple);
+  font-size: var(--NormalFontSize);
+  border-radius: 20px 20px 0 0;
+  gap: 5px;
+  color: var(--White);
+  font-weight: bold;
+
+  display: flex;
+  align-items: center;
+}
+.Sales__All--TableList--Header--Number,
+.Sales__All--TableList--Header--Total,
+.Sales__All--TableList--Header--Date,
+.Sales__All--TableList--Header--Ticket,
+.Sales__All--TableList--Details--Number,
+.Sales__All--TableList--Details--Total,
+.Sales__All--TableList--Details--Date,
+.Sales__All--TableList--Details--Ticket {
+  width: 15%;
+  text-align: center;
+  word-wrap: break-word;
+}
+.Sales__All--TableList--Header--Number,
+.Sales__All--TableList--Details--Number {
+  text-align: left;
+}
+.Sales__All--TableList--Header--Product,
+.Sales__All--TableList--Details--Product {
+  width: 40%;
+  word-wrap: break-word;
+}
+
+.Sales__All--TableList--Details {
+  min-height: 50px;
+  height: auto;
+  padding: 10px;
+  background: var(--White);
+  font-size: var(--SmallFontSize);
+
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.Sales__All--TableList--Details--Product {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.Sales__All--TableList--Details--Product img {
+  width: 30px;
+  background-color: var(--StrongPurple);
+}
+.Sales__All--TableList--Details:nth-child(odd) {
+  background: var(--Transparent);
+}
+.Sales__All--TableList--Details:last-child {
+  border-radius: 0 0 20px 20px;
+}
+.Sales__All--TableList--Details--Ticket {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.Sales__All--TableList--Details--Ticket--Button {
+  cursor: pointer;
+  transition: 0.5s ease all;
+  border: none;
+  outline: none;
+  background: var(--StrongPurple);
+  border: 1px solid var(--StrongPurple);
+  color: var(--White);
+  padding: 5px;
+  border-radius: 5px;
+  font-size: var(--NormalFontSize);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.Sales__All--TableList--Details--Ticket--Button:hover {
+  transform: scale(1.1);
+  background: var(--White);
+  color: var(--StrongPurple);
+}
+@media (width < 500px) {
+  .Sales__All--TableList--Details {
+    padding: 10px;
+    font-size: calc(var(--SmallFontSize) - 1px);
+    gap: 5px;
+  }
+  .Sales__All--TableList--Details--Product {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+@media (width < 400px) {
+  .Sales__All--TableList--Header {
+    font-size: var(--SmallFontSize);
+  }
+  .Sales__All--Buttons--Button {
+    font-size: var(--SmallFontSize);
+  }
+}

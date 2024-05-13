@@ -10,6 +10,8 @@ import {
   verifyToken,
   logoutUser,
   createOneTicket,
+  getAllSalesPerDay,
+  getAllSalesByFilter,
 } from "../api/authGlobal";
 import Cookies from "js-cookie";
 
@@ -152,6 +154,26 @@ export const GlobalProvider = ({ children }) => {
     }
   };
 
+  const getSalesPerDay = async (data) => {
+    try {
+      const res = await getAllSalesPerDay(data);
+      return res;
+    } catch (error) {
+      setError();
+      return error;
+    }
+  };
+
+  const getSalesByFilter = async (data) => {
+    try {
+      const res = await getAllSalesByFilter(data);
+      return res;
+    } catch (error) {
+      setError();
+      return error;
+    }
+  };
+
   return (
     <GlobalContext.Provider
       value={{
@@ -167,6 +189,8 @@ export const GlobalProvider = ({ children }) => {
         getEmployeesExist,
         getEmployeesByService,
         createTicket,
+        getSalesPerDay,
+        getSalesByFilter,
       }}
     >
       {children}
