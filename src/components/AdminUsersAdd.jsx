@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 // LIBRERÍAS A USAR
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import { toast } from "sonner";
@@ -15,6 +16,7 @@ import { dataUsersInputsProps } from "../helpers/DataUsers";
 import { handleResponseMessages } from "../helpers/RespuestasServidor";
 
 export default function AdminUsersAdd({ setOptionSubMenu }) {
+  const [typeUser, setTypeUser] = useState("Administrador");
   const { verifyUserExist, createNewUser } = useGlobal();
   const { services } = useGetServices();
 
@@ -70,6 +72,10 @@ export default function AdminUsersAdd({ setOptionSubMenu }) {
     }
   };
 
+  const changeTypeUser = (event) => {
+    setTypeUser(event.target.value);
+  };
+
   return (
     <form
       onSubmit={verifyUserDuplicateExist}
@@ -99,9 +105,10 @@ export default function AdminUsersAdd({ setOptionSubMenu }) {
                 <select
                   {...register(inputName, validator)}
                   className="AddUsers__Container__Form--Data--Input"
+                  onChange={changeTypeUser}
                 >
-                  <option value="Empleado">Empleado</option>
                   <option value="Administrador">Administrador</option>
+                  <option value="Empleado">Empleado</option>
                 </select>
               </div>
             )}
@@ -123,24 +130,31 @@ export default function AdminUsersAdd({ setOptionSubMenu }) {
           </>
         )
       )}
-      <p className="AddUsers__Container__Form--Data--Title">
-        Selecciona los servicios para este usuario
-      </p>
-      {services &&
-        services.map(({ NombreServicio, idServicio }) => (
-          <div className="AddUsers__Container__Form--Services" key={idServicio}>
-            <p className="AddUsers__Container__Form--Services--Title">
-              {NombreServicio}
-            </p>
-            <select
-              className="AddUsers__Container__Form--Services--Input"
-              {...register(NombreServicio)}
+      {typeUser === "Empleado" && services && (
+        <>
+          <p className="AddUsers__Container__Form--Data--Title">
+            Selecciona los servicios para este usuario
+          </p>
+          {services.map(({ NombreServicio, idServicio }) => (
+            <div
+              className="AddUsers__Container__Form--Services"
+              key={idServicio}
             >
-              <option value={idServicio}>Sí</option>
-              <option value="">No</option>
-            </select>
-          </div>
-        ))}
+              <p className="AddUsers__Container__Form--Services--Title">
+                {NombreServicio}
+              </p>
+              <select
+                className="AddUsers__Container__Form--Services--Input"
+                {...register(NombreServicio)}
+              >
+                <option value={idServicio}>Sí</option>
+                <option value="">No</option>
+              </select>
+            </div>
+          ))}
+        </>
+      )}
+
       <button type="submit" className="AddUsers__Container__Form--Data--Button">
         Agregar Usuario
       </button>
