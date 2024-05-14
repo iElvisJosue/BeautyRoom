@@ -4,6 +4,7 @@ import { useState } from "react";
 
 // IMPORTAMOS LOS COMPONENTES
 import PointOfSalesPayCart from "./PointOfSalesPayCart";
+import PointOfSalesPayAssign from "./PointOfSalesPayAssign";
 import PointOfSalesPayMethodPayment from "./PointOfSalesPayMethodPayment";
 import PointOfSalesPaySuccess from "./PointOfSalesPaySuccess";
 
@@ -46,8 +47,9 @@ export default function PointOfSalesPay({
 
   const currentProgressPay = {
     0: PointOfSalesPayCart,
-    1: PointOfSalesPayMethodPayment,
-    2: PointOfSalesPaySuccess,
+    1: PointOfSalesPayAssign,
+    2: PointOfSalesPayMethodPayment,
+    3: PointOfSalesPaySuccess,
   };
 
   const ProgressPayToRender = currentProgressPay[progressPay];

@@ -11,6 +11,9 @@ export const updateOneDataUser = (data) =>
   axios.put("/global/updateDataUser", data);
 // PETICIÓN PARA CERRAR SESIÓN
 export const logoutUser = () => axios.post("/global/logout");
+// RUTA PARA OBTENER TODOS LOS CLIENTES POR FILTRO
+export const getAllClientsByFilter = (data) =>
+  axios.post("/global/getClientsByFilter", data);
 // PETICIÓN PARA OBTENER A LOS EMPLEADOS (NO ADMIN  )
 export const getEmployees = () => axios.get("/global/getEmployees");
 // PETICIÓN PARA OBTENER A LOS EMPLEADOS  (TODOS)

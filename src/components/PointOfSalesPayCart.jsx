@@ -7,7 +7,6 @@ import { handleAddProductToCart } from "../helpers/HandleAddProductToCart";
 import { handleSubtractProductToCart } from "../helpers/HandleSubtractProductToCart";
 import { handleAddServiceToCart } from "../helpers/HandleAddServiceToCart";
 import { handleSubtractServiceToCart } from "../helpers/HandleSubtractServiceToCart";
-import { generateFolio } from "../helpers/GenerateFolio";
 import { HOST_IMG } from "../helpers/Urls";
 
 // IMPORTAMOS LOS ESTILOS
@@ -20,7 +19,6 @@ export default function PointOfSalesPayCart({
   getCartAgain,
   setGetCartAgain,
   setProgressPay,
-  employeesExist,
 }) {
   const handleSubtractCart = (Product) => {
     const { idProducto, idSubservicio } = Product;
@@ -82,17 +80,6 @@ export default function PointOfSalesPayCart({
       0
     );
     return total;
-  };
-  const handleUpdateCart = () => {
-    const Folio = generateFolio();
-    cart.map((product) => {
-      // product.MetodoDePago = document.querySelector("#payment").value;
-      product.EmpleadoAsignado = document.querySelector("#employee").value;
-      product.NumeroDeFolio = Folio;
-    });
-    setCart(cart);
-    localStorage.setItem("cart", JSON.stringify(cart));
-    setProgressPay(1);
   };
 
   return (
@@ -157,36 +144,18 @@ export default function PointOfSalesPayCart({
       </div>
       {cart.length > 0 && (
         <footer className="PointOfSalesPay__Cart__Footer">
-          <span className="PointOfSalesPay__Cart__Footer--Employees">
-            <p className="PointOfSalesPay__Cart__Footer--Employees--Text">
-              Asignar empleado
-            </p>
-            <select
-              className="PointOfSalesPay__Cart__Footer--Employees--Select"
-              id="employee"
-            >
-              {employeesExist &&
-                employeesExist.map((employee) => (
-                  <option value={employee.Usuario} key={employee.idUsuario}>
-                    {employee.Usuario}
-                  </option>
-                ))}
-            </select>
-          </span>
-          <span className="PointOfSalesPay__Cart__Footer--Buttons">
-            <button
-              className="PointOfSalesPay__Cart__Footer--ButtonCancel"
-              onClick={handleDeleteCart}
-            >
-              Cancelar Carrito
-            </button>
-            <button
-              className="PointOfSalesPay__Cart__Footer--ButtonPay"
-              onClick={handleUpdateCart}
-            >
-              Pagar ${getTotal().toLocaleString()}
-            </button>
-          </span>
+          <button
+            className="PointOfSalesPay__Cart__Footer--ButtonCancel"
+            onClick={handleDeleteCart}
+          >
+            Cancelar Carrito
+          </button>
+          <button
+            className="PointOfSalesPay__Cart__Footer--ButtonPay"
+            onClick={() => setProgressPay(1)}
+          >
+            Pagar ${getTotal().toLocaleString()}
+          </button>
         </footer>
       )}{" "}
     </>

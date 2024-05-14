@@ -30,7 +30,7 @@ export default function SalesAll() {
       <h1 className="Sales__All--SubTitle">Buscar venta:</h1>
       <input
         type="text"
-        placeholder="Fecha (AAAA-MM-DD), Folio, Producto, Empleado, Metodo de Pago"
+        placeholder="Fecha (AAAA-MM-DD), Folio, Producto, Empleado, Metodo de Pago o Cliente"
         className="Sales__All--Input"
         onChange={getSalesByFilter}
       />

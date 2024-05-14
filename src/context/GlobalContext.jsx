@@ -5,6 +5,7 @@ import {
   updateOneDataUser,
   verifyUser,
   getEmployees,
+  getAllClientsByFilter,
   getAllEmployeesExist,
   getAllEmployeesByService,
   verifyToken,
@@ -111,6 +112,14 @@ export const GlobalProvider = ({ children }) => {
       return error;
     }
   };
+  const getClientsByFilter = async (data) => {
+    try {
+      const res = await getAllClientsByFilter(data);
+      return res;
+    } catch (error) {
+      setError();
+    }
+  };
   const getEmployeesExist = async () => {
     try {
       const res = await getAllEmployeesExist();
@@ -186,6 +195,7 @@ export const GlobalProvider = ({ children }) => {
         createNewUser,
         verifyUserExist,
         getAllEmployees,
+        getClientsByFilter,
         getEmployeesExist,
         getEmployeesByService,
         createTicket,

@@ -47,7 +47,7 @@ export default function PointOfSalesPayMethodPayment({
         const { status, data } = res.response;
         handleResponseMessages({ status, data });
       } else {
-        setProgressPay(2);
+        setProgressPay(3);
         const pdfURL = `${HOST_PDF}/${res.data}`;
         setUrlTicket(pdfURL);
       }
@@ -76,7 +76,7 @@ export default function PointOfSalesPayMethodPayment({
     setShowConfirm(false);
   };
   const backToCart = () => {
-    setProgressPay(0);
+    setProgressPay(1);
   };
   const handleCreateTicket = (methodPayment) => {
     handleUpdateCart(methodPayment);
