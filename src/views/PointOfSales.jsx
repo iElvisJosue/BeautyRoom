@@ -38,8 +38,8 @@ export default function PointOfSales() {
   };
 
   const currentPointOfSales = {
-    0: PointOfSalesProducts,
-    1: PointOfSalesServices,
+    0: PointOfSalesServices,
+    1: PointOfSalesProducts,
     // 2: PointOfSalesInternal,
   };
 
@@ -59,8 +59,8 @@ export default function PointOfSales() {
       )}
       <div className="PointOfSales__Container">
         <SubMenuPointOfSales
-          NombreOpciónUno="Productos"
-          NombreOpciónDos="Servicios"
+          NombreOpciónUno="Servicios"
+          NombreOpciónDos="Productos"
           // NombreOpciónTres="Interno"
           {...pointOfSalesProps}
         ></SubMenuPointOfSales>
