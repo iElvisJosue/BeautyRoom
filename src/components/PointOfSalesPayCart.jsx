@@ -116,6 +116,7 @@ export default function PointOfSalesPayCart({
     toast.success("Cita eliminada correctamente ✔️");
     cart.map((currentItem) => {
       delete currentItem.idCita;
+      delete currentItem.PropinaCliente;
     });
     handleUpdateCart(cart);
   };
