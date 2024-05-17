@@ -74,6 +74,9 @@ export default function DateInformation({
         </picture>
         <span className="DatingHistory__Container--Dates--Card--Container--Details">
           <p className="DatingHistory__Container--Dates--Card--Container--Details--Text">
+            📄 {idCita}
+          </p>
+          <p className="DatingHistory__Container--Dates--Card--Container--Details--Text">
             👤 {NombreCliente}
           </p>
           <p className="DatingHistory__Container--Dates--Card--Container--Details--Text">

@@ -24,7 +24,10 @@ export default function PointOfSalesPayMethodPayment({
   const { createTicket } = useGlobal();
 
   const getTotal = () => {
-    const total = cart.reduce((acc, product) => acc + product.PrecioTotal, 0);
+    let total = cart.reduce((acc, product) => acc + product.PrecioTotal, 0);
+    cart[0].OtrosServicios && (total += cart[0].OtrosServicios);
+    cart[0].PropinaCliente && (total += cart[0].PropinaCliente);
+    cart[0].idCita && (total -= 150);
     return total;
   };
 

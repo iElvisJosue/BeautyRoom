@@ -28,10 +28,10 @@
   justify-content: space-between;
 }
 .DatingHistory__Container--Dates--Card--Container--Img {
-  min-width: 90px;
-  width: 90px;
-  min-height: 90px;
-  height: 90px;
+  min-width: 100px;
+  width: 100px;
+  min-height: 100px;
+  height: 100px;
   border: 2px solid var(--White);
   border-radius: 50%;
 
@@ -63,7 +63,7 @@
   gap: 3px;
 }
 .DatingHistory__Container--Dates--Card--Container--Details--Text ion-icon {
-  font-size: var(--SubTittleFontSize);
+  font-size: var(--IconFontSize);
 }
 .DatingHistory__Container--Dates--Card--Container--Button {
   width: 50px;
@@ -142,10 +142,10 @@
     min-height: 130px;
   }
   .DatingHistory__Container--Dates--Card--Container--Img {
-    width: 70px;
-    height: 70px;
-    min-height: 70px;
-    min-width: 70px;
+    width: 80px;
+    height: 80px;
+    min-height: 80px;
+    min-width: 80px;
   }
   .DatingHistory__Container--Dates--Card--Container--Details--Text {
     font-size: var(--SmallFontSize);
