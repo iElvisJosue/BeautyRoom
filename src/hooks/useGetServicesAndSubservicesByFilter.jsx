@@ -11,6 +11,10 @@ export default function useGetServicesAndSubservicesByFilter() {
   const [filter, setFilter] = useState(false);
   const [servicesAndSubservicesByFilter, setServicesAndSubservicesByFilter] =
     useState(false);
+  const [
+    getServicesAndSubservicesByFilterAgain,
+    setGetServicesAndSubservicesByFilterAgain,
+  ] = useState(false);
 
   useEffect(() => {
     async function getAllServicesAndSubservicesByFilter() {
@@ -23,10 +27,12 @@ export default function useGetServicesAndSubservicesByFilter() {
       }
     }
     getAllServicesAndSubservicesByFilter();
-  }, [filter]);
+  }, [filter, getServicesAndSubservicesByFilterAgain]);
 
   return {
     servicesAndSubservicesByFilter,
     setFilter,
+    setGetServicesAndSubservicesByFilterAgain,
+    getServicesAndSubservicesByFilterAgain,
   };
 }

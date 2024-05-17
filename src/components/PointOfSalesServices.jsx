@@ -30,13 +30,20 @@ export default function PointOfSalesServices({
     setGetServicesAndSubservicesAgain,
     getServicesAndSubservicesAgain,
   } = useGetServicesAndSubservices();
-  const { servicesAndSubservicesByFilter, setFilter } =
-    useGetServicesAndSubservicesByFilter();
+  const {
+    servicesAndSubservicesByFilter,
+    setFilter,
+    setGetServicesAndSubservicesByFilterAgain,
+    getServicesAndSubservicesByFilterAgain,
+  } = useGetServicesAndSubservicesByFilter();
 
   if (searchingServices) return <Loader />;
 
   setTimeout(() => {
     setGetServicesAndSubservicesAgain(!getServicesAndSubservicesAgain);
+    setGetServicesAndSubservicesByFilterAgain(
+      !getServicesAndSubservicesByFilterAgain
+    );
   }, 5000);
 
   // FILTRAMOS LAS CATEGORÍAS QUE NO TENGAN PRODUCTOS Y SEAN ACTIVAS
