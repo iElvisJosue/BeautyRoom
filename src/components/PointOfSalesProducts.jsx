@@ -52,8 +52,6 @@ export default function PointOfSalesProducts({
     setShowCart,
   };
 
-  console.log(categoriesAndProducts);
-
   return (
     <div className="PointOfSalesProducts">
       {categoriesAndProducts.length > 0 ? (
