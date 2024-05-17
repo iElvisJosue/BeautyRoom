@@ -4,6 +4,7 @@ import { useState } from "react";
 
 // IMPORTAMOS LOS COMPONENTES A USAR
 import Loader from "./Loader";
+import NotResults from "./NotResults";
 import PointOfSalesProductsFilters from "./PointOfSalesProductsFilters";
 import PointOfSalesProductsList from "./PointOfSalesProductsList";
 
@@ -51,29 +52,37 @@ export default function PointOfSalesProducts({
     setShowCart,
   };
 
+  console.log(categoriesAndProducts);
+
   return (
     <div className="PointOfSalesProducts">
-      <p className="PointOfSalesProducts__Title">
-        Filtrar por <ion-icon name="eye-outline"></ion-icon>
-      </p>
-      <div className="PointOfSalesProducts__Container">
-        <PointOfSalesProductsFilters
-          setFilter={setFilter}
-          setUseFilter={setUseFilter}
-          Content={categoriesWithProducts}
-        />
-        {useFilter ? (
-          <PointOfSalesProductsList
-            Content={categoriesAndProductsByFilter}
-            {...pointOfSalesProductsProps}
-          />
-        ) : (
-          <PointOfSalesProductsList
-            Content={categoriesWithProducts}
-            {...pointOfSalesProductsProps}
-          />
-        )}
-      </div>
+      {categoriesAndProducts.length > 0 ? (
+        <>
+          <p className="PointOfSalesProducts__Title">
+            Filtrar por <ion-icon name="eye-outline"></ion-icon>
+          </p>
+          <div className="PointOfSalesProducts__Container">
+            <PointOfSalesProductsFilters
+              setFilter={setFilter}
+              setUseFilter={setUseFilter}
+              Content={categoriesWithProducts}
+            />
+            {useFilter ? (
+              <PointOfSalesProductsList
+                Content={categoriesAndProductsByFilter}
+                {...pointOfSalesProductsProps}
+              />
+            ) : (
+              <PointOfSalesProductsList
+                Content={categoriesWithProducts}
+                {...pointOfSalesProductsProps}
+              />
+            )}
+          </div>
+        </>
+      ) : (
+        <NotResults> No hay productos disponibles</NotResults>
+      )}
     </div>
   );
 }

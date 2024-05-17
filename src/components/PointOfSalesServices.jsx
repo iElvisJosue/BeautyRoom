@@ -4,6 +4,7 @@ import { useState } from "react";
 
 // IMPORTAMOS LOS COMPONENTES A USAR
 import Loader from "./Loader";
+import NotResults from "./NotResults";
 import PointOfSalesServicesFilters from "./PointOfSalesServicesFilters";
 import PointOfSalesServicesList from "./PointOfSalesServicesList";
 
@@ -54,27 +55,33 @@ export default function PointOfSalesServices({
 
   return (
     <div className="PointOfSalesServices">
-      <p className="PointOfSalesServices__Title">
-        Filtrar por <ion-icon name="eye-outline"></ion-icon>
-      </p>
-      <div className="PointOfSalesServices__Container">
-        <PointOfSalesServicesFilters
-          setFilter={setFilter}
-          setUseFilter={setUseFilter}
-          Content={servicesWithSubservices}
-        />
-        {useFilter ? (
-          <PointOfSalesServicesList
-            Content={servicesAndSubservicesByFilter}
-            {...pointOfSalesServicesProps}
-          />
-        ) : (
-          <PointOfSalesServicesList
-            Content={servicesWithSubservices}
-            {...pointOfSalesServicesProps}
-          />
-        )}
-      </div>
+      {services.length > 0 ? (
+        <>
+          <p className="PointOfSalesServices__Title">
+            Filtrar por <ion-icon name="eye-outline"></ion-icon>
+          </p>
+          <div className="PointOfSalesServices__Container">
+            <PointOfSalesServicesFilters
+              setFilter={setFilter}
+              setUseFilter={setUseFilter}
+              Content={servicesWithSubservices}
+            />
+            {useFilter ? (
+              <PointOfSalesServicesList
+                Content={servicesAndSubservicesByFilter}
+                {...pointOfSalesServicesProps}
+              />
+            ) : (
+              <PointOfSalesServicesList
+                Content={servicesWithSubservices}
+                {...pointOfSalesServicesProps}
+              />
+            )}
+          </div>
+        </>
+      ) : (
+        <NotResults> No hay servicios disponibles</NotResults>
+      )}
     </div>
   );
 }
