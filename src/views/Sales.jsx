@@ -1,3 +1,6 @@
+// IMPORTAMOS LAS LIBRERÍAS A USAR
+import { Toaster } from "sonner";
+
 // IMPORTAMOS LOS COMPONENTES
 import Navbar from "../components/Navbar";
 import SubMenu from "../components/SubMenu";
@@ -27,6 +30,7 @@ export default function Sales() {
         />
         {optionSubMenu === 0 ? <SalesDaily /> : <SalesAll />}
       </div>
+      <Toaster richColors position="top-right" closeButton />
     </main>
   );
 }

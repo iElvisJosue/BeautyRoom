@@ -59,7 +59,7 @@ export default function PointOfSalesProductsList({
                       Producto.DescuentoProducto ? "Discount" : ""
                     }`}
                   >
-                    {`$${Producto.PrecioProductoConDescuento} MXN`}
+                    {`$${Producto.PrecioProductoConDescuento.toFixed(2)} MXN`}
                   </p>
                 </span>
                 <p className="PointOfSalesProducts__Products--Container--Description">

@@ -32,3 +32,6 @@ export const getAllSalesPerDay = (data) =>
 // RUTA PARA OBTENER LAS VENTAS POR FILTRO
 export const getAllSalesByFilter = (data) =>
   axios.post("/global/getSalesByFilter", data);
+// RUTA PARA CREAR UN REPORTE
+export const createOneReport = (data) =>
+  axios.post("/global/createReport", data);

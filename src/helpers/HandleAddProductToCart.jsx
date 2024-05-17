@@ -62,6 +62,9 @@ const setNewCart = (
   getCartAgain,
   setGetCartAgain
 ) => {
+  newItem.map((currentItem) => {
+    delete currentItem.PropinaCliente;
+  });
   setShowCart(true);
   setCart(newItem);
   setGetCartAgain(!getCartAgain);

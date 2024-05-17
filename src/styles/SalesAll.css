@@ -108,9 +108,17 @@
   align-items: center;
   gap: 5px;
 }
+.Sales__All--TableList--Details--Product--Picture {
+  background: var(--StrongPurple);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+}
 .Sales__All--TableList--Details--Product img {
-  width: 30px;
-  background-color: var(--StrongPurple);
+  width: 80%;
 }
 .Sales__All--TableList--Details:nth-child(odd) {
   background: var(--Transparent);
@@ -124,6 +132,8 @@
   justify-content: center;
 }
 .Sales__All--TableList--Details--Ticket--Button {
+  width: 40px;
+  height: 40px;
   cursor: pointer;
   transition: 0.5s ease all;
   border: none;
@@ -131,9 +141,8 @@
   background: var(--StrongPurple);
   border: 1px solid var(--StrongPurple);
   color: var(--White);
-  padding: 5px;
   border-radius: 5px;
-  font-size: var(--NormalFontSize);
+  font-size: var(--IconFontSize);
 
   display: flex;
   align-items: center;
@@ -143,6 +152,14 @@
   transform: scale(1.1);
   background: var(--White);
   color: var(--StrongPurple);
+}
+@media (width < 550px) {
+  .Sales__All--TableList--Details--Product--Picture,
+  .Sales__All--TableList--Details--Ticket--Button {
+    width: 30px;
+    height: 30px;
+    font-size: var(--NormalFontSize);
+  }
 }
 @media (width < 500px) {
   .Sales__All--TableList--Details {

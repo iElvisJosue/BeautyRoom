@@ -27,3 +27,7 @@ export const createPayment = (data) => axios.post("/dates/createOrder", data);
 // PETICIÓN PARA OBTENER LAS CITAS DE UN EMPLEADO
 export const getAllDatesByFilterUser = (data) =>
   axios.post("/dates/getDatesFilteredByUser", data);
+
+// PETICIÓN PARA VALIDAR UNA CITA
+export const validateAllDatesFolio = (data) =>
+  axios.post("/dates/validateDateFolio", data);

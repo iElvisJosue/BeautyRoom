@@ -9,23 +9,23 @@ import { handleResponseMessages } from "../helpers/RespuestasServidor";
 
 export default function useGetSalesDaily() {
   // OBTENEMOS LA FECHA ACTUAL
-  const currentDate = new Date();
-
-  const today = `${currentDate.getFullYear()}-${
-    currentDate.getMonth() + 1 < 10
-      ? "0" + (currentDate.getMonth() + 1)
-      : currentDate.getMonth() + 1
-  }-${currentDate.getDate()}`;
-
   const { getSalesPerDay } = useGlobal();
-  const [date, setDate] = useState(today);
+  // const [date, setDate] = useState();
   const [salesDaily, setSalesDaily] = useState([]);
   const [searchingSales, setSearchingSales] = useState(true);
+  const [firstDate, setFirstDate] = useState(getFechaActual());
+  const [secondDate, setSecondDate] = useState(getFechaActual());
+
+  function getFechaActual() {
+    const now = new Date();
+    const tzoffset = now.getTimezoneOffset() * 60000; // offset en milisegundos
+    return new Date(now - tzoffset).toISOString().split("T")[0];
+  }
 
   useEffect(() => {
     async function getAllSalesDaily() {
       try {
-        const res = await getSalesPerDay({ date });
+        const res = await getSalesPerDay({ firstDate, secondDate });
         if (res.response) {
           const { status, data } = res.response;
           handleResponseMessages({ status, data });
@@ -39,7 +39,14 @@ export default function useGetSalesDaily() {
       }
     }
     getAllSalesDaily();
-  }, [date]);
+  }, [firstDate, secondDate]);
 
-  return { salesDaily, searchingSales, setDate };
+  return {
+    salesDaily,
+    searchingSales,
+    firstDate,
+    secondDate,
+    setFirstDate,
+    setSecondDate,
+  };
 }

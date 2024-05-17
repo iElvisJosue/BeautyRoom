@@ -10,9 +10,18 @@ export default function PointOfSalesPaySuccess({
   getCartAgain,
   setGetCartAgain,
 }) {
+  // OBTENEMOS EL SUBTOTAL DE LA COMPRA
+  const getSubtotal = () => {
+    let Subtotal = cart.reduce((acc, product) => acc + product.PrecioTotal, 0);
+    return Subtotal;
+  };
+  //
   const getTotal = () => {
-    const total = cart.reduce((acc, product) => acc + product.PrecioTotal, 0);
-    return total;
+    let Total = cart.reduce((acc, product) => acc + product.PrecioTotal, 0);
+    cart[0].PropinaCliente && (Total += cart[0].PropinaCliente);
+    cart[0].OtrosServicios && (Total += cart[0].OtrosServicios);
+    cart[0].idCita && (Total -= 150);
+    return Total;
   };
   const { MetodoDePago } = cart[0];
 
@@ -49,7 +58,10 @@ export default function PointOfSalesPaySuccess({
             {MetodoDePago}
           </small>
           <small className="PointOfSalesPaySuccess__Cart--PaymentDetails--Subtitle--Value">
-            ${getTotal().toFixed(2)}
+            {getTotal().toLocaleString("en-US", {
+              style: "currency",
+              currency: "USD",
+            })}
           </small>
         </span>
         <p className="PointOfSalesPaySuccess__Cart--PaymentDetails--Title">
@@ -63,10 +75,54 @@ export default function PointOfSalesPaySuccess({
         </p>
         <span className="PointOfSalesPaySuccess__Cart--PaymentDetails--Subtitle">
           <small className="PointOfSalesPaySuccess__Cart--PaymentDetails--Subtitle--Name">
+            Subtotal:
+          </small>
+          <small className="PointOfSalesPaySuccess__Cart--PaymentDetails--Subtitle--Value">
+            {getSubtotal().toLocaleString("en-US", {
+              style: "currency",
+              currency: "USD",
+            })}
+          </small>
+        </span>
+        <span className="PointOfSalesPaySuccess__Cart--PaymentDetails--Subtitle">
+          <small className="PointOfSalesPaySuccess__Cart--PaymentDetails--Subtitle--Name">
+            Otros servicios:
+          </small>
+          <small className="PointOfSalesPaySuccess__Cart--PaymentDetails--Subtitle--Value">
+            {cart[0].OtrosServicios?.toLocaleString("en-US", {
+              style: "currency",
+              currency: "USD",
+            }) ?? 0}
+          </small>
+        </span>
+        <span className="PointOfSalesPaySuccess__Cart--PaymentDetails--Subtitle">
+          <small className="PointOfSalesPaySuccess__Cart--PaymentDetails--Subtitle--Name">
+            Propina:
+          </small>
+          <small className="PointOfSalesPaySuccess__Cart--PaymentDetails--Subtitle--Value">
+            {cart[0].PropinaCliente?.toLocaleString("en-US", {
+              style: "currency",
+              currency: "USD",
+            }) ?? 0}
+          </small>
+        </span>
+        <span className="PointOfSalesPaySuccess__Cart--PaymentDetails--Subtitle">
+          <small className="PointOfSalesPaySuccess__Cart--PaymentDetails--Subtitle--Name">
+            Descuento:
+          </small>
+          <small className="PointOfSalesPaySuccess__Cart--PaymentDetails--Subtitle--Value">
+            {cart[0].idCita ? "$150.00" : "0"}
+          </small>
+        </span>
+        <span className="PointOfSalesPaySuccess__Cart--PaymentDetails--Subtitle">
+          <small className="PointOfSalesPaySuccess__Cart--PaymentDetails--Subtitle--Name">
             Total:
           </small>
           <small className="PointOfSalesPaySuccess__Cart--PaymentDetails--Subtitle--Value">
-            ${getTotal().toFixed(2)}
+            {getTotal().toLocaleString("en-US", {
+              style: "currency",
+              currency: "USD",
+            })}
           </small>
         </span>
       </span>

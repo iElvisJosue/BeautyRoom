@@ -1,8 +1,16 @@
 /* eslint-disable react/prop-types */
+// LIBRERÍAS A USAR
+import { useState } from "react";
+import { toast } from "sonner";
+
+// IMPORTAMOS LOS CONTEXTOS A USAR
+import { useDates } from "../context/DatesContext";
+
 // IMPORTAMOS LOS COMPONENTES A USAR
 import EmptyCart from "./EmptyCart";
 
 // IMPORTAMOS LAS AYUDAS
+import { handleResponseMessages } from "../helpers/RespuestasServidor";
 import { handleAddProductToCart } from "../helpers/HandleAddProductToCart";
 import { handleSubtractProductToCart } from "../helpers/HandleSubtractProductToCart";
 import { handleAddServiceToCart } from "../helpers/HandleAddServiceToCart";
@@ -20,6 +28,8 @@ export default function PointOfSalesPayCart({
   setGetCartAgain,
   setProgressPay,
 }) {
+  const { validateDateFolio } = useDates();
+  const [optionsDiscount, setOptionsDiscount] = useState(false);
   const handleSubtractCart = (Product) => {
     const { idProducto, idSubservicio } = Product;
     if (idProducto) {
@@ -66,12 +76,11 @@ export default function PointOfSalesPayCart({
       );
     }
   };
-  const handleDeleteCart = () => {
-    localStorage.removeItem("cart");
-    setGetCartAgain(!getCartAgain);
-  };
   const getTotal = () => {
-    const total = cart.reduce((acc, product) => acc + product.PrecioTotal, 0);
+    let total = cart.reduce((acc, product) => acc + product.PrecioTotal, 0);
+    cart[0].OtrosServicios && (total += cart[0].OtrosServicios);
+    cart[0].PropinaCliente && (total += cart[0].PropinaCliente);
+    cart[0].idCita && (total -= 150);
     return total;
   };
   const getTotalItems = () => {
@@ -81,6 +90,95 @@ export default function PointOfSalesPayCart({
     );
     return total;
   };
+  const handleAddOtherServiceToCart = () => {
+    const value = document.querySelector("#OtroServicios").value;
+    const regexOnlyNumbers = /^[0-9]+$/;
+    if (regexOnlyNumbers.test(value)) {
+      cart.map((currentItem) => {
+        currentItem.OtrosServicios = parseInt(value);
+        delete currentItem.PropinaCliente;
+      });
+      toast.success("Otros Servicios agregados correctamente ✔️");
+      handleUpdateCart(cart);
+    } else {
+      toast.error("Solo se permiten valores numéricos ❌");
+    }
+  };
+  const handleDeleteOtherService = () => {
+    toast.success("Otros Servicios eliminados correctamente ✔️");
+    cart.map((currentItem) => {
+      delete currentItem.OtrosServicios;
+      delete currentItem.PropinaCliente;
+    });
+    handleUpdateCart(cart);
+  };
+  const handleDeleteDate = () => {
+    toast.success("Cita eliminada correctamente ✔️");
+    cart.map((currentItem) => {
+      delete currentItem.idCita;
+    });
+    handleUpdateCart(cart);
+  };
+  const handleAddTipClientToCart = () => {
+    const value = document.querySelector("#PropinaCliente").value;
+    const regexOnlyNumbers = /^[0-9]+$/;
+    if (regexOnlyNumbers.test(value)) {
+      cart.map((currentItem) => {
+        currentItem.PropinaCliente = cart[0].PropinaCliente
+          ? cart[0].PropinaCliente
+          : (getTotal() / 100) * parseInt(value);
+      });
+
+      toast.success("Propina agregada correctamente ✔️");
+      handleUpdateCart(cart);
+    } else {
+      toast.error("Solo se permiten valores numéricos ❌");
+    }
+  };
+  const handleDeleteTipClient = () => {
+    toast.success("Propina eliminada correctamente ✔️");
+    cart.map((currentItem) => {
+      delete currentItem.PropinaCliente;
+    });
+    handleUpdateCart(cart);
+  };
+  const handleValidateDate = async () => {
+    const value = document.querySelector("#FolioCita").value;
+    try {
+      const res = await validateDateFolio({ NumeroDeFolio: value });
+      handleAddDateToCart(res.data);
+    } catch (error) {
+      const { status, message } = error.response;
+      handleResponseMessages({ status, message });
+    }
+  };
+  const handleAddDateToCart = (data) => {
+    if (data.length > 0) {
+      toast.success(
+        "Cita validada correctamente, el descuento ha sido aplicado ✔️"
+      );
+      cart.map((currentItem) => {
+        currentItem.idCita = data[0].idCita;
+        delete currentItem.PropinaCliente;
+      });
+      handleUpdateCart(cart);
+    } else {
+      toast.error(
+        "No hay cita activa para este folio, por favor introduzca un nuevo folio ❌"
+      );
+    }
+  };
+  const handleUpdateCart = (cart) => {
+    setCart(cart);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    setGetCartAgain(!getCartAgain);
+  };
+  const handleDeleteCart = () => {
+    localStorage.removeItem("cart");
+    setGetCartAgain(!getCartAgain);
+  };
+
+  const iconName = optionsDiscount ? "caret-down-outline" : "caret-up-outline";
 
   return (
     <>
@@ -115,7 +213,10 @@ export default function PointOfSalesPayCart({
                     {product.NombreProducto}
                   </p>
                   <p className="PointOfSalesPay__Cart__Container--Details--NameAndPrice--Price">
-                    ${product.PrecioTotal.toLocaleString()}
+                    {product.PrecioTotal.toLocaleString("en-US", {
+                      style: "currency",
+                      currency: "USD",
+                    })}
                   </p>
                 </span>
                 <span className="PointOfSalesPay__Cart__Container--Buttons">
@@ -144,18 +245,147 @@ export default function PointOfSalesPayCart({
       </div>
       {cart.length > 0 && (
         <footer className="PointOfSalesPay__Cart__Footer">
+          {optionsDiscount && (
+            <>
+              {cart[0].idCita ? (
+                <div className="PointOfSalesPay__Cart__Footer--SuccessDiscount">
+                  <p className="PointOfSalesPay__Cart__Footer--SuccessDiscount--Title">
+                    Cita agregada: (-$150.00)
+                  </p>
+                  <button
+                    className="PointOfSalesPay__Cart__Footer--SuccessDiscount--Button"
+                    onClick={handleDeleteDate}
+                  >
+                    <ion-icon name="close-outline"></ion-icon>
+                  </button>
+                </div>
+              ) : (
+                <div className="PointOfSalesPay__Cart__Footer--Inputs">
+                  <p className="PointOfSalesPay__Cart__Footer--Inputs--Title">
+                    Buscar cita
+                  </p>
+                  <span className="PointOfSalesPay__Cart__Footer--Inputs--Container">
+                    <input
+                      type="text"
+                      name="FolioCita"
+                      id="FolioCita"
+                      placeholder="Ingresa el folio de la cita"
+                      className="PointOfSalesPay__Cart__Footer--Inputs--Container--Input"
+                    />
+                    <button
+                      className="PointOfSalesPay__Cart__Footer--Inputs--Container--Button"
+                      onClick={handleValidateDate}
+                    >
+                      Buscar
+                    </button>
+                  </span>
+                </div>
+              )}
+              {cart[0].OtrosServicios ? (
+                <div className="PointOfSalesPay__Cart__Footer--SuccessDiscount">
+                  <p className="PointOfSalesPay__Cart__Footer--SuccessDiscount--Title">
+                    Otros servicios: (
+                    {cart[0].OtrosServicios.toLocaleString("en-US", {
+                      style: "currency",
+                      currency: "USD",
+                    })}
+                    )
+                  </p>
+                  <button
+                    className="PointOfSalesPay__Cart__Footer--SuccessDiscount--Button"
+                    onClick={handleDeleteOtherService}
+                  >
+                    <ion-icon name="close-outline"></ion-icon>
+                  </button>
+                </div>
+              ) : (
+                <div className="PointOfSalesPay__Cart__Footer--Inputs">
+                  <p className="PointOfSalesPay__Cart__Footer--Inputs--Title">
+                    Otros servicios
+                  </p>
+                  <span className="PointOfSalesPay__Cart__Footer--Inputs--Container">
+                    <input
+                      type="text"
+                      name="OtroServicios"
+                      id="OtroServicios"
+                      placeholder="Ingresa la cantidad"
+                      className="PointOfSalesPay__Cart__Footer--Inputs--Container--Input"
+                    />
+                    <button
+                      className="PointOfSalesPay__Cart__Footer--Inputs--Container--Button"
+                      onClick={handleAddOtherServiceToCart}
+                    >
+                      Agregar
+                    </button>
+                  </span>
+                </div>
+              )}
+              {cart[0].PropinaCliente ? (
+                <div className="PointOfSalesPay__Cart__Footer--SuccessDiscount">
+                  <p className="PointOfSalesPay__Cart__Footer--SuccessDiscount--Title">
+                    Propina: (
+                    {cart[0].PropinaCliente.toLocaleString("en-US", {
+                      style: "currency",
+                      currency: "USD",
+                    })}
+                    )
+                  </p>
+                  <button
+                    className="PointOfSalesPay__Cart__Footer--SuccessDiscount--Button"
+                    onClick={handleDeleteTipClient}
+                  >
+                    <ion-icon name="close-outline"></ion-icon>
+                  </button>
+                </div>
+              ) : (
+                <div className="PointOfSalesPay__Cart__Footer--Inputs">
+                  <p className="PointOfSalesPay__Cart__Footer--Inputs--Title">
+                    Propina
+                  </p>
+                  <span className="PointOfSalesPay__Cart__Footer--Inputs--Container">
+                    <input
+                      type="text"
+                      name="PropinaCliente"
+                      id="PropinaCliente"
+                      placeholder="%"
+                      className="PointOfSalesPay__Cart__Footer--Inputs--Container--Input"
+                      maxLength="3"
+                    />
+                    <button
+                      className="PointOfSalesPay__Cart__Footer--Inputs--Container--Button"
+                      onClick={handleAddTipClientToCart}
+                    >
+                      Aplicar
+                    </button>
+                  </span>
+                </div>
+              )}
+            </>
+          )}
           <button
-            className="PointOfSalesPay__Cart__Footer--ButtonCancel"
-            onClick={handleDeleteCart}
+            className="PointOfSalesPay__Cart__Footer--ShowDiscount"
+            onClick={() => setOptionsDiscount(!optionsDiscount)}
           >
-            Cancelar Carrito
+            <ion-icon name={iconName}></ion-icon>
           </button>
-          <button
-            className="PointOfSalesPay__Cart__Footer--ButtonPay"
-            onClick={() => setProgressPay(1)}
-          >
-            Pagar ${getTotal().toLocaleString()}
-          </button>
+          <span className="PointOfSalesPay__Cart__Footer--Buttons">
+            <button
+              className="PointOfSalesPay__Cart__Footer--ButtonCancel"
+              onClick={handleDeleteCart}
+            >
+              Cancelar Carrito
+            </button>
+            <button
+              className="PointOfSalesPay__Cart__Footer--ButtonPay"
+              onClick={() => setProgressPay(1)}
+            >
+              Pagar{" "}
+              {getTotal().toLocaleString("en-US", {
+                style: "currency",
+                currency: "USD",
+              })}
+            </button>
+          </span>
         </footer>
       )}{" "}
     </>

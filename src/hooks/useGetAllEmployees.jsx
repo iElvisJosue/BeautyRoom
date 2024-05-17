@@ -8,6 +8,7 @@ import { handleResponseMessages } from "../helpers/RespuestasServidor";
 
 export default function useGetAllEmployees() {
   const [employeesExist, setEmployeesExist] = useState(false);
+  const [searchingExist, setSearchingExist] = useState(true);
   const { getEmployeesExist } = useGlobal();
 
   useEffect(() => {
@@ -15,6 +16,7 @@ export default function useGetAllEmployees() {
       try {
         const res = await getEmployeesExist();
         setEmployeesExist(res.data);
+        setSearchingExist(false);
       } catch (error) {
         const { status, data } = error.response;
         handleResponseMessages({ status, data });
@@ -25,5 +27,6 @@ export default function useGetAllEmployees() {
 
   return {
     employeesExist,
+    searchingExist,
   };
 }

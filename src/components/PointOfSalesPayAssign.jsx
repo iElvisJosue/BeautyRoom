@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-// IMPORTAMOS LAS LIBRERÍAS A USAR
 // IMPORTAMOS LOS HOOKS A USAR
 import useGetClientsByFilter from "../hooks/useGetClientsByFilter";
 // IMPORTAMOS LAS AYUDAS

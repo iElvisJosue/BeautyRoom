@@ -55,10 +55,12 @@ export default function SalesAll() {
                   {Folio}
                 </p>
                 <span className="Sales__All--TableList--Details--Product">
-                  <img
-                    src={`${HOST_IMG}/${ImagenProducto}`}
-                    alt="Imagen Representativa del Producto"
-                  />
+                  <picture className="Sales__All--TableList--Details--Product--Picture">
+                    <img
+                      src={`${HOST_IMG}/${ImagenProducto}`}
+                      alt="Imagen Representativa del Producto"
+                    />
+                  </picture>
                   <p>
                     x{Cantidad} - {Nombre}
                   </p>

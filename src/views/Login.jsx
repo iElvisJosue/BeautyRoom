@@ -100,9 +100,9 @@ export default function Login() {
               </>
             )
           )}
-          <a href="#" className="Login__Container__Form__Right--ForgotPassword">
+          {/* <a href="#" className="Login__Container__Form__Right--ForgotPassword">
             ¿Olvidaste tu contraseña?
-          </a>
+          </a> */}
           <button
             type="submit"
             className="Login__Container__Form__Right--Button"

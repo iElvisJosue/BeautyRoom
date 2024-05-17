@@ -8,6 +8,7 @@ import {
   createPayment,
   updateDateByStatus,
   getAllDatesByFilterUser,
+  validateAllDatesFolio,
 } from "../api/authDates";
 
 export const DatesContext = createContext();
@@ -104,6 +105,15 @@ export const DatesProvider = ({ children }) => {
     }
   };
 
+  const validateDateFolio = async (data) => {
+    try {
+      const res = await validateAllDatesFolio(data);
+      return res;
+    } catch (error) {
+      return error;
+    }
+  };
+
   return (
     <DatesContext.Provider
       value={{
@@ -115,6 +125,7 @@ export const DatesProvider = ({ children }) => {
         adminCreateNewDate,
         updateStatusDate,
         getDatesByFilterUser,
+        validateDateFolio,
       }}
     >
       {children}

@@ -1,50 +1,88 @@
-// LIBRERÍAS A USAR
-import { useState } from "react";
-
 // IMPORTAMOS LOS COMPONENTES
+import { useState } from "react";
 import Loader from "../components/Loader";
 import NotResults from "../components/NotResults";
+
+// IMPORTAMOS LOS CONTEXTOS A USAR
+import { useGlobal } from "../context/GlobalContext";
 
 // IMPORTAMOS LOS HOOKS A USAR
 import useGetSalesDaily from "../hooks/useGetSalesDaily";
 
 // IMPORTAMOS LAS AYUDAS
 import { HOST_IMG, HOST_PDF } from "../helpers/Urls";
+import { handleResponseMessages } from "../helpers/RespuestasServidor";
 
 // IMPORTAMOS LOS ESTILOS
 import "../styles/SalesDaily.css";
+import { toast } from "sonner";
 
 export default function SalesDaily() {
-  const [fecha, setFecha] = useState(getFechaActual());
-  const { salesDaily, searchingSales, setDate } = useGetSalesDaily();
+  const [report, setReport] = useState(null);
+  const { createReport } = useGlobal();
+  const {
+    salesDaily,
+    searchingSales,
+    firstDate,
+    setFirstDate,
+    secondDate,
+    setSecondDate,
+  } = useGetSalesDaily();
 
-  function getFechaActual() {
-    const now = new Date();
-    const tzoffset = now.getTimezoneOffset() * 60000; // offset en milisegundos
-    return new Date(now - tzoffset).toISOString().split("T")[0];
-  }
-
-  const getSalesByDate = (event) => {
-    setFecha(event.target.value);
-    const value = event.target.value;
-    setDate(value);
+  const handleFirstDate = (event) => {
+    setFirstDate(event.target.value);
+    setReport(null);
   };
+  const handleSecondDate = (event) => {
+    setSecondDate(event.target.value);
+    setReport(null);
+  };
+
+  const handleGenerateReportPDF = async () => {
+    const ventasPorEmpleado = {};
+
+    salesDaily.forEach((venta) => {
+      if (!ventasPorEmpleado[venta.EmpleadoAsignado]) {
+        ventasPorEmpleado[venta.EmpleadoAsignado] = [];
+      }
+      venta.primeraFecha = firstDate;
+      venta.segundaFecha = secondDate;
+      ventasPorEmpleado[venta.EmpleadoAsignado].push(venta);
+    });
+    try {
+      const res = await createReport(ventasPorEmpleado);
+      if (res.response) {
+        const { status, data } = res.response;
+        handleResponseMessages({ status, data });
+      } else {
+        setReport(res.data);
+        toast.success("Reporte generado correctamente ✔️");
+      }
+    } catch (error) {
+      const { status, data } = error.response;
+      handleResponseMessages({ status, data });
+    }
+  };
+
   return (
     <div className="Sales__Daily">
       <div className="Sales__Daily--Buttons">
         <input
           type="date"
-          name="SalesDate"
-          id="SalesDate"
-          value={fecha}
+          name="FirstDate"
+          id="FirstDate"
+          value={firstDate}
           className="Sales__Daily--Buttons--Button"
-          onChange={getSalesByDate}
+          onChange={handleFirstDate}
         />
-        {salesDaily?.length > 0 ? (
-          <button className="Sales__Daily--Buttons--Button">
-            Imprimir <ion-icon name="print-outline"></ion-icon>
-          </button>
-        ) : null}
+        <input
+          type="date"
+          name="SecondDate"
+          id="SecondDate"
+          value={secondDate}
+          className="Sales__Daily--Buttons--Button"
+          onChange={handleSecondDate}
+        />
       </div>
       <section className="Sales__Daily--TableList">
         <header className="Sales__Daily--TableList--Header">
@@ -67,10 +105,12 @@ export default function SalesDaily() {
                   {Folio}
                 </p>
                 <span className="Sales__Daily--TableList--Details--Product">
-                  <img
-                    src={`${HOST_IMG}/${ImagenProducto}`}
-                    alt="Imagen Representativa del Producto"
-                  />
+                  <picture className="Sales__Daily--TableList--Details--Product--Picture">
+                    <img
+                      src={`${HOST_IMG}/${ImagenProducto}`}
+                      alt="Imagen Representativa del Producto"
+                    />
+                  </picture>
                   <p>
                     x{Cantidad} - {Nombre}
                   </p>
@@ -97,6 +137,25 @@ export default function SalesDaily() {
           <NotResults> No hay ventas disponibles</NotResults>
         )}
       </section>
+      {salesDaily?.length > 0 ? (
+        <footer className="Sales__Daily--TableList--Footer">
+          {report && (
+            <a
+              className="Sales__Daily--Buttons--Button"
+              href={`${HOST_PDF}/${report}`}
+              target="_blank"
+            >
+              Ver Reporte <ion-icon name="document-text-outline"></ion-icon>
+            </a>
+          )}
+          <button
+            className="Sales__Daily--Buttons--Button"
+            onClick={handleGenerateReportPDF}
+          >
+            Imprimir <ion-icon name="print-outline"></ion-icon>
+          </button>
+        </footer>
+      ) : null}
     </div>
   );
 }

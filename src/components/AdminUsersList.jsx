@@ -4,7 +4,7 @@ import Loader from "./Loader";
 import NotResults from "./NotResults";
 
 // IMPORTAMOS LOS HOOKS A USAR
-import useGetEmployees from "../hooks/useGetEmployees";
+import useGetAllEmployees from "../hooks/useGetAllEmployees";
 
 // IMPORTAMOS LOS ESTILOS
 import "../styles/AdminUsersList.css";
@@ -13,19 +13,19 @@ export default function AdminUsersList({
   setOptionSubMenu,
   setUserInformation,
 }) {
-  const { employees, searchingEmployees } = useGetEmployees();
+  const { employeesExist, searchingExist } = useGetAllEmployees();
 
   const handleEditUser = (userInformation) => {
     setOptionSubMenu(2);
     setUserInformation(userInformation);
   };
 
-  if (searchingEmployees) return <Loader />;
+  if (searchingExist) return <Loader />;
 
   return (
     <div className="AdminUsersList__Container">
-      {employees.length > 0 ? (
-        employees.map((userInformation) => (
+      {employeesExist.length > 0 ? (
+        employeesExist.map((userInformation) => (
           <section
             className="AdminUsersList__Container__Card"
             key={userInformation.idUsuario}
@@ -44,12 +44,14 @@ export default function AdminUsersList({
                 </p>
               </span>
               <span className="AdminUsersList__Container__Card--Details--Information--Button">
-                <button
-                  className="AdminUsersList__Container__Card--Details--Information--Button--View"
-                  onClick={() => handleEditUser(userInformation)}
-                >
-                  <ion-icon name="brush-outline"></ion-icon>
-                </button>
+                {userInformation.RolUsuario === "Empleado" && (
+                  <button
+                    className="AdminUsersList__Container__Card--Details--Information--Button--View"
+                    onClick={() => handleEditUser(userInformation)}
+                  >
+                    <ion-icon name="brush-outline"></ion-icon>
+                  </button>
+                )}
               </span>
             </div>
           </section>

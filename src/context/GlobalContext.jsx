@@ -13,6 +13,7 @@ import {
   createOneTicket,
   getAllSalesPerDay,
   getAllSalesByFilter,
+  createOneReport,
 } from "../api/authGlobal";
 import Cookies from "js-cookie";
 
@@ -183,6 +184,16 @@ export const GlobalProvider = ({ children }) => {
     }
   };
 
+  const createReport = async (data) => {
+    try {
+      const res = await createOneReport(data);
+      return res;
+    } catch (error) {
+      setError();
+      return error;
+    }
+  };
+
   return (
     <GlobalContext.Provider
       value={{
@@ -201,6 +212,7 @@ export const GlobalProvider = ({ children }) => {
         createTicket,
         getSalesPerDay,
         getSalesByFilter,
+        createReport,
       }}
     >
       {children}

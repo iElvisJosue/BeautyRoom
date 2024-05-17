@@ -118,32 +118,84 @@
   font-size: var(--SmallFontSize);
 }
 .PointOfSalesPay__Cart__Footer {
+  position: relative;
   width: 100%;
-  min-height: 100px;
   background-color: #302e33;
   padding: 20px;
+  transition: 0.5s ease all;
 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+.PointOfSalesPay__Cart__Footer--Inputs {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.PointOfSalesPay__Cart__Footer--Inputs--Title {
+  width: 100%;
+  font-size: var(--SmallFontSize);
+  color: var(--White);
+  font-weight: bold;
+}
+.PointOfSalesPay__Cart__Footer--Inputs--Container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.PointOfSalesPay__Cart__Footer--Inputs--Container--Input {
+  width: 100%;
+  height: 30px;
+  border: none;
+  outline: none;
+  font-size: var(--SmallFontSize);
+  padding: 0 10px;
+}
+.PointOfSalesPay__Cart__Footer--Inputs--Container--Button {
+  height: 100%;
+  width: 100px;
+  border: 2px solid var(--StrongPurple);
+  background-color: var(--StrongPurple);
+  color: var(--White);
+  font-size: var(--SmallFontSize);
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.5s ease all;
+}
+.PointOfSalesPay__Cart__Footer--Inputs--Container--Button:hover {
+  background-color: var(--White);
+  color: var(--StrongPurple);
+}
+.PointOfSalesPay__Cart__Footer--SuccessDiscount {
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 10px;
 }
-.PointOfSalesPay__Cart__Footer--Employees {
-  width: 100%;
-  display: flex;
-  gap: 10px;
-  justify-content: space-between;
-}
-.PointOfSalesPay__Cart__Footer--Employees--Text {
+.PointOfSalesPay__Cart__Footer--SuccessDiscount--Title {
   font-size: var(--SmallFontSize);
   color: var(--White);
   font-weight: bold;
 }
-.PointOfSalesPay__Cart__Footer--Employees--Select {
-  background: var(--White);
-  color: var(--StrongPurple);
-  outline: none;
-  border: 1px solid var(--StrongPurple);
+.PointOfSalesPay__Cart__Footer--SuccessDiscount--Button {
+  width: 20px;
+  height: 20px;
+  background: var(--Red);
+  border: none;
+  color: var(--White);
+  border-radius: 50%;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .PointOfSalesPay__Cart__Footer--Buttons {
   width: 100%;
@@ -185,6 +237,22 @@
 .PointOfSalesPay__Cart__Footer--ButtonCancel:hover,
 .PointOfSalesPay__Cart__Footer--ButtonPay:hover {
   letter-spacing: 1px;
+}
+.PointOfSalesPay__Cart__Footer--ShowDiscount {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: var(--StrongPurple);
+  border: none;
+  color: var(--White);
+  border-radius: 50%;
+  top: -10px;
+  right: calc(50% - 10px);
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 @media (width < 500px) {
   .PointOfSalesPay {
