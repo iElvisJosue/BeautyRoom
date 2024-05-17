@@ -120,14 +120,28 @@ export default function PointOfSalesPayCart({
     });
     handleUpdateCart(cart);
   };
-  const handleAddTipClientToCart = () => {
+  const handleAppTipPercentage = () => {
     const value = document.querySelector("#PropinaCliente").value;
+    handleAddTipClientToCart(value, "%");
+  };
+  const handleAppTipFixed = () => {
+    const value = document.querySelector("#PropinaCliente").value;
+    handleAddTipClientToCart(value, "$");
+  };
+  const handleAddTipClientToCart = (value, type) => {
     const regexOnlyNumbers = /^[0-9]+$/;
     if (regexOnlyNumbers.test(value)) {
+      let calculatedTip = cart.reduce(
+        (acc, product) => acc + product.PrecioTotal,
+        0
+      );
+      cart[0].OtrosServicios && (calculatedTip += cart[0].OtrosServicios);
+      const tipValue =
+        type === "$" ? parseInt(value) : (calculatedTip / 100) * value;
       cart.map((currentItem) => {
         currentItem.PropinaCliente = cart[0].PropinaCliente
           ? cart[0].PropinaCliente
-          : (getTotal() / 100) * parseInt(value);
+          : tipValue;
       });
 
       toast.success("Propina agregada correctamente ✔️");
@@ -348,15 +362,21 @@ export default function PointOfSalesPayCart({
                       type="text"
                       name="PropinaCliente"
                       id="PropinaCliente"
-                      placeholder="%"
+                      placeholder="Monto fijo o porcentaje"
                       className="PointOfSalesPay__Cart__Footer--Inputs--Container--Input"
                       maxLength="3"
                     />
                     <button
                       className="PointOfSalesPay__Cart__Footer--Inputs--Container--Button"
-                      onClick={handleAddTipClientToCart}
+                      onClick={handleAppTipPercentage}
                     >
-                      Aplicar
+                      %
+                    </button>
+                    <button
+                      className="PointOfSalesPay__Cart__Footer--Inputs--Container--Button"
+                      onClick={handleAppTipFixed}
+                    >
+                      $
                     </button>
                   </span>
                 </div>
