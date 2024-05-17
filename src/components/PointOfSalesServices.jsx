@@ -39,9 +39,10 @@ export default function PointOfSalesServices({
     setGetServicesAndSubservicesAgain(!getServicesAndSubservicesAgain);
   }, 5000);
 
-  // FILTRAMOS LAS CATEGORÍAS QUE NO TENGAN PRODUCTOS
+  // FILTRAMOS LAS CATEGORÍAS QUE NO TENGAN PRODUCTOS Y SEAN ACTIVAS
   const servicesWithSubservices = services.filter(
-    ({ Subservicios }) => Subservicios.length > 0
+    (Servicios) =>
+      Servicios.Subservicios.length > 0 && Servicios.EstadoServicio === "Activo"
   );
 
   const pointOfSalesServicesProps = {

@@ -43,6 +43,7 @@ export default function PointOfSalesProducts({
   const categoriesWithProducts = categoriesAndProducts.filter(
     ({ Productos }) => Productos.length > 0
   );
+
   const pointOfSalesProductsProps = {
     cart,
     setCart,
@@ -54,7 +55,7 @@ export default function PointOfSalesProducts({
 
   return (
     <div className="PointOfSalesProducts">
-      {categoriesAndProducts.length > 0 ? (
+      {categoriesWithProducts.length > 0 ? (
         <>
           <p className="PointOfSalesProducts__Title">
             Filtrar por <ion-icon name="eye-outline"></ion-icon>
