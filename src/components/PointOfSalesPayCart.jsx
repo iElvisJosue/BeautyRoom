@@ -112,11 +112,25 @@ export default function PointOfSalesPayCart({
     });
     handleUpdateCart(cart);
   };
+  const handleAddDateToCart = (data) => {
+    if (data.length > 0) {
+      toast.success(
+        "Cita validada correctamente, el descuento ha sido aplicado ✔️"
+      );
+      cart.map((currentItem) => {
+        currentItem.idCita = data[0].idCita;
+      });
+      handleUpdateCart(cart);
+    } else {
+      toast.error(
+        "No hay cita activa para este folio, por favor introduzca un nuevo folio ❌"
+      );
+    }
+  };
   const handleDeleteDate = () => {
     toast.success("Cita eliminada correctamente ✔️");
     cart.map((currentItem) => {
       delete currentItem.idCita;
-      delete currentItem.PropinaCliente;
     });
     handleUpdateCart(cart);
   };
@@ -165,22 +179,6 @@ export default function PointOfSalesPayCart({
     } catch (error) {
       const { status, message } = error.response;
       handleResponseMessages({ status, message });
-    }
-  };
-  const handleAddDateToCart = (data) => {
-    if (data.length > 0) {
-      toast.success(
-        "Cita validada correctamente, el descuento ha sido aplicado ✔️"
-      );
-      cart.map((currentItem) => {
-        currentItem.idCita = data[0].idCita;
-        delete currentItem.PropinaCliente;
-      });
-      handleUpdateCart(cart);
-    } else {
-      toast.error(
-        "No hay cita activa para este folio, por favor introduzca un nuevo folio ❌"
-      );
     }
   };
   const handleUpdateCart = (cart) => {

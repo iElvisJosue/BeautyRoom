@@ -98,6 +98,9 @@ export default function DataClient({
     if (data.MetodoPago === "PayPal") {
       setShowModalPay(true);
     }
+    if (data.MetodoPago === "Transferencia") {
+      createDateByAdmin(data);
+    }
   };
 
   return (
