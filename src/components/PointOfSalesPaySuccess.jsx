@@ -5,31 +5,26 @@ import "../styles/PointOfSalesPaySuccess.css";
 
 export default function PointOfSalesPaySuccess({
   urlTicket,
-  cart,
+  // cart,
   setShowCart,
   getCartAgain,
   setGetCartAgain,
+  ticketInformation,
 }) {
-  // OBTENEMOS EL SUBTOTAL DE LA COMPRA
-  const getSubtotal = () => {
-    let Subtotal = cart.reduce((acc, product) => acc + product.PrecioTotal, 0);
-    return Subtotal;
-  };
-  //
-  const getTotal = () => {
-    let Total = cart.reduce((acc, product) => acc + product.PrecioTotal, 0);
-    cart[0].PropinaCliente && (Total += cart[0].PropinaCliente);
-    cart[0].OtrosServicios && (Total += cart[0].OtrosServicios);
-    cart[0].idCita && (Total -= 150);
-    return Total;
-  };
-  const { MetodoDePago } = cart[0];
+  const {
+    MetodoDePago,
+    Cita,
+    Fecha,
+    OtrosServicios,
+    Propina,
+    Total,
+    Subtotal,
+  } = ticketInformation;
+  console.log(ticketInformation);
 
-  const today = new Date();
-  const date = today.toLocaleString();
+  localStorage.removeItem("cart");
 
   const handleResetCart = () => {
-    localStorage.removeItem("cart");
     setGetCartAgain(!getCartAgain);
     setShowCart(false);
   };
@@ -58,14 +53,14 @@ export default function PointOfSalesPaySuccess({
             {MetodoDePago}
           </small>
           <small className="PointOfSalesPaySuccess__Cart--PaymentDetails--Subtitle--Value">
-            {getTotal().toLocaleString("en-US", {
+            {Total.toLocaleString("en-US", {
               style: "currency",
               currency: "USD",
             })}
           </small>
         </span>
         <p className="PointOfSalesPaySuccess__Cart--PaymentDetails--Title">
-          Fecha: {date}
+          Fecha: {Fecha}
         </p>
       </span>
       <hr className="PointOfSalesPaySuccess__Cart--Divider" />
@@ -78,7 +73,7 @@ export default function PointOfSalesPaySuccess({
             Subtotal:
           </small>
           <small className="PointOfSalesPaySuccess__Cart--PaymentDetails--Subtitle--Value">
-            {getSubtotal().toLocaleString("en-US", {
+            {Subtotal.toLocaleString("en-US", {
               style: "currency",
               currency: "USD",
             })}
@@ -89,10 +84,10 @@ export default function PointOfSalesPaySuccess({
             Otros servicios:
           </small>
           <small className="PointOfSalesPaySuccess__Cart--PaymentDetails--Subtitle--Value">
-            {cart[0].OtrosServicios?.toLocaleString("en-US", {
+            {OtrosServicios.toLocaleString("en-US", {
               style: "currency",
               currency: "USD",
-            }) ?? 0}
+            })}
           </small>
         </span>
         <span className="PointOfSalesPaySuccess__Cart--PaymentDetails--Subtitle">
@@ -100,10 +95,10 @@ export default function PointOfSalesPaySuccess({
             Propina:
           </small>
           <small className="PointOfSalesPaySuccess__Cart--PaymentDetails--Subtitle--Value">
-            {cart[0].PropinaCliente?.toLocaleString("en-US", {
+            {Propina.toLocaleString("en-US", {
               style: "currency",
               currency: "USD",
-            }) ?? 0}
+            })}
           </small>
         </span>
         <span className="PointOfSalesPaySuccess__Cart--PaymentDetails--Subtitle">
@@ -111,7 +106,7 @@ export default function PointOfSalesPaySuccess({
             Descuento:
           </small>
           <small className="PointOfSalesPaySuccess__Cart--PaymentDetails--Subtitle--Value">
-            {cart[0].idCita ? "$150.00" : "0"}
+            {Cita}
           </small>
         </span>
         <span className="PointOfSalesPaySuccess__Cart--PaymentDetails--Subtitle">
@@ -119,7 +114,7 @@ export default function PointOfSalesPaySuccess({
             Total:
           </small>
           <small className="PointOfSalesPaySuccess__Cart--PaymentDetails--Subtitle--Value">
-            {getTotal().toLocaleString("en-US", {
+            {Total.toLocaleString("en-US", {
               style: "currency",
               currency: "USD",
             })}

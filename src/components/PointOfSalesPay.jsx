@@ -10,6 +10,7 @@ import PointOfSalesPaySuccess from "./PointOfSalesPaySuccess";
 
 // IMPORTAMOS LOS HOOKS
 import useProgressPay from "../hooks/useProgressPay";
+import useTicketInformation from "../hooks/useTicketInformation";
 
 // IMPORTAMOS LOS ESTILOS
 import "../styles/PointOfSalesPay.css";
@@ -24,6 +25,7 @@ export default function PointOfSalesPay({
   setShowModalPayCart,
   employeesExist,
 }) {
+  const { ticketInformation, setTicketInformation } = useTicketInformation();
   const classPointOfSalesPay = showCart
     ? "PointOfSalesPay Show"
     : "PointOfSalesPay";
@@ -43,6 +45,8 @@ export default function PointOfSalesPay({
     employeesExist,
     setUrlTicket,
     urlTicket,
+    setTicketInformation,
+    ticketInformation,
   };
 
   const currentProgressPay = {

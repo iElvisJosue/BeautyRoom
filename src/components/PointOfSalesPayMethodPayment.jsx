@@ -16,6 +16,7 @@ export default function PointOfSalesPayMethodPayment({
   setCart,
   setProgressPay,
   setUrlTicket,
+  setTicketInformation,
 }) {
   const [showInputMoney, setShowInputMoney] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
@@ -30,6 +31,11 @@ export default function PointOfSalesPayMethodPayment({
     cart[0].idCita && (total -= 150);
     return total;
   };
+  // OBTENEMOS EL SUBTOTAL DE LA COMPRA
+  const getSubtotal = () => {
+    let Subtotal = cart.reduce((acc, product) => acc + product.PrecioTotal, 0);
+    return Subtotal;
+  };
 
   const classNameButtonMoney = showInputMoney
     ? "PointOfSalesPayMethodPayment__Cart__Header--Content--Button Active"
@@ -42,6 +48,7 @@ export default function PointOfSalesPayMethodPayment({
     setCart(cart);
     localStorage.setItem("cart", JSON.stringify(cart));
     handlePayCart(cart);
+    addTicketInformation();
   };
   const handlePayCart = async (cart) => {
     try {
@@ -83,6 +90,20 @@ export default function PointOfSalesPayMethodPayment({
   };
   const handleCreateTicket = (methodPayment) => {
     handleUpdateCart(methodPayment);
+    addTicketInformation();
+  };
+  const addTicketInformation = () => {
+    const today = new Date();
+    const date = today.toLocaleString();
+    setTicketInformation({
+      Total: getTotal(),
+      Subtotal: getSubtotal(),
+      Fecha: date,
+      Propina: cart[0].PropinaCliente ?? 0,
+      OtrosServicios: cart[0].OtrosServicios ?? 0,
+      Cita: cart[0].idCita ? "-$150.00" : "$0.00",
+      MetodoDePago: cart[0].MetodoDePago,
+    });
   };
 
   return (
