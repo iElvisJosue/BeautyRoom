@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 // LIBRERÍAS A USAR
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "sonner";
 
 // IMPORTAMOS LOS CONTEXTOS A USAR
@@ -27,7 +27,17 @@ export default function PointOfSalesPayCart({
   getCartAgain,
   setGetCartAgain,
   setProgressPay,
+  employeesExist,
+  setShowModalUpdatePrice,
+  setProductToUpdate,
 }) {
+  // REINICIAMOS LOS VALORES DEL EMPLEADO ASIGNADO
+  useEffect(() => {
+    cart.map((currentItem) => {
+      currentItem.EmpleadoAsignado = employeesExist[0].Usuario;
+    });
+    handleUpdateCart(cart);
+  }, []);
   const { validateDateFolio } = useDates();
   const [optionsDiscount, setOptionsDiscount] = useState(false);
   const handleSubtractCart = (Product) => {
@@ -78,7 +88,7 @@ export default function PointOfSalesPayCart({
   };
   const getTotal = () => {
     let total = cart.reduce((acc, product) => acc + product.PrecioTotal, 0);
-    cart[0].OtrosServicios && (total += cart[0].OtrosServicios);
+    // cart[0].OtrosServicios && (total += cart[0].OtrosServicios);
     cart[0].PropinaCliente && (total += cart[0].PropinaCliente);
     cart[0].idCita && (total -= 150);
     return total;
@@ -90,28 +100,28 @@ export default function PointOfSalesPayCart({
     );
     return total;
   };
-  const handleAddOtherServiceToCart = () => {
-    const value = document.querySelector("#OtroServicios").value;
-    const regexOnlyNumbers = /^[0-9]+$/;
-    if (regexOnlyNumbers.test(value)) {
-      cart.map((currentItem) => {
-        currentItem.OtrosServicios = parseInt(value);
-        delete currentItem.PropinaCliente;
-      });
-      toast.success("Otros Servicios agregados correctamente ✔️");
-      handleUpdateCart(cart);
-    } else {
-      toast.error("Solo se permiten valores numéricos ❌");
-    }
-  };
-  const handleDeleteOtherService = () => {
-    toast.success("Otros Servicios eliminados correctamente ✔️");
-    cart.map((currentItem) => {
-      delete currentItem.OtrosServicios;
-      delete currentItem.PropinaCliente;
-    });
-    handleUpdateCart(cart);
-  };
+  // const handleAddOtherServiceToCart = () => {
+  //   const value = document.querySelector("#OtroServicios").value;
+  //   const regexOnlyNumbers = /^[0-9]+$/;
+  //   if (regexOnlyNumbers.test(value)) {
+  //     cart.map((currentItem) => {
+  //       currentItem.OtrosServicios = parseInt(value);
+  //       delete currentItem.PropinaCliente;
+  //     });
+  //     toast.success("Otros Servicios agregados correctamente ✔️");
+  //     handleUpdateCart(cart);
+  //   } else {
+  //     toast.error("Solo se permiten valores numéricos ❌");
+  //   }
+  // };
+  // const handleDeleteOtherService = () => {
+  //   toast.success("Otros Servicios eliminados correctamente ✔️");
+  //   cart.map((currentItem) => {
+  //     delete currentItem.OtrosServicios;
+  //     delete currentItem.PropinaCliente;
+  //   });
+  //   handleUpdateCart(cart);
+  // };
   const handleAddDateToCart = (data) => {
     if (data.length > 0) {
       toast.success(
@@ -190,7 +200,20 @@ export default function PointOfSalesPayCart({
     localStorage.removeItem("cart");
     setGetCartAgain(!getCartAgain);
   };
-
+  const handleUpdateEmployeeAssigned = (e, product) => {
+    cart.map((currentItem) => {
+      currentItem.EmpleadoAsignado =
+        currentItem.idSubservicio === product.idSubservicio
+          ? e.target.value
+          : currentItem.EmpleadoAsignado;
+    });
+    localStorage.setItem("cart", JSON.stringify(cart));
+    setGetCartAgain(!getCartAgain);
+  };
+  const handleUpdatePriceProduct = (idItem) => {
+    setShowModalUpdatePrice(true);
+    setProductToUpdate(idItem);
+  };
   const iconName = optionsDiscount ? "caret-down-outline" : "caret-up-outline";
 
   return (
@@ -214,6 +237,16 @@ export default function PointOfSalesPayCart({
               className="PointOfSalesPay__Cart__Container__Content"
               key={index}
             >
+              <button
+                className="PointOfSalesPay__Cart__Container__Content--ChangePrice"
+                onClick={() =>
+                  handleUpdatePriceProduct(
+                    product.idSubservicio ?? product.idProducto
+                  )
+                }
+              >
+                <ion-icon name="repeat-outline"></ion-icon>
+              </button>
               <picture className="PointOfSalesPay__Cart__Container--Img">
                 <img
                   src={`${HOST_IMG}/${product.ImagenProducto}`}
@@ -232,23 +265,40 @@ export default function PointOfSalesPayCart({
                     })}
                   </p>
                 </span>
-                <span className="PointOfSalesPay__Cart__Container--Buttons">
-                  <button
-                    className="PointOfSalesPay__Cart__Container--Buttons--Subtract"
-                    onClick={() => handleSubtractCart(product)}
+                <div className="PointOfSalesPay__Cart__Container--Buttons">
+                  <span>
+                    <button
+                      className="PointOfSalesPay__Cart__Container--Buttons--Subtract"
+                      onClick={() => handleSubtractCart(product)}
+                    >
+                      -
+                    </button>
+                    <p className="PointOfSalesPay__Cart__Container--Buttons--Amount">
+                      {product.CantidadEnCarrito}
+                    </p>
+                    <button
+                      className="PointOfSalesPay__Cart__Container--Buttons--Add"
+                      onClick={() => handleAddCart(product)}
+                    >
+                      +
+                    </button>
+                  </span>
+                  <select
+                    type="text"
+                    id={product.idSubservicio}
+                    onChange={(e) => handleUpdateEmployeeAssigned(e, product)}
                   >
-                    -
-                  </button>
-                  <p className="PointOfSalesPay__Cart__Container--Buttons--Amount">
-                    {product.CantidadEnCarrito}
-                  </p>
-                  <button
-                    className="PointOfSalesPay__Cart__Container--Buttons--Add"
-                    onClick={() => handleAddCart(product)}
-                  >
-                    +
-                  </button>
-                </span>
+                    {employeesExist &&
+                      employeesExist.map((employee) => (
+                        <option
+                          value={employee.Usuario}
+                          key={employee.idUsuario}
+                        >
+                          {employee.Usuario}
+                        </option>
+                      ))}
+                  </select>
+                </div>
               </div>
             </section>
           ))
@@ -294,7 +344,7 @@ export default function PointOfSalesPayCart({
                   </span>
                 </div>
               )}
-              {cart[0].OtrosServicios ? (
+              {/* {cart[0].OtrosServicios ? (
                 <div className="PointOfSalesPay__Cart__Footer--SuccessDiscount">
                   <p className="PointOfSalesPay__Cart__Footer--SuccessDiscount--Title">
                     Otros servicios: (
@@ -332,7 +382,7 @@ export default function PointOfSalesPayCart({
                     </button>
                   </span>
                 </div>
-              )}
+              )} */}
               {cart[0].PropinaCliente ? (
                 <div className="PointOfSalesPay__Cart__Footer--SuccessDiscount">
                   <p className="PointOfSalesPay__Cart__Footer--SuccessDiscount--Title">

@@ -12,15 +12,16 @@ export default function PointOfSalesPaySuccess({
   ticketInformation,
 }) {
   const {
-    MetodoDePago,
     Cita,
     Fecha,
-    OtrosServicios,
     Propina,
-    Total,
+    TotalVenta,
     Subtotal,
+    Efectivo,
+    Tarjeta,
+    Transferencia,
+    Folio,
   } = ticketInformation;
-  console.log(ticketInformation);
 
   localStorage.removeItem("cart");
 
@@ -40,7 +41,7 @@ export default function PointOfSalesPaySuccess({
           El pago se realizó con éxito
         </p>
         <small className="PointOfSalesPaySuccess__Cart--Text--Subtitle">
-          Venta #921808
+          Folio Venta {Folio}
         </small>
       </span>
       <hr className="PointOfSalesPaySuccess__Cart--Divider" />
@@ -50,10 +51,12 @@ export default function PointOfSalesPaySuccess({
         </p>
         <span className="PointOfSalesPaySuccess__Cart--PaymentDetails--Subtitle">
           <small className="PointOfSalesPaySuccess__Cart--PaymentDetails--Subtitle--Name">
-            {MetodoDePago}
+            {`${Efectivo ? "Efectivo " : ""} ${Tarjeta ? "Tarjeta " : ""} ${
+              Transferencia ? "Transferencia " : ""
+            }`}
           </small>
           <small className="PointOfSalesPaySuccess__Cart--PaymentDetails--Subtitle--Value">
-            {Total.toLocaleString("en-US", {
+            {TotalVenta.toLocaleString("en-US", {
               style: "currency",
               currency: "USD",
             })}
@@ -79,7 +82,7 @@ export default function PointOfSalesPaySuccess({
             })}
           </small>
         </span>
-        <span className="PointOfSalesPaySuccess__Cart--PaymentDetails--Subtitle">
+        {/* <span className="PointOfSalesPaySuccess__Cart--PaymentDetails--Subtitle">
           <small className="PointOfSalesPaySuccess__Cart--PaymentDetails--Subtitle--Name">
             Otros servicios:
           </small>
@@ -89,7 +92,7 @@ export default function PointOfSalesPaySuccess({
               currency: "USD",
             })}
           </small>
-        </span>
+        </span> */}
         <span className="PointOfSalesPaySuccess__Cart--PaymentDetails--Subtitle">
           <small className="PointOfSalesPaySuccess__Cart--PaymentDetails--Subtitle--Name">
             Propina:
@@ -114,7 +117,7 @@ export default function PointOfSalesPaySuccess({
             Total:
           </small>
           <small className="PointOfSalesPaySuccess__Cart--PaymentDetails--Subtitle--Value">
-            {Total.toLocaleString("en-US", {
+            {TotalVenta.toLocaleString("en-US", {
               style: "currency",
               currency: "USD",
             })}

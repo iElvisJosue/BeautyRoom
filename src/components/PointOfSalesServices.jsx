@@ -22,6 +22,7 @@ export default function PointOfSalesServices({
   setGetCartAgain,
   showCart,
   setShowCart,
+  employeesExist,
 }) {
   const [useFilter, setUseFilter] = useState(false);
   const {
@@ -59,6 +60,7 @@ export default function PointOfSalesServices({
     setGetCartAgain,
     showCart,
     setShowCart,
+    employeesExist,
   };
 
   return (

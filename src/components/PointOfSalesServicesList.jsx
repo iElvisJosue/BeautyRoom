@@ -11,10 +11,14 @@ export default function PointOfSalesServicesList({
   getCartAgain,
   setGetCartAgain,
   setShowCart,
+  employeesExist,
 }) {
   const handleCart = (Subservicio, ImagenServicio) => {
     Subservicio.ImagenProducto = ImagenServicio;
     Subservicio.NombreProducto = Subservicio.NombreSubservicio;
+    employeesExist[0]
+      ? (Subservicio.EmpleadoAsignado = employeesExist[0].Usuario)
+      : "Sin asignar";
     handleAddServiceToCart(
       Subservicio,
       cart,

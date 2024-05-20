@@ -50,6 +50,7 @@
   padding: 0 20px;
 }
 .PointOfSalesPay__Cart__Container__Content {
+  position: relative;
   min-height: 75px;
   padding: 20px;
   border-bottom: 1px solid #302e33;
@@ -57,6 +58,21 @@
   display: flex;
   align-items: center;
   gap: 10px;
+}
+.PointOfSalesPay__Cart__Container__Content--ChangePrice {
+  position: absolute;
+  top: 0;
+  right: 15px;
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  color: var(--Blue);
+  font-size: var(--IconFontSize);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .PointOfSalesPay__Cart__Container--Img {
   width: 55px;
@@ -95,7 +111,17 @@
   display: flex;
 
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+.PointOfSalesPay__Cart__Container--Buttons span {
+  display: flex;
+}
+.PointOfSalesPay__Cart__Container--Buttons select {
+  width: 100%;
+  outline: none;
+  border: 1px solid var(--White);
+  cursor: pointer;
 }
 .PointOfSalesPay__Cart__Container--Buttons--Subtract,
 .PointOfSalesPay__Cart__Container--Buttons--Amount,

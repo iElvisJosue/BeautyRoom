@@ -24,6 +24,8 @@ export default function PointOfSalesPay({
   setGetCartAgain,
   setShowModalPayCart,
   employeesExist,
+  setShowModalUpdatePrice,
+  setProductToUpdate,
 }) {
   const { ticketInformation, setTicketInformation } = useTicketInformation();
   const classPointOfSalesPay = showCart
@@ -47,6 +49,8 @@ export default function PointOfSalesPay({
     urlTicket,
     setTicketInformation,
     ticketInformation,
+    setShowModalUpdatePrice,
+    setProductToUpdate,
   };
 
   const currentProgressPay = {

@@ -10,8 +10,12 @@ export default function PointOfSalesProductsList({
   getCartAgain,
   setGetCartAgain,
   setShowCart,
+  employeesExist,
 }) {
   const handleCart = (Product) => {
+    employeesExist[0]
+      ? (Product.EmpleadoAsignado = employeesExist[0].Usuario)
+      : "Sin asignar";
     handleAddProductToCart(
       Product,
       cart,

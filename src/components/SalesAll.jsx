@@ -47,7 +47,15 @@ export default function SalesAll() {
         ) : salesByFilter.length > 0 ? (
           salesByFilter.map(
             (
-              { Folio, ImagenProducto, Cantidad, Nombre, Total, Fecha, Ticket },
+              {
+                Folio,
+                ImagenProducto,
+                Cantidad,
+                Nombre,
+                TotalProducto,
+                FechaVenta,
+                Ticket,
+              },
               index
             ) => (
               <div className="Sales__All--TableList--Details" key={index}>
@@ -66,10 +74,10 @@ export default function SalesAll() {
                   </p>
                 </span>
                 <p className="Sales__All--TableList--Details--Total">
-                  ${Total.toLocaleString()}
+                  ${TotalProducto.toLocaleString()}
                 </p>
                 <p className="Sales__All--TableList--Details--Date">
-                  {Fecha.substring(0, 10)}
+                  {FechaVenta.substring(0, 10)}
                 </p>
                 <span className="Sales__All--TableList--Details--Ticket">
                   <a

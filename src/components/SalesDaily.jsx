@@ -39,18 +39,21 @@ export default function SalesDaily() {
   };
 
   const handleGenerateReportPDF = async () => {
-    const ventasPorEmpleado = {};
+    // const ventasPorEmpleado = {};
 
-    salesDaily.forEach((venta) => {
-      if (!ventasPorEmpleado[venta.EmpleadoAsignado]) {
-        ventasPorEmpleado[venta.EmpleadoAsignado] = [];
-      }
-      venta.primeraFecha = firstDate;
-      venta.segundaFecha = secondDate;
-      ventasPorEmpleado[venta.EmpleadoAsignado].push(venta);
-    });
+    // salesDaily.forEach((venta) => {
+    //   if (!ventasPorEmpleado[venta.EmpleadoAsignado]) {
+    //     ventasPorEmpleado[venta.EmpleadoAsignado] = [];
+    //   }
+    //   venta.primeraFecha = firstDate;
+    //   venta.segundaFecha = secondDate;
+    //   ventasPorEmpleado[venta.EmpleadoAsignado].push(venta);
+    // });
     try {
-      const res = await createReport(ventasPorEmpleado);
+      const res = await createReport({
+        primeraFecha: firstDate,
+        segundaFecha: secondDate,
+      });
       if (res.response) {
         const { status, data } = res.response;
         handleResponseMessages({ status, data });
@@ -97,7 +100,15 @@ export default function SalesDaily() {
         ) : salesDaily.length > 0 ? (
           salesDaily.map(
             (
-              { Folio, ImagenProducto, Cantidad, Nombre, Total, Fecha, Ticket },
+              {
+                Folio,
+                ImagenProducto,
+                Cantidad,
+                Nombre,
+                TotalProducto,
+                FechaVenta,
+                Ticket,
+              },
               index
             ) => (
               <div className="Sales__Daily--TableList--Details" key={index}>
@@ -116,10 +127,10 @@ export default function SalesDaily() {
                   </p>
                 </span>
                 <p className="Sales__Daily--TableList--Details--Total">
-                  ${Total.toLocaleString()}
+                  ${TotalProducto.toLocaleString()}
                 </p>
                 <p className="Sales__Daily--TableList--Details--Date">
-                  {Fecha.substring(0, 10)}
+                  {FechaVenta.substring(0, 10)}
                 </p>
                 <span className="Sales__Daily--TableList--Details--Ticket">
                   <a

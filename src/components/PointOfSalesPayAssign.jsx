@@ -11,7 +11,6 @@ export default function PointOfSalesPayAssign({
   cart,
   setCart,
   setProgressPay,
-  employeesExist,
 }) {
   const { clients, setFilter } = useGetClientsByFilter();
   const getClientsByFilter = (event) => {
@@ -28,7 +27,6 @@ export default function PointOfSalesPayAssign({
     const Folio = generateFolio();
     cart.map((product) => {
       product.Cliente = document.querySelector("#client").value;
-      product.EmpleadoAsignado = document.querySelector("#employee").value;
       product.NumeroDeFolio = Folio;
     });
     setCart(cart);
@@ -51,20 +49,6 @@ export default function PointOfSalesPayAssign({
         <p className="PointOfSalesPayAssign__Cart__Header--Title">Asignación</p>
       </header>
       <div className="PointOfSalesPayAssign__Cart__Header--Content">
-        <p className="PointOfSalesPayAssign__Cart__Header--Content--Title">
-          Asignar empleado
-        </p>
-        <select
-          className="PointOfSalesPayAssign__Cart__Header--Content--Input"
-          id="employee"
-        >
-          {employeesExist &&
-            employeesExist.map((employee) => (
-              <option value={employee.Usuario} key={employee.idUsuario}>
-                {employee.Usuario}
-              </option>
-            ))}
-        </select>
         <p className="PointOfSalesPayAssign__Cart__Header--Content--Title">
           Asignar cliente (Buscar)
         </p>
