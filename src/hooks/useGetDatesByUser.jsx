@@ -16,7 +16,7 @@ export default function useGetDatesByUser() {
   const [totalDates, setTotalDates] = useState(false);
   const [searchingDates, setSearchingDates] = useState(true);
   const [filter, setFilter] = useState({
-    idEmpleado: user?.id,
+    idEmpleado: user?.nombreUsuario,
     status: "Espera",
   });
 

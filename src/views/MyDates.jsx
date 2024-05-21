@@ -39,7 +39,7 @@ export default function MyDates() {
     if (regex.test(value) || value === "") {
       const filter = event.target.value;
       setFilter({
-        idEmpleado: user?.id,
+        idEmpleado: user?.nombreUsuario,
         filter,
       });
     }
@@ -47,21 +47,21 @@ export default function MyDates() {
 
   const getDatesWaiting = () => {
     setFilter({
-      idEmpleado: user?.id,
+      idEmpleado: user?.nombreUsuario,
       status: "Espera",
     });
     setOptionSubMenu(0);
   };
   const getDatesCompleted = () => {
     setFilter({
-      idEmpleado: user?.id,
+      idEmpleado: user?.nombreUsuario,
       status: "Completada",
     });
     setOptionSubMenu(1);
   };
   const getDatesNotAttended = () => {
     setFilter({
-      idEmpleado: user?.id,
+      idEmpleado: user?.nombreUsuario,
       status: "No asistio",
     });
     setOptionSubMenu(2);
