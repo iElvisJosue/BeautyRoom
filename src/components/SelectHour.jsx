@@ -38,9 +38,9 @@ export default function SelectHour({
   if (searchingHours || searchingEmployeesByService) return <Loader />;
 
   const getNewHoursByEmployee = () => {
-    dateInformation.EmpleadoAsignado = employeesByService[0].idUsuario;
+    dateInformation.EmpleadoAsignado = employeesByService[0].Usuario;
     setInformationDate({
-      EmpleadoAsignado: employeesByService && employeesByService[0].idUsuario,
+      EmpleadoAsignado: employeesByService && employeesByService[0].Usuario,
       FechaCita: dateFormatted,
     });
   };
@@ -54,11 +54,11 @@ export default function SelectHour({
           : `Actualmente estas viendo el horario del EMPLEADO ${numberEmployee}`}
       </p>
       <div className="SelectHour__Container--Employees">
-        {employeesByService.map(({ idUsuario }, index) => (
+        {employeesByService.map(({ Usuario }, index) => (
           <Employees
             key={index}
             dateInformation={dateInformation}
-            idUsuario={idUsuario}
+            Usuario={Usuario}
             setInformationDate={setInformationDate}
             dateFormatted={dateFormatted}
             setNumberEmployee={setNumberEmployee}

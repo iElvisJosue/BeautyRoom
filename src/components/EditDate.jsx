@@ -56,7 +56,7 @@ export default function EditDate({
 
     setFechaCita(currentDataDate.FechaCita);
     const foundEmployee = employees.find(
-      ({ idUsuario }) => idUsuario === currentDataDate.EmpleadoAsignado
+      ({ Usuario }) => Usuario === currentDataDate.EmpleadoAsignado
     );
 
     if (foundEmployee) {
@@ -262,8 +262,8 @@ export default function EditDate({
                 Sin asignar
               </option>
               {employees.length > 0 &&
-                employees.map(({ Usuario, idUsuario }, index) => (
-                  <option key={index} value={Usuario} id={idUsuario}>
+                employees.map(({ Usuario }, index) => (
+                  <option key={index} value={Usuario} id={Usuario}>
                     {Usuario}
                   </option>
                 ))}

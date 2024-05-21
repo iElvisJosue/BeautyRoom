@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 export default function Employees({
   dateInformation,
-  idUsuario,
+  Usuario,
   setInformationDate,
   dateFormatted,
   setNumberEmployee,
@@ -9,10 +9,10 @@ export default function Employees({
   index,
 }) {
   const handleIdEmployee = () => {
-    dateInformation.EmpleadoAsignado = idUsuario;
+    dateInformation.EmpleadoAsignado = Usuario;
     setNumberEmployee(index + 1);
     setInformationDate({
-      EmpleadoAsignado: idUsuario,
+      EmpleadoAsignado: Usuario,
       FechaCita: dateFormatted,
     });
   };
@@ -25,7 +25,7 @@ export default function Employees({
   return (
     <span
       className={classEmployeeDetails}
-      id={idUsuario}
+      id={Usuario}
       onClick={handleIdEmployee}
     >
       <img src="IconoEmpleado.png" alt="Icono del Empleado" />

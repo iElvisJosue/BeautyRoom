@@ -39,33 +39,25 @@ export default function SalesDaily() {
   };
 
   const handleGenerateReportPDF = async () => {
-    // const ventasPorEmpleado = {};
-
-    // salesDaily.forEach((venta) => {
-    //   if (!ventasPorEmpleado[venta.EmpleadoAsignado]) {
-    //     ventasPorEmpleado[venta.EmpleadoAsignado] = [];
-    //   }
-    //   venta.primeraFecha = firstDate;
-    //   venta.segundaFecha = secondDate;
-    //   ventasPorEmpleado[venta.EmpleadoAsignado].push(venta);
-    // });
     try {
       const res = await createReport({
         primeraFecha: firstDate,
         segundaFecha: secondDate,
       });
+      console.log(res);
       if (res.response) {
         const { status, data } = res.response;
         handleResponseMessages({ status, data });
       } else {
         setReport(res.data);
-        toast.success("Reporte generado correctamente ✔️");
+        toast.success("Reportes generados correctamente ✔️");
       }
     } catch (error) {
       const { status, data } = error.response;
       handleResponseMessages({ status, data });
     }
   };
+  console.log(report);
 
   return (
     <div className="Sales__Daily">
@@ -151,19 +143,47 @@ export default function SalesDaily() {
       {salesDaily?.length > 0 ? (
         <footer className="Sales__Daily--TableList--Footer">
           {report && (
-            <a
-              className="Sales__Daily--Buttons--Button"
-              href={`${HOST_PDF}/${report}`}
-              target="_blank"
-            >
-              Ver Reporte <ion-icon name="document-text-outline"></ion-icon>
-            </a>
+            <>
+              {report[0] && (
+                <a
+                  className="Sales__Daily--Buttons--Button"
+                  href={`${HOST_PDF}/${report[0]}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Reporte General{" "}
+                  <ion-icon name="document-text-outline"></ion-icon>
+                </a>
+              )}
+              {report[1] && (
+                <a
+                  className="Sales__Daily--Buttons--Button"
+                  href={`${HOST_PDF}/${report[1]}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Reporte Citas <ion-icon name="calendar-outline"></ion-icon>
+                </a>
+              )}
+              {report[2] && (
+                <a
+                  className="Sales__Daily--Buttons--Button"
+                  href={`${HOST_PDF}/${report[2]}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Reporte Comisiones <ion-icon name="cash-outline"></ion-icon>
+                </a>
+              )}
+            </>
           )}
+
           <button
             className="Sales__Daily--Buttons--Button"
             onClick={handleGenerateReportPDF}
           >
-            Imprimir <ion-icon name="print-outline"></ion-icon>
+            Generar Reportes{" "}
+            <ion-icon name="document-attach-outline"></ion-icon>
           </button>
         </footer>
       ) : null}
