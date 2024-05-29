@@ -31,7 +31,7 @@ export default function PointOfSalesPayMethodPayment({
   const getTotal = () => {
     let total = cart.reduce((acc, product) => acc + product.PrecioTotal, 0);
     cart[0].PropinaCliente && (total += cart[0].PropinaCliente);
-    cart[0].idCita && (total -= 150);
+    cart[0].Descuentos && (total -= cart[0].Descuentos);
     return total;
   };
   const getTotalImporte = () => {
@@ -124,7 +124,7 @@ export default function PointOfSalesPayMethodPayment({
       Subtotal: getSubtotal(),
       Fecha: date,
       Propina: cart[0].PropinaCliente ?? 0,
-      Cita: cart[0].idCita ? "-$150.00" : "$0.00",
+      Anticipo: cart[0].Descuentos ?? 0,
       Efectivo: cart[0].TotalEfectivo > 0 ? true : false,
       Tarjeta: cart[0].TotalTarjeta > 0 ? true : false,
       Transferencia: cart[0].TotalTransferencia > 0 ? true : false,

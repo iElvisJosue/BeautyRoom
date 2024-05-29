@@ -42,6 +42,9 @@ export default function SelectSubservice({
           )}
         </div>
       )}
+      <button className="Date__Back" onClick={() => setProgressDate(0)}>
+        <ion-icon name="chevron-back-outline"></ion-icon> Regresar
+      </button>
     </div>
   );
 }

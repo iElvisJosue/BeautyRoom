@@ -13,11 +13,14 @@ import DataClient from "../components/DataClient";
 import useDate from "../hooks/useDate";
 import useCalendar from "../hooks/useCalendar";
 import useProgressDate from "../hooks/useProgressDate";
+import useGetCartDates from "../hooks/useGetCartDates";
 
 // IMPORTAMOS LOS ESTILOS
 import "../styles/Date.css";
 
 export default function Date() {
+  const { cartDates, setCartDates, getCartDatesAgain, setGetCartDatesAgain } =
+    useGetCartDates();
   const { progressDate, setProgressDate } = useProgressDate();
   const { dateInformation, setDateInformation } = useDate();
   const {
@@ -40,6 +43,10 @@ export default function Date() {
     nextMonth,
     prevMonth,
     setOptionYear,
+    cartDates,
+    setCartDates,
+    getCartDatesAgain,
+    setGetCartDatesAgain,
   };
 
   const currentProgressDate = {

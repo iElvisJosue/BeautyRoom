@@ -31,3 +31,7 @@ export const getAllDatesByFilterUser = (data) =>
 // PETICIÓN PARA VALIDAR UNA CITA
 export const validateAllDatesFolio = (data) =>
   axios.post("/dates/validateDateFolio", data);
+
+// PETICIÓN PARA ELIMINAR UNA CITA
+export const deleteOneDate = (idCita) =>
+  axios.delete(`/dates/deleteDate/${idCita}`);

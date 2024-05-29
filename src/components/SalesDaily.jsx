@@ -1,5 +1,8 @@
 // IMPORTAMOS LOS COMPONENTES
 import { useState } from "react";
+import { toast } from "sonner";
+
+// IMPORTAMOS LOS COMPONENTES A USAR
 import Loader from "../components/Loader";
 import NotResults from "../components/NotResults";
 
@@ -15,7 +18,6 @@ import { handleResponseMessages } from "../helpers/RespuestasServidor";
 
 // IMPORTAMOS LOS ESTILOS
 import "../styles/SalesDaily.css";
-import { toast } from "sonner";
 
 export default function SalesDaily() {
   const [report, setReport] = useState(null);

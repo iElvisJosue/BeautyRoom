@@ -14,29 +14,59 @@ export default function ModalChangeStatusDate({
   setShowModalChangeStatusDate,
   textModalChangeStatusDate,
   idDateUpdate,
-  setFilter,
-  filter,
-  getDatesWaiting,
+  // setFilter,
+  // filter,
+  // getDatesWaiting,
+  getDatesByFilter,
+  getMyDatesByFilter,
+  setGetDatesByFilterAgain,
+  getDatesByFilterAgain,
 }) {
-  const { updateStatusDate } = useDates();
+  const { updateStatusDate, deleteDate } = useDates();
 
   const classModalChangeStatusDate = showModalChangeStatusDate
     ? "ModalChangeStatusDate Show"
     : "ModalChangeStatusDate";
 
   const handleUpdateStatusDate = async () => {
-    const dataStatus = {
-      EstadoCita: textModalChangeStatusDate,
-      idCita: idDateUpdate,
-    };
+    // ASIGNAMOS EL NUEVO ESTADO DE LA CITA
+    idDateUpdate.EstadoCita = textModalChangeStatusDate;
+    textModalChangeStatusDate === "Eliminar"
+      ? DeleteDate()
+      : OnlyUpdateStatusDate();
+  };
+
+  const OnlyUpdateStatusDate = async () => {
+    // const dataStatus = {
+    //   EstadoCita: textModalChangeStatusDate,
+    //   idCita: idDateUpdate[0].idCita,
+    // };
     try {
-      const res = await updateStatusDate(dataStatus);
+      const res = await updateStatusDate(idDateUpdate);
       const { status, data } = res;
       handleResponseMessages({ status, data });
       setShowModalChangeStatusDate(false);
-      setFilter(!filter);
+      // setFilter(!filter);
+      if (getDatesByFilter) {
+        getDatesByFilter(textModalChangeStatusDate);
+      }
       // ESTA FUNCIÓN SOLO SIRVE PARA LOS EMPLEADOS
-      getDatesWaiting();
+      if (getMyDatesByFilter) {
+        getMyDatesByFilter(textModalChangeStatusDate);
+      }
+    } catch (error) {
+      const { status, data } = error.response;
+      handleResponseMessages({ status, data });
+    }
+  };
+
+  const DeleteDate = async () => {
+    try {
+      const res = await deleteDate(idDateUpdate.idCita);
+      const { status, data } = res;
+      handleResponseMessages({ status, data });
+      setShowModalChangeStatusDate(false);
+      setGetDatesByFilterAgain(!getDatesByFilterAgain);
     } catch (error) {
       const { status, data } = error.response;
       handleResponseMessages({ status, data });

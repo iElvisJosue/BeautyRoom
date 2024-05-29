@@ -1,4 +1,5 @@
 // IMPORTAMOS LOS CONTEXTOS
+import { useEffect } from "react";
 import { useGlobal } from "../context/GlobalContext";
 
 // IMPORTAMOS LOS ESTILOS
@@ -6,6 +7,11 @@ import "../styles/DateCreated.css";
 
 export default function DateCreated() {
   const { user } = useGlobal();
+
+  useEffect(() => {
+    // ELIMINAMOS EL CARRITO DE CITAS
+    localStorage.removeItem("cartDates");
+  }, []);
 
   return (
     <main className="DateCreated">

@@ -15,15 +15,30 @@ export default function ModalUpdatePrice({
   productToUpdate,
 }) {
   useEffect(() => {
-    const currentSubservice = cart.find(
-      ({ idSubservicio }) => idSubservicio === productToUpdate
-    );
-    const currentProduct = cart.find(
-      ({ idProducto }) => idProducto === productToUpdate
-    );
-    document.querySelector("#NuevoPrecio").value =
-      currentSubservice?.CostoSubservicio ??
-      currentProduct?.PrecioProductoConDescuento;
+    const { idProducto, idSubservicio } = productToUpdate;
+    const setValue = (currentValue) => {
+      document.querySelector("#NuevoPrecio").value = currentValue;
+    };
+    if (idProducto) {
+      const currentProduct = cart.find(
+        (product) => product.idProducto === idProducto
+      );
+      setValue(currentProduct?.PrecioProductoConDescuento);
+    } else {
+      const currentSubservice = cart.find(
+        (product) => product.idSubservicio === idSubservicio
+      );
+      setValue(currentSubservice?.CostoSubservicio);
+    }
+    // const currentSubservice = cart.find(
+    //   ({ idSubservicio }) => idSubservicio === productToUpdate
+    // );
+    // const currentProduct = cart.find(
+    //   ({ idProducto }) => idProducto === productToUpdate
+    // );
+    // document.querySelector("#NuevoPrecio").value =
+    //   currentSubservice?.CostoSubservicio ??
+    //   currentProduct?.PrecioProductoConDescuento;
   }, []);
 
   const handleUpdatePrice = () => {
@@ -31,23 +46,26 @@ export default function ModalUpdatePrice({
     const regexOnlyNumbers = /^[0-9]+$/;
     if (regexOnlyNumbers.test(newPrice) && newPrice !== "") {
       cart.map((product) => {
-        if (product.idSubservicio === productToUpdate) {
-          return (
-            // ACTUALIZAMOS EL NUEVO PRECIO
-            (product.CostoSubservicio = parseInt(newPrice)),
-            // ACTUALIZAMOS EL PRECIO TOTAL
-            (product.PrecioTotal =
-              product.CostoSubservicio * product.CantidadEnCarrito)
-          );
-        }
-        if (product.idProducto === productToUpdate) {
-          return (
-            // ACTUALIZAMOS EL NUEVO PRECIO
-            (product.PrecioProductoConDescuento = parseInt(newPrice)),
-            // ACTUALIZAMOS EL PRECIO TOTAL
-            (product.PrecioTotal =
-              product.PrecioProductoConDescuento * product.CantidadEnCarrito)
-          );
+        if (product.idSubservicio) {
+          if (product.idSubservicio === productToUpdate.idSubservicio) {
+            return (
+              // ACTUALIZAMOS EL NUEVO PRECIO
+              (product.CostoSubservicio = parseInt(newPrice)),
+              // ACTUALIZAMOS EL PRECIO TOTAL
+              (product.PrecioTotal =
+                product.CostoSubservicio * product.CantidadEnCarrito)
+            );
+          }
+        } else {
+          if (product.idProducto === productToUpdate.idProducto) {
+            return (
+              // ACTUALIZAMOS EL NUEVO PRECIO
+              (product.PrecioProductoConDescuento = parseInt(newPrice)),
+              // ACTUALIZAMOS EL PRECIO TOTAL
+              (product.PrecioTotal =
+                product.PrecioProductoConDescuento * product.CantidadEnCarrito)
+            );
+          }
         }
 
         return product;

@@ -12,7 +12,7 @@ export default function PointOfSalesPaySuccess({
   ticketInformation,
 }) {
   const {
-    Cita,
+    Anticipo,
     Fecha,
     Propina,
     TotalVenta,
@@ -82,17 +82,6 @@ export default function PointOfSalesPaySuccess({
             })}
           </small>
         </span>
-        {/* <span className="PointOfSalesPaySuccess__Cart--PaymentDetails--Subtitle">
-          <small className="PointOfSalesPaySuccess__Cart--PaymentDetails--Subtitle--Name">
-            Otros servicios:
-          </small>
-          <small className="PointOfSalesPaySuccess__Cart--PaymentDetails--Subtitle--Value">
-            {OtrosServicios.toLocaleString("en-US", {
-              style: "currency",
-              currency: "USD",
-            })}
-          </small>
-        </span> */}
         <span className="PointOfSalesPaySuccess__Cart--PaymentDetails--Subtitle">
           <small className="PointOfSalesPaySuccess__Cart--PaymentDetails--Subtitle--Name">
             Propina:
@@ -106,10 +95,13 @@ export default function PointOfSalesPaySuccess({
         </span>
         <span className="PointOfSalesPaySuccess__Cart--PaymentDetails--Subtitle">
           <small className="PointOfSalesPaySuccess__Cart--PaymentDetails--Subtitle--Name">
-            Descuento:
+            Anticipo:
           </small>
           <small className="PointOfSalesPaySuccess__Cart--PaymentDetails--Subtitle--Value">
-            {Cita}
+            {Anticipo.toLocaleString("en-US", {
+              style: "currency",
+              currency: "USD",
+            })}
           </small>
         </span>
         <span className="PointOfSalesPaySuccess__Cart--PaymentDetails--Subtitle">

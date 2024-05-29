@@ -25,11 +25,15 @@ export default function EditDate({
   currentDataDate,
   employees,
   searchingEmployees,
-  setFilter,
-  filter,
+  // setFilter,
+  // filter,
   services,
   hours,
   searchingHours,
+  // getDatesByFilter,
+  setGetDatesByFilterAgain,
+  getDatesByFilterAgain,
+  // getMyDatesByFilter,
 }) {
   const { subservicesByName, setCurrentNameService } = useGetSubservicesByName({
     NombreServicio: currentDataDate.MotivoCita,
@@ -102,7 +106,9 @@ export default function EditDate({
         const { status, data } = res.response;
         handleResponseMessages({ status, data });
       } else {
-        setFilter(!filter);
+        // setFilter("Confirmada");
+        // getDatesByFilter("Sin confirmar");
+        setGetDatesByFilterAgain(!getDatesByFilterAgain);
         const { status, data } = res;
         handleResponseMessages({ status, data });
         setShowEditDate(false);
@@ -113,7 +119,9 @@ export default function EditDate({
     }
   });
   const back = () => {
-    setFilter(!filter);
+    // setFilter("Confirmada");
+    // getDatesByFilter("Sin confirmar");
+    setGetDatesByFilterAgain(!getDatesByFilterAgain);
     setShowEditDate(false);
   };
   // const handleSelectChange = (event) => {

@@ -10,7 +10,7 @@ export default function Employees({
 }) {
   const handleIdEmployee = () => {
     dateInformation.EmpleadoAsignado = Usuario;
-    setNumberEmployee(index + 1);
+    setNumberEmployee(index);
     setInformationDate({
       EmpleadoAsignado: Usuario,
       FechaCita: dateFormatted,
@@ -18,7 +18,7 @@ export default function Employees({
   };
 
   const classEmployeeDetails =
-    numberEmployee === index + 1
+    numberEmployee === index
       ? "SelectHour__Container--Employees--Details Selected"
       : "SelectHour__Container--Employees--Details";
 

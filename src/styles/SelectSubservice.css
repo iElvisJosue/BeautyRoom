@@ -14,3 +14,25 @@
   font-weight: bold;
   color: var(--StrongPurple);
 }
+.Date__Back {
+  width: 100px;
+  height: 40px;
+  border-radius: 50px;
+  background-color: var(--StrongPurple);
+  border: 2px solid var(--StrongPurple);
+  font-weight: bold;
+  color: var(--White);
+  cursor: pointer;
+  transition: 0.5s ease all;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.Date__Back ion-icon {
+  font-size: var(--NormalFontSize);
+}
+.Date__Back:hover {
+  background-color: var(--White);
+  color: var(--StrongPurple);
+}

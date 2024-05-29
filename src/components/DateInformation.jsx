@@ -46,22 +46,28 @@ export default function DateInformation({
       SubmotivoCita,
       EmpleadoAsignado,
     });
-    getHoursForTheServiceSelected();
+    // getHoursForTheServiceSelected();
     setShowEditDate(true);
   };
 
-  const getHoursForTheServiceSelected = () => {};
+  // const getHoursForTheServiceSelected = () => {};
 
-  const handleAsist = () => {
+  const handleStatusDate = (status) => {
     setShowModalChangeStatusDate(true);
-    setTextModalChangeStatusDate("No Asistio");
-    setIdDateUpdate(idCita);
+    setTextModalChangeStatusDate(status);
+    setIdDateUpdate(dataDate);
   };
-  const handleCompleted = () => {
-    setShowModalChangeStatusDate(true);
-    setTextModalChangeStatusDate("Completada");
-    setIdDateUpdate(idCita);
-  };
+
+  // const handleAsist = () => {
+  //   setShowModalChangeStatusDate(true);
+  //   setTextModalChangeStatusDate("No Asistio");
+  //   setIdDateUpdate(idCita);
+  // };
+  // const handleCompleted = () => {
+  //   setShowModalChangeStatusDate(true);
+  //   setTextModalChangeStatusDate("Completada");
+  //   setIdDateUpdate(idCita);
+  // };
 
   return (
     <section className="DatingHistory__Container--Dates--Card" id={idCita}>
@@ -86,7 +92,9 @@ export default function DateInformation({
             ⌚ {HoraCita}
           </p>
         </span>
-        {EstadoCita === "Espera" && user.rolUsuario === "Administrador" && (
+        {EstadoCita === "Confirmada" ||
+        (EstadoCita === "Sin confirmar" &&
+          user.rolUsuario === "Administrador") ? (
           <span className="DatingHistory__Container--Dates--Card--Container--Button">
             <button
               className="DatingHistory__Container--Dates--Card--Container--Button--View"
@@ -95,28 +103,56 @@ export default function DateInformation({
               <ion-icon name="brush-outline"></ion-icon>
             </button>
           </span>
-        )}
+        ) : null}
+        {/* {EstadoCita === "Confirmada" && user.rolUsuario === "Administrador" && (
+          <span className="DatingHistory__Container--Dates--Card--Container--Button">
+            <button
+              className="DatingHistory__Container--Dates--Card--Container--Button--View"
+              onClick={setDataDateOnInputs}
+            >
+              <ion-icon name="brush-outline"></ion-icon>
+            </button>
+          </span>
+        )} */}
       </div>
-      {EstadoCita === "Espera" ? (
+      {EstadoCita === "Sin confirmar" &&
+        user.rolUsuario === "Administrador" && (
+          <div className="DatingHistory__Container--Dates--Card--Buttons">
+            <button
+              className="DatingHistory__Container--Dates--Card--Buttons--Negative"
+              onClick={() => handleStatusDate("Eliminar")}
+            >
+              Eliminar
+            </button>
+            <button
+              className="DatingHistory__Container--Dates--Card--Buttons--Positive"
+              onClick={() => handleStatusDate("Confirmada")}
+            >
+              Confirmar
+            </button>
+          </div>
+        )}
+      {EstadoCita === "Confirmada" && (
         <div className="DatingHistory__Container--Dates--Card--Buttons">
           <button
             className="DatingHistory__Container--Dates--Card--Buttons--Negative"
-            onClick={handleAsist}
+            onClick={() => handleStatusDate("No Asistio")}
           >
             No asistió
           </button>
           <button
             className="DatingHistory__Container--Dates--Card--Buttons--Positive"
-            onClick={handleCompleted}
+            onClick={() => handleStatusDate("Completada")}
           >
             Completar
           </button>
         </div>
-      ) : (
+      )}
+      {EstadoCita === "Completada" || EstadoCita === "No Asistio" ? (
         <p className="DateInformation__Container--Status">
           Esta cita se marco como {`"${EstadoCita.toUpperCase()}"`}
         </p>
-      )}
+      ) : null}
     </section>
   );
 }

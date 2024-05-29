@@ -8,7 +8,8 @@
 }
 .DataClient__Container__DateInformation {
   background: var(--StrongPurple);
-  height: 600px;
+  min-height: 600px;
+  padding: 20px;
 
   display: flex;
   flex-direction: column;
@@ -16,12 +17,56 @@
   align-items: center;
   gap: 40px;
 }
+.DataClient__Container__DateInformation.Multiples {
+  gap: 10px;
+}
 .DataClient__Container__DateInformation__Title {
   font-size: var(--SubTittleFontSize);
   font-weight: bold;
   text-align: center;
   text-transform: uppercase;
   color: var(--White);
+}
+/* ESTOS SON LOS ESTILOS PARA CUANDO HAY MÁS DE UNA CITA */
+.DataClient__Container__DateInformation__Title--Dates {
+  position: relative;
+  width: 100%;
+  padding: 20px 0;
+  background-color: var(--ContainerPurple);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.DataClient__Container__DateInformation__Title--Dates--Delete {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 20px;
+  height: 20px;
+  font-size: var(--NormalFontSize);
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.DataClient__Container__DateInformation__Title--Dates p {
+  font-size: var(--NormalFontSize);
+  color: var(--White);
+  font-weight: bold;
+  text-align: center;
+
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.DataClient__Container__DateInformation__Title--Dates img {
+  width: 20px;
+  height: 20px;
 }
 .DataClient__Container__DateInformation__Service {
   width: 100%;
@@ -73,8 +118,14 @@
 .DataClient__Container__DateInformation__Details--Hour img {
   width: 100px;
 }
-.DataClient__Container__DateInformation__Button {
-  width: 70%;
+.DataClient__Container__DateInformation__Buttons {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.DataClient__Container__DateInformation__Buttons--Button {
+  width: 100%;
   height: 65px;
   background: var(--White);
   color: var(--StrongPurple);
@@ -84,7 +135,7 @@
   transition: 0.5s ease all;
   font-weight: bold;
 }
-.DataClient__Container__DateInformation__Button:hover {
+.DataClient__Container__DateInformation__Buttons--Button:hover {
   cursor: pointer;
   background: var(--StrongPurple);
   color: var(--White);

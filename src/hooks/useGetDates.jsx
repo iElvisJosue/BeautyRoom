@@ -13,7 +13,8 @@ export default function useGetDates() {
   const { getDatesByFilter } = useDates();
   const [totalDates, setTotalDates] = useState(false);
   const [searchingDates, setSearchingDates] = useState(true);
-  const [filter, setFilter] = useState(true);
+  const [filter, setFilter] = useState("Sin confirmar");
+  const [getDatesByFilterAgain, setGetDatesByFilterAgain] = useState(false);
 
   useEffect(() => {
     async function getAllDates() {
@@ -28,7 +29,15 @@ export default function useGetDates() {
       setSearchingDates(false);
     }
     getAllDates();
-  }, [filter]);
+  }, [filter, getDatesByFilterAgain]);
 
-  return { totalDates, setTotalDates, searchingDates, setFilter, filter };
+  return {
+    totalDates,
+    setTotalDates,
+    searchingDates,
+    setFilter,
+    filter,
+    setGetDatesByFilterAgain,
+    getDatesByFilterAgain,
+  };
 }

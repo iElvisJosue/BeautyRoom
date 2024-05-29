@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Toaster } from "sonner";
+import { Toaster, toast } from "sonner";
 
 // IMPORTAMOS LOS COMPONENTES
 import Navbar from "../components/Navbar";
@@ -23,10 +23,17 @@ import "../styles/AdminDates.css";
 
 export default function AdminDates() {
   const [idDateUpdate, setIdDateUpdate] = useState(null);
-  const [optionSubMenu, setOptionSubMenu] = useState(0);
+  const [optionSubMenu, setOptionSubMenu] = useState("Sin confirmar");
   const { services } = useGetServices();
   const { hours, searchingHours } = useGetHours();
-  const { totalDates, searchingDates, setFilter, filter } = useGetDates();
+  const {
+    totalDates,
+    searchingDates,
+    setFilter,
+    filter,
+    setGetDatesByFilterAgain,
+    getDatesByFilterAgain,
+  } = useGetDates();
   const { showEditDate, setShowEditDate } = useEditDate();
   const { currentDataDate, setCurrentDataDate } = useDataDate();
   const { employees, searchingEmployees } = useGetEmployees();
@@ -48,18 +55,19 @@ export default function AdminDates() {
       setFilter(filter);
     }
   };
-  const getDatesWaiting = () => {
-    setFilter("Espera");
-    setOptionSubMenu(0);
+  const getDatesByFilter = (status) => {
+    setFilter(status);
+    setOptionSubMenu(status);
   };
-  const getDatesCompleted = () => {
-    setFilter("Completada");
-    setOptionSubMenu(1);
-  };
-  const getDatesNotAttended = () => {
-    setFilter("No asistio");
-    setOptionSubMenu(2);
-  };
+
+  // CADA 5 MINUTOS OBTENEMOS NUEVAMENTE LAS CITAS
+  setTimeout(() => {
+    toast.success(
+      "Hemos actualizado satisfactoriamente el registro de las citas. Este proceso volverá a suceder dentro de 5 minutos ✔️"
+    );
+    setFilter("Sin confirmar");
+    setOptionSubMenu("Sin confirmar");
+  }, 300000);
 
   // PROBABLEMENTE DEBA PONER UN
   // if(searchingDates) return <Loader/>
@@ -71,8 +79,11 @@ export default function AdminDates() {
         showModalChangeStatusDate={showModalChangeStatusDate}
         textModalChangeStatusDate={textModalChangeStatusDate}
         idDateUpdate={idDateUpdate}
-        setFilter={setFilter}
-        filter={filter}
+        // setFilter={setFilter}
+        // filter={filter
+        getDatesByFilter={getDatesByFilter}
+        setGetDatesByFilterAgain={setGetDatesByFilterAgain}
+        getDatesByFilterAgain={getDatesByFilterAgain}
       />
       <Navbar>Administrar Citas</Navbar>
       {showEditDate ? (
@@ -86,6 +97,9 @@ export default function AdminDates() {
           services={services}
           hours={hours}
           searchingHours={searchingHours}
+          getDatesByFilter={getDatesByFilter}
+          setGetDatesByFilterAgain={setGetDatesByFilterAgain}
+          getDatesByFilterAgain={getDatesByFilterAgain}
         ></EditDate>
       ) : (
         <div className="DatingHistory__Container">
@@ -96,7 +110,7 @@ export default function AdminDates() {
           <div className="DatingHistory__Container--Filters">
             <input
               type="text"
-              placeholder="Fecha (AAAA-MM-DD), Folio, Motivo o Nombre del cliente"
+              placeholder="Fecha (AAAA-MM-DD), Folio, Motivo, Cliente o Empleado"
               className="DatingHistory__Container--Filters--Input"
               onChange={getDatesByFilters}
             />
@@ -104,27 +118,36 @@ export default function AdminDates() {
           <div className="DatingHistory__Container--Status">
             <button
               className={`DatingHistory__Container--Status--Button ${
-                optionSubMenu === 0 ? "Active" : ""
+                optionSubMenu === "Sin confirmar" ? "Active" : ""
               }`}
-              onClick={getDatesWaiting}
+              onClick={() => getDatesByFilter("Sin confirmar")}
             >
-              <ion-icon name="time-outline"></ion-icon> Espera
+              <ion-icon name="time-outline"></ion-icon> Sin confirmar
             </button>
             <button
               className={`DatingHistory__Container--Status--Button ${
-                optionSubMenu === 1 ? "Active" : ""
+                optionSubMenu === "Confirmada" ? "Active" : ""
               }`}
-              onClick={getDatesCompleted}
+              onClick={() => getDatesByFilter("Confirmada")}
             >
-              <ion-icon name="checkmark-circle-outline"></ion-icon> Completada
+              <ion-icon name="checkmark-circle-outline"></ion-icon>Confirmadas
             </button>
             <button
               className={`DatingHistory__Container--Status--Button ${
-                optionSubMenu === 2 ? "Active" : ""
+                optionSubMenu === "Completada" ? "Active" : ""
               }`}
-              onClick={getDatesNotAttended}
+              onClick={() => getDatesByFilter("Completada")}
             >
-              <ion-icon name="close-circle-outline"></ion-icon> No Asistió
+              <ion-icon name="checkmark-done-circle-outline"></ion-icon>{" "}
+              Completadas
+            </button>
+            <button
+              className={`DatingHistory__Container--Status--Button ${
+                optionSubMenu === "No Asistio" ? "Active" : ""
+              }`}
+              onClick={() => getDatesByFilter("No Asistio")}
+            >
+              <ion-icon name="close-circle-outline"></ion-icon> No Asistieron
             </button>
           </div>
           <div className="DatingHistory__Container--Dates">

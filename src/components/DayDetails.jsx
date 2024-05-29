@@ -20,6 +20,7 @@ export default function DayDetails({
   setProgressDate,
 }) {
   const selectedDate = () => {
+    // if (dayName !== "Domingo") {
     setDateInformation({
       ...dateInformation,
       DíaCitaNombre: dayName,
@@ -29,6 +30,9 @@ export default function DayDetails({
     });
     toast.success("Fecha seleccionada correctamente ✨");
     setProgressDate(3);
+    // } else {
+    //   toast.error("No puedes agendar una cita los domingos ❌");
+    // }
   };
 
   return (

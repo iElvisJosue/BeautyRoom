@@ -62,23 +62,30 @@ export default function SelectDay({
             </button>
           </div>
           <div className="SelectDay__Calendar">
-            {calendarDetails.map(({ day, dayName, shortMonthName }, index) => (
-              <DayDetails
-                monthNumber={monthNumber}
-                day={day}
-                dayName={dayName}
-                shortMonthName={shortMonthName}
-                dateInformation={dateInformation}
-                setDateInformation={setDateInformation}
-                currentYear={currentYear}
-                progressDate={progressDate}
-                setProgressDate={setProgressDate}
-                key={index}
-              />
-            ))}
+            {calendarDetails.map(
+              ({ day, dayName, shortMonthName }, index) =>
+                // SI EL DÍA ES DOMINGO, LO IGNORAMOS
+                dayName !== "Domingo" && (
+                  <DayDetails
+                    monthNumber={monthNumber}
+                    day={day}
+                    dayName={dayName}
+                    shortMonthName={shortMonthName}
+                    dateInformation={dateInformation}
+                    setDateInformation={setDateInformation}
+                    currentYear={currentYear}
+                    progressDate={progressDate}
+                    setProgressDate={setProgressDate}
+                    key={index}
+                  />
+                )
+            )}
           </div>
         </>
       )}
+      <button className="Date__Back" onClick={() => setProgressDate(1)}>
+        <ion-icon name="chevron-back-outline"></ion-icon> Regresar
+      </button>
     </div>
   );
 }

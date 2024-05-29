@@ -21,7 +21,7 @@ import "../styles/AdminDates.css";
 export default function MyDates() {
   const { user } = useGlobal();
   const [idDateUpdate, setIdDateUpdate] = useState(null);
-  const [optionSubMenu, setOptionSubMenu] = useState(0);
+  const [optionSubMenu, setOptionSubMenu] = useState("Confirmada");
   const { totalDates, searchingDates, setFilter, filter } = useGetDatesByUser();
   const {
     showModalChangeStatusDate,
@@ -31,7 +31,7 @@ export default function MyDates() {
   } = useModalChangeStatusDate();
 
   const getDatesByFilters = (event) => {
-    setOptionSubMenu(4);
+    setOptionSubMenu(null);
     const value = event.target.value;
     // Utilizamos una expresión regular para permitir letras, números y "-"
     const regex = /^[a-zA-Z0-9\sáéíóúÁÉÍÓÚüÜ-]*$/;
@@ -45,28 +45,13 @@ export default function MyDates() {
     }
   };
 
-  const getDatesWaiting = () => {
+  const getMyDatesByFilter = (status) => {
     setFilter({
       idEmpleado: user?.nombreUsuario,
-      status: "Espera",
+      status: status,
     });
-    setOptionSubMenu(0);
+    setOptionSubMenu(status);
   };
-  const getDatesCompleted = () => {
-    setFilter({
-      idEmpleado: user?.nombreUsuario,
-      status: "Completada",
-    });
-    setOptionSubMenu(1);
-  };
-  const getDatesNotAttended = () => {
-    setFilter({
-      idEmpleado: user?.nombreUsuario,
-      status: "No asistio",
-    });
-    setOptionSubMenu(2);
-  };
-
   // PROBABLEMENTE DEBA PONER UN
   // if(searchingDates) return <Loader/>
 
@@ -79,7 +64,7 @@ export default function MyDates() {
         idDateUpdate={idDateUpdate}
         setFilter={setFilter}
         filter={filter}
-        getDatesWaiting={getDatesWaiting}
+        getMyDatesByFilter={getMyDatesByFilter}
       />
       <Navbar>Administrar Citas</Navbar>
       <div className="DatingHistory__Container">
@@ -98,27 +83,27 @@ export default function MyDates() {
         <div className="DatingHistory__Container--Status">
           <button
             className={`DatingHistory__Container--Status--Button ${
-              optionSubMenu === 0 ? "Active" : ""
+              optionSubMenu === "Confirmada" ? "Active" : ""
             }`}
-            onClick={getDatesWaiting}
+            onClick={() => getMyDatesByFilter("Confirmada")}
           >
-            <ion-icon name="time-outline"></ion-icon> Espera
+            <ion-icon name="time-outline"></ion-icon> Confirmadas
           </button>
           <button
             className={`DatingHistory__Container--Status--Button ${
-              optionSubMenu === 1 ? "Active" : ""
+              optionSubMenu === "Completada" ? "Active" : ""
             }`}
-            onClick={getDatesCompleted}
+            onClick={() => getMyDatesByFilter("Completada")}
           >
-            <ion-icon name="checkmark-circle-outline"></ion-icon> Completada
+            <ion-icon name="checkmark-circle-outline"></ion-icon> Completadas
           </button>
           <button
             className={`DatingHistory__Container--Status--Button ${
-              optionSubMenu === 2 ? "Active" : ""
+              optionSubMenu === "No Asistio" ? "Active" : ""
             }`}
-            onClick={getDatesNotAttended}
+            onClick={() => getMyDatesByFilter("No Asistio")}
           >
-            <ion-icon name="close-circle-outline"></ion-icon> No Asistió
+            <ion-icon name="close-circle-outline"></ion-icon> No Asistieron
           </button>
         </div>
         <div className="DatingHistory__Container--Dates">

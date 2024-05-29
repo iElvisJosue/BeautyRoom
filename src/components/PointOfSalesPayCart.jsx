@@ -88,9 +88,8 @@ export default function PointOfSalesPayCart({
   };
   const getTotal = () => {
     let total = cart.reduce((acc, product) => acc + product.PrecioTotal, 0);
-    // cart[0].OtrosServicios && (total += cart[0].OtrosServicios);
     cart[0].PropinaCliente && (total += cart[0].PropinaCliente);
-    cart[0].idCita && (total -= 150);
+    cart[0].Descuentos && (total -= cart[0].Descuentos);
     return total;
   };
   const getTotalItems = () => {
@@ -122,28 +121,6 @@ export default function PointOfSalesPayCart({
   //   });
   //   handleUpdateCart(cart);
   // };
-  const handleAddDateToCart = (data) => {
-    if (data.length > 0) {
-      toast.success(
-        "Cita validada correctamente, el descuento ha sido aplicado ✔️"
-      );
-      cart.map((currentItem) => {
-        currentItem.idCita = data[0].idCita;
-      });
-      handleUpdateCart(cart);
-    } else {
-      toast.error(
-        "No hay cita activa para este folio, por favor introduzca un nuevo folio ❌"
-      );
-    }
-  };
-  const handleDeleteDate = () => {
-    toast.success("Cita eliminada correctamente ✔️");
-    cart.map((currentItem) => {
-      delete currentItem.idCita;
-    });
-    handleUpdateCart(cart);
-  };
   const handleAppTipPercentage = () => {
     const value = document.querySelector("#PropinaCliente").value;
     handleAddTipClientToCart(value, "%");
@@ -183,13 +160,54 @@ export default function PointOfSalesPayCart({
   };
   const handleValidateDate = async () => {
     const value = document.querySelector("#FolioCita").value;
-    try {
-      const res = await validateDateFolio({ NumeroDeFolio: value });
-      handleAddDateToCart(res.data);
-    } catch (error) {
-      const { status, message } = error.response;
-      handleResponseMessages({ status, message });
+    const regexOnlyNumbersAndDash = /^[0-9-]+$/;
+    if (regexOnlyNumbersAndDash.test(value)) {
+      try {
+        const res = await validateDateFolio({ NumeroDeFolio: value });
+        if (res.response) {
+          const { status, data } = res.response;
+          handleResponseMessages({ status, data });
+        } else {
+          handleAddDateToCart(res.data);
+        }
+      } catch (error) {
+        const { status, message } = error.response;
+        handleResponseMessages({ status, message });
+      }
+    } else {
+      toast.error("Solo se permiten valores numéricos y guiones ❌");
     }
+  };
+  const handleAddDateToCart = (data) => {
+    toast.success(
+      "Citas validadas correctamente, el descuento ha sido aplicado ✔️"
+    );
+    cart.map((currentItem) => {
+      currentItem.idCita = data;
+      currentItem.Descuentos = data.length * 150;
+    });
+    handleUpdateCart(cart);
+    // if (data.length > 0) {
+    //   toast.success(
+    //     "Cita validada correctamente, el descuento ha sido aplicado ✔️"
+    //   );
+    //   cart.map((currentItem) => {
+    //     currentItem.idCita = data[0].idCita;
+    //   });
+    //   handleUpdateCart(cart);
+    // } else {
+    //   toast.error(
+    //     "No hay cita activa para este folio, por favor introduzca un nuevo folio ❌"
+    //   );
+    // }
+  };
+  const handleDeleteDate = () => {
+    toast.success("Cita eliminada correctamente ✔️");
+    cart.map((currentItem) => {
+      delete currentItem.idCita;
+      delete currentItem.Descuentos;
+    });
+    handleUpdateCart(cart);
   };
   const handleUpdateCart = (cart) => {
     setCart(cart);
@@ -201,12 +219,25 @@ export default function PointOfSalesPayCart({
     setGetCartAgain(!getCartAgain);
   };
   const handleUpdateEmployeeAssigned = (e, product) => {
-    cart.map((currentItem) => {
-      currentItem.EmpleadoAsignado =
-        currentItem.idSubservicio === product.idSubservicio
-          ? e.target.value
-          : currentItem.EmpleadoAsignado;
-    });
+    const { idSubservicio } = product;
+    // SI EL PRODUCTO ES UN SERVICIO, BUSCAMOS EL ID DEL SERVICIO
+    if (idSubservicio) {
+      cart.map((currentItem) => {
+        currentItem.EmpleadoAsignado =
+          currentItem.idSubservicio === product.idSubservicio
+            ? e.target.value
+            : currentItem.EmpleadoAsignado;
+      });
+    }
+    // DE LO CONTRARIO, BUSCAMOS EL ID DEL PRODUCTO
+    else {
+      cart.map((currentItem) => {
+        currentItem.EmpleadoAsignado =
+          currentItem.idProducto === product.idProducto
+            ? e.target.value
+            : currentItem.EmpleadoAsignado;
+      });
+    }
     localStorage.setItem("cart", JSON.stringify(cart));
     setGetCartAgain(!getCartAgain);
   };
@@ -239,11 +270,7 @@ export default function PointOfSalesPayCart({
             >
               <button
                 className="PointOfSalesPay__Cart__Container__Content--ChangePrice"
-                onClick={() =>
-                  handleUpdatePriceProduct(
-                    product.idSubservicio ?? product.idProducto
-                  )
-                }
+                onClick={() => handleUpdatePriceProduct(product)}
               >
                 <ion-icon name="repeat-outline"></ion-icon>
               </button>
@@ -285,7 +312,7 @@ export default function PointOfSalesPayCart({
                   </span>
                   <select
                     type="text"
-                    id={product.idSubservicio}
+                    id={product.idSubservicio ?? product.idProducto}
                     onChange={(e) => handleUpdateEmployeeAssigned(e, product)}
                   >
                     {employeesExist &&
@@ -310,10 +337,10 @@ export default function PointOfSalesPayCart({
         <footer className="PointOfSalesPay__Cart__Footer">
           {optionsDiscount && (
             <>
-              {cart[0].idCita ? (
+              {cart[0].Descuentos ? (
                 <div className="PointOfSalesPay__Cart__Footer--SuccessDiscount">
                   <p className="PointOfSalesPay__Cart__Footer--SuccessDiscount--Title">
-                    Cita agregada: (-$150.00)
+                    Cita agregada: (${cart[0].Descuentos}.00)
                   </p>
                   <button
                     className="PointOfSalesPay__Cart__Footer--SuccessDiscount--Button"
@@ -344,45 +371,6 @@ export default function PointOfSalesPayCart({
                   </span>
                 </div>
               )}
-              {/* {cart[0].OtrosServicios ? (
-                <div className="PointOfSalesPay__Cart__Footer--SuccessDiscount">
-                  <p className="PointOfSalesPay__Cart__Footer--SuccessDiscount--Title">
-                    Otros servicios: (
-                    {cart[0].OtrosServicios.toLocaleString("en-US", {
-                      style: "currency",
-                      currency: "USD",
-                    })}
-                    )
-                  </p>
-                  <button
-                    className="PointOfSalesPay__Cart__Footer--SuccessDiscount--Button"
-                    onClick={handleDeleteOtherService}
-                  >
-                    <ion-icon name="close-outline"></ion-icon>
-                  </button>
-                </div>
-              ) : (
-                <div className="PointOfSalesPay__Cart__Footer--Inputs">
-                  <p className="PointOfSalesPay__Cart__Footer--Inputs--Title">
-                    Otros servicios
-                  </p>
-                  <span className="PointOfSalesPay__Cart__Footer--Inputs--Container">
-                    <input
-                      type="text"
-                      name="OtroServicios"
-                      id="OtroServicios"
-                      placeholder="Ingresa la cantidad"
-                      className="PointOfSalesPay__Cart__Footer--Inputs--Container--Input"
-                    />
-                    <button
-                      className="PointOfSalesPay__Cart__Footer--Inputs--Container--Button"
-                      onClick={handleAddOtherServiceToCart}
-                    >
-                      Agregar
-                    </button>
-                  </span>
-                </div>
-              )} */}
               {cart[0].PropinaCliente ? (
                 <div className="PointOfSalesPay__Cart__Footer--SuccessDiscount">
                   <p className="PointOfSalesPay__Cart__Footer--SuccessDiscount--Title">
