@@ -35,7 +35,7 @@ export default function SelectHour({
     useGetHoursByEmployeeSelected();
 
   useEffect(() => {
-    if (employeesByService) {
+    if (employeesByService.length > 0) {
       dateInformation.EmpleadoAsignado = employeesByService[0].Usuario;
       setInformationDate({
         // EmpleadoAsignado: employeesByService && employeesByService[0].Usuario,
@@ -58,7 +58,12 @@ export default function SelectHour({
   return (
     // <div className="SelectHour__Container" onLoad={getNewHoursByEmployee}>
     <div className="SelectHour__Container">
-      {employeesByService && hoursByEmployeeSelected ? (
+      {employeesByService.length === 0 ? (
+        <NotResults>
+          {" "}
+          No hay empleados disponibles para este servicio.{" "}
+        </NotResults>
+      ) : employeesByService && hoursByEmployeeSelected ? (
         <>
           <p className="SelectHour__Title">Selecciona una hora</p>
           <p className="SelectHour__Subtitle">
