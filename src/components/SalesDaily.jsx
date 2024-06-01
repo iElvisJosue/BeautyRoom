@@ -46,7 +46,6 @@ export default function SalesDaily() {
         primeraFecha: firstDate,
         segundaFecha: secondDate,
       });
-      console.log(res);
       if (res.response) {
         const { status, data } = res.response;
         handleResponseMessages({ status, data });
@@ -59,7 +58,6 @@ export default function SalesDaily() {
       handleResponseMessages({ status, data });
     }
   };
-  console.log(report);
 
   return (
     <div className="Sales__Daily">

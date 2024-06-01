@@ -1,5 +1,5 @@
 // IMPORTAMOS LAS LIBRERÍAS A USAR
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // IMPORTAMOS LOS COMPONENTES
 import Loader from "../components/Loader";
@@ -16,10 +16,19 @@ import "../styles/SalesAll.css";
 
 export default function SalesAll() {
   const amountSales = 25;
+  const [page, setPage] = useState(1);
+  const [amountPages, setAmountPages] = useState(1);
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(amountSales);
   const { salesByFilter, searchingSalesByFilter, setFilterSales } =
     useGetSalesByFilter();
+
+  useEffect(() => {
+    if (salesByFilter) {
+      const cantidadDePaginas = Math.ceil(salesByFilter.length / amountSales);
+      setAmountPages(cantidadDePaginas);
+    }
+  }, [salesByFilter]);
 
   const getSalesByFilter = (event) => {
     const value = event.target.value;
@@ -37,11 +46,13 @@ export default function SalesAll() {
   const handleShowTwentyFiveMore = () => {
     setStartIndex(startIndex + amountSales);
     setEndIndex(endIndex + amountSales);
+    setPage(page + 1);
   };
 
   const handleShowTwentyFiveLess = () => {
     setStartIndex(startIndex - amountSales);
     setEndIndex(endIndex - amountSales);
+    setPage(page - 1);
   };
 
   return (
@@ -134,6 +145,9 @@ export default function SalesAll() {
           <NotResults> No hay ventas disponibles</NotResults>
         )}
       </section>
+      <p className="Sales__All--TableList--Pages">
+        ({page}/{amountPages})
+      </p>
     </div>
   );
 }
