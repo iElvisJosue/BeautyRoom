@@ -91,7 +91,6 @@
   width: 40%;
   word-wrap: break-word;
 }
-
 .Sales__All--TableList--Details {
   min-height: 50px;
   height: auto;
@@ -152,6 +151,41 @@
   transform: scale(1.1);
   background: var(--White);
   color: var(--StrongPurple);
+}
+.Sales__All--Buttons--Pages {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.Sales__All--TableList--Buttons--Pages--Button {
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  transition: 0.5s ease all;
+  font-weight: bold;
+  border: none;
+  outline: none;
+  background: var(--StrongPurple);
+  border: 2px solid var(--StrongPurple);
+  color: var(--White);
+  border-radius: 25px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.Sales__All--TableList--Buttons--Pages--Button:hover {
+  background: var(--White);
+  letter-spacing: 1px;
+  color: var(--StrongPurple);
+}
+.Sales__All--TableList--Buttons--Pages--Button.Prev {
+  left: -20px;
+}
+.Sales__All--TableList--Buttons--Pages--Button.Next {
+  right: -20px;
 }
 @media (width < 550px) {
   .Sales__All--TableList--Details--Product--Picture,
