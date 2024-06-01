@@ -66,13 +66,12 @@ export default function DataClient({
     // COMPROBAMOS SI EXISTE UNA CITA CON LA MISMA FECHA, HORA Y EMPLEADO ASIGNADO
     const exists = cartDates.some(
       (item) =>
-        item.EmpleadoAsignado === dateInformation.EmpleadoAsignado &&
         item.HoraCita === dateInformation.HoraCita &&
         item.FechaCita === dateInformation.FechaCita
     );
     // SI EXISTE UNA CITA CON LA MISMA FECHA, HORA Y EMPLEADO ASIGNADO, MOSTRAMOS UN MENSAJE DE ERROR
     if (exists) {
-      toast.error("Ya existe una cita con la misma FECHA, HORA Y EMPLEADO ❌");
+      toast.error("Ya agregaste una cita con la misma FECHA Y HORA ❌");
     }
     // SI NO EXISTE UNA CITA CON LA MISMA FECHA, HORA Y EMPLEADO ASIGNADO, AGREGAMOS LA CITA AL LOCAL STORAGE
     else {
