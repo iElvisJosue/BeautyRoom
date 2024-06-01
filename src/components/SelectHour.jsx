@@ -54,7 +54,6 @@ export default function SelectHour({
   //     FechaCita: dateFormatted,
   //   });
   // };
-
   return (
     // <div className="SelectHour__Container" onLoad={getNewHoursByEmployee}>
     <div className="SelectHour__Container">
@@ -88,7 +87,42 @@ export default function SelectHour({
             ))}
           </div>
           <div className="SelectHour__Calendar">
-            {hours.map(({ HoraServicio }, index) => {
+            {dateInformation.DíaCitaNombre === "Sábado"
+              ? hours
+                  // PONEMOS MENOR A 8 PORQUE ES EL ID DE LAS 5PM
+                  .filter(({ idHora }) => idHora <= 8)
+                  .map(({ HoraServicio }, index) => {
+                    const hourExist =
+                      hoursByEmployeeSelected.includes(HoraServicio);
+                    if (!hourExist) {
+                      return (
+                        <HourDetails
+                          key={index}
+                          HoraServicio={HoraServicio}
+                          setProgressDate={setProgressDate}
+                          dateInformation={dateInformation}
+                          setDateInformation={setDateInformation}
+                        />
+                      );
+                    }
+                  })
+              : hours.map(({ HoraServicio }, index) => {
+                  const hourExist =
+                    hoursByEmployeeSelected.includes(HoraServicio);
+                  if (!hourExist) {
+                    return (
+                      <HourDetails
+                        key={index}
+                        HoraServicio={HoraServicio}
+                        setProgressDate={setProgressDate}
+                        dateInformation={dateInformation}
+                        setDateInformation={setDateInformation}
+                      />
+                    );
+                  }
+                })}
+
+            {/* {hours.map(({ HoraServicio }, index) => {
               const hourExist = hoursByEmployeeSelected.includes(HoraServicio);
               if (!hourExist) {
                 return (
@@ -101,7 +135,7 @@ export default function SelectHour({
                   />
                 );
               }
-            })}
+            })} */}
           </div>
           <button className="Date__Back" onClick={() => setProgressDate(2)}>
             <ion-icon name="chevron-back-outline"></ion-icon> Regresar
