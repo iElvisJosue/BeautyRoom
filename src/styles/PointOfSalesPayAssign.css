@@ -66,6 +66,14 @@
   border: 2px solid var(--Gray);
   color: var(--Gray);
 }
+.PointOfSalesPayAssign__Cart__Header--Content--Small {
+  width: 100%;
+  text-align: right;
+  font-size: var(--SmallFontSize);
+  color: var(--Blue);
+  font-style: normal;
+  cursor: pointer;
+}
 .PointOfSalesPayAssign__Cart__Button {
   width: 100%;
   height: 50px;

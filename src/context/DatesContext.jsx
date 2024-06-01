@@ -10,6 +10,7 @@ import {
   getAllDatesByFilterUser,
   validateAllDatesFolio,
   deleteOneDate,
+  createOneClient,
 } from "../api/authDates";
 
 export const DatesContext = createContext();
@@ -124,6 +125,15 @@ export const DatesProvider = ({ children }) => {
     }
   };
 
+  const createClient = async (data) => {
+    try {
+      const res = await createOneClient(data);
+      return res;
+    } catch (error) {
+      return error;
+    }
+  };
+
   return (
     <DatesContext.Provider
       value={{
@@ -137,6 +147,7 @@ export const DatesProvider = ({ children }) => {
         getDatesByFilterUser,
         validateDateFolio,
         deleteDate,
+        createClient,
       }}
     >
       {children}

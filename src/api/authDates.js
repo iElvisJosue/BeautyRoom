@@ -35,3 +35,7 @@ export const validateAllDatesFolio = (data) =>
 // PETICIÓN PARA ELIMINAR UNA CITA
 export const deleteOneDate = (idCita) =>
   axios.delete(`/dates/deleteDate/${idCita}`);
+
+// PETICIÓN PARA CREAR UN CLIENTE
+export const createOneClient = (data) =>
+  axios.post("/dates/createClient", data);
