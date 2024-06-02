@@ -21,7 +21,7 @@ export default function Sales() {
       <Navbar>Reporte de Ventas</Navbar>
       <div className="Sales__Container">
         <SubMenu
-          NombreOpciónUno="Reporte diario"
+          NombreOpciónUno="Reportes por fecha"
           NombreOpciónDos="Todas las ventas"
           firstIcon="calendar-number-outline"
           secondIcon="apps-outline"
