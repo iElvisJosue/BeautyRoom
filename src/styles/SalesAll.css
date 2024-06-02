@@ -36,6 +36,7 @@
   font-size: var(--SmallFontSize);
   font-weight: bold;
   color: var(--StrongPurple);
+  margin-top: 10px;
 }
 .Sales__All--Buttons--Button {
   height: 100%;
@@ -220,4 +221,60 @@
   .Sales__All--Buttons--Button {
     font-size: var(--SmallFontSize);
   }
+}
+
+.Sales__All--TableList {
+  width: 100%;
+  overflow-x: auto;
+}
+.Sales__All--TableList--Table {
+  width: 100%;
+  table-layout: auto;
+}
+.Sales__All--TableList--Table--Headers tr th {
+  background: var(--StrongPurple);
+  color: var(--White);
+  font-size: var(--SmallFontSize);
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 10px;
+}
+.Sales__All--TableList--Table--Body td {
+  font-size: var(--SmallFontSize);
+  font-weight: bold;
+  padding: 10px;
+  text-align: center;
+}
+.Sales__All--TableList--Table--Body tr:nth-child(odd) {
+  background: var(--Transparent);
+}
+.Sales__All--TableList--Table--Body--Ticket {
+  width: 32px;
+  height: 32px;
+  margin: auto;
+  cursor: pointer;
+  transition: 0.5s ease all;
+  border: none;
+  outline: none;
+  background: var(--StrongPurple);
+  border: 1px solid var(--StrongPurple);
+  color: var(--White);
+  font-size: var(--NormalFontSize);
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Sales__All--TableList--Table--Body--Ticket:hover {
+  transform: scale(1.1);
+  background: var(--White);
+  color: var(--StrongPurple);
+}
+.Sales__All--TableList--Table--Body--Picture {
+  width: 32px;
+  height: 32px;
+  background: var(--StrongPurple);
+  border-radius: 50%;
 }
