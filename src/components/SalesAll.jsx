@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 // IMPORTAMOS LOS COMPONENTES
 import NotResults from "../components/NotResults";
 import TableSales from "../components/TableSales";
+import Loader from "../components/Loader";
 
 // IMPORTAMOS LOS HOOKS A USAR
 import useGetSalesByFilter from "../hooks/useGetSalesByFilter";
@@ -18,7 +19,8 @@ export default function SalesAll() {
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(amountSales);
   // const { salesByFilter, searchingSalesByFilter, setFilterSales } =
-  const { salesByFilter, setFilterSales } = useGetSalesByFilter();
+  const { salesByFilter, setFilterSales, searchingSalesByFilter } =
+    useGetSalesByFilter();
 
   useEffect(() => {
     if (salesByFilter) {
@@ -56,6 +58,8 @@ export default function SalesAll() {
     setEndIndex(amountSales);
     setPage(1);
   };
+
+  if (searchingSalesByFilter) return <Loader />;
 
   return (
     <div className="Sales__All">

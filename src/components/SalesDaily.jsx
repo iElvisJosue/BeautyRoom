@@ -5,6 +5,7 @@ import { toast } from "sonner";
 // IMPORTAMOS LOS COMPONENTES A USAR
 import NotResults from "../components/NotResults";
 import TableSales from "./TableSales";
+import Loader from "./Loader";
 
 // IMPORTAMOS LOS CONTEXTOS A USAR
 import { useGlobal } from "../context/GlobalContext";
@@ -22,8 +23,14 @@ import "../styles/SalesDaily.css";
 export default function SalesDaily() {
   const [report, setReport] = useState(null);
   const { createReport } = useGlobal();
-  const { salesDaily, firstDate, setFirstDate, secondDate, setSecondDate } =
-    useGetSalesDaily();
+  const {
+    salesDaily,
+    firstDate,
+    setFirstDate,
+    secondDate,
+    setSecondDate,
+    searchingSales,
+  } = useGetSalesDaily();
 
   const handleFirstDate = (event) => {
     setFirstDate(event.target.value);
@@ -53,6 +60,8 @@ export default function SalesDaily() {
     }
   };
 
+  if (searchingSales) return <Loader />;
+
   return (
     <div className="Sales__Daily">
       <div className="Sales__Daily--Buttons">
@@ -80,57 +89,55 @@ export default function SalesDaily() {
             startIndex={0}
             endIndex={salesDaily.length}
           />
+          <footer className="Sales__Daily--TableList--Footer">
+            {report && (
+              <>
+                {report[0] && (
+                  <a
+                    className="Sales__Daily--Buttons--Button"
+                    href={`${HOST_PDF}/${report[0]}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Reporte General{" "}
+                    <ion-icon name="document-text-outline"></ion-icon>
+                  </a>
+                )}
+                {report[1] && (
+                  <a
+                    className="Sales__Daily--Buttons--Button"
+                    href={`${HOST_PDF}/${report[1]}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Reporte Citas <ion-icon name="calendar-outline"></ion-icon>
+                  </a>
+                )}
+                {report[2] && (
+                  <a
+                    className="Sales__Daily--Buttons--Button"
+                    href={`${HOST_PDF}/${report[2]}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Reporte Comisiones <ion-icon name="cash-outline"></ion-icon>
+                  </a>
+                )}
+              </>
+            )}
+
+            <button
+              className="Sales__Daily--Buttons--Button"
+              onClick={handleGenerateReportPDF}
+            >
+              Generar Reportes{" "}
+              <ion-icon name="document-attach-outline"></ion-icon>
+            </button>
+          </footer>
         </>
       ) : (
         <NotResults>¡No se encontraron resultados!</NotResults>
       )}
-      {salesDaily?.length > 0 ? (
-        <footer className="Sales__Daily--TableList--Footer">
-          {report && (
-            <>
-              {report[0] && (
-                <a
-                  className="Sales__Daily--Buttons--Button"
-                  href={`${HOST_PDF}/${report[0]}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Reporte General{" "}
-                  <ion-icon name="document-text-outline"></ion-icon>
-                </a>
-              )}
-              {report[1] && (
-                <a
-                  className="Sales__Daily--Buttons--Button"
-                  href={`${HOST_PDF}/${report[1]}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Reporte Citas <ion-icon name="calendar-outline"></ion-icon>
-                </a>
-              )}
-              {report[2] && (
-                <a
-                  className="Sales__Daily--Buttons--Button"
-                  href={`${HOST_PDF}/${report[2]}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Reporte Comisiones <ion-icon name="cash-outline"></ion-icon>
-                </a>
-              )}
-            </>
-          )}
-
-          <button
-            className="Sales__Daily--Buttons--Button"
-            onClick={handleGenerateReportPDF}
-          >
-            Generar Reportes{" "}
-            <ion-icon name="document-attach-outline"></ion-icon>
-          </button>
-        </footer>
-      ) : null}
     </div>
   );
 }
