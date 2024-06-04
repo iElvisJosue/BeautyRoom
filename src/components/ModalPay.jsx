@@ -15,6 +15,7 @@ import { handleResponseMessages } from "../helpers/RespuestasServidor";
 // IMPORTAMOS LOS ESTILOS
 import "../styles/ModalPay.css";
 export default function ModalPay({ showModalPay, setShowModalPay, cartDates }) {
+  const [showButtonPay, setShowButtonPay] = useState(true);
   const navigate = useNavigate();
   // const initialOptions = {
   //   "client-id":
@@ -58,6 +59,7 @@ export default function ModalPay({ showModalPay, setShowModalPay, cartDates }) {
   };
   // VERIFICAMOS EL METODO DE PAGO
   const checkPayment = () => {
+    setShowButtonPay(false);
     // SI EL METODO DE PAGO ES POR PAYPAL, CREAMOS LA ORDEN DE PAGO
     if (cartDates[0].MetodoPago === "PayPal") {
       createDateOrder();
@@ -244,12 +246,14 @@ export default function ModalPay({ showModalPay, setShowModalPay, cartDates }) {
             datos personales y la información de tus citas sean los correctos.
           </small>
         )}
-        <button
-          className="ModalPay__Container__Form--Button"
-          onClick={checkPayment}
-        >
-          Realizar Pago
-        </button>
+        {showButtonPay && (
+          <button
+            className="ModalPay__Container__Form--Button"
+            onClick={checkPayment}
+          >
+            Realizar Pago
+          </button>
+        )}
       </div>
     </main>
   );
