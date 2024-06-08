@@ -2,27 +2,18 @@
 // IMPORTAMOS LAS LIBRERÍAS A USAR
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import { toast } from "sonner";
-// import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
 // IMPORTAMOS LOS CONTEXTOS A USAR
 import { useDates } from "../context/DatesContext";
 
 // IMPORTAMOS LAS AYUDAS
 import { handleResponseMessages } from "../helpers/RespuestasServidor";
-// import { HOST_API_DATES } from "../helpers/Urls";
 
 // IMPORTAMOS LOS ESTILOS
 import "../styles/ModalPay.css";
 export default function ModalPay({ showModalPay, setShowModalPay, cartDates }) {
   const [showButtonPay, setShowButtonPay] = useState(true);
   const navigate = useNavigate();
-  // const initialOptions = {
-  //   "client-id":
-  //     "ASloaHCfRahs6J3OBj883To-ud-TDC5D4PW5d-ZOCqMWsMeRu_C3jLQNF1gOaW89IsFb42BCF7V-jRsA",
-  //   "enable-funding": "paylater,venmo",
-  //   "data-sdk-integration-source": "integrationbuilder_sc",
-  // };
   const [currentDataDate, setCurrentDataDate] = useState(0);
   const {
     NombreCliente,
@@ -146,93 +137,6 @@ export default function ModalPay({ showModalPay, setShowModalPay, cartDates }) {
           </p>
         </div>
         <hr className="ModalPay__Container__Divisor" />
-        {/* <PayPalScriptProvider options={initialOptions}>
-          <PayPalButtons
-            style={{
-              shape: "rect",
-              layout: "vertical",
-            }}
-            createOrder={async () => {
-              try {
-                const response = await fetch(`${HOST_API_DATES}/createOrder`, {
-                  method: "POST",
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                  body: JSON.stringify({
-                    cartDates,
-                  }),
-                });
-
-                const orderData = await response.json();
-
-                if (orderData.id) {
-                  return orderData.id;
-                } else {
-                  const errorDetail = orderData?.details?.[0];
-                  const errorMessage = errorDetail
-                    ? `${errorDetail.issue} ${errorDetail.description} (${orderData.debug_id})`
-                    : JSON.stringify(orderData);
-
-                  throw new Error(errorMessage);
-                }
-              } catch (error) {
-                console.error(error);
-              }
-            }}
-            onApprove={async (data, actions) => {
-              try {
-                const response = await fetch(
-                  `${HOST_API_DATES}/${data.orderID}/captureOrderPayPal`,
-                  {
-                    method: "POST",
-                    headers: {
-                      "Content-Type": "application/json",
-                    },
-                  }
-                );
-
-                const orderData = await response.json();
-                // Three cases to handle:
-                //   (1) Recoverable INSTRUMENT_DECLINED -> call actions.restart()
-                //   (2) Other non-recoverable errors -> Show a failure message
-                //   (3) Successful transaction -> Show confirmation or thank you message
-
-                const errorDetail = orderData?.details?.[0];
-
-                if (errorDetail?.issue === "INSTRUMENT_DECLINED") {
-                  toast.error(
-                    `Error: ${errorDetail.description} (${orderData.debug_id})`
-                  );
-                  // (1) Recoverable INSTRUMENT_DECLINED -> call actions.restart()
-                  // recoverable state, per https://developer.paypal.com/docs/checkout/standard/customize/handle-funding-failures/
-                  return actions.restart();
-                } else if (errorDetail) {
-                  // (2) Other non-recoverable errors -> Show a failure message
-                  toast.error(
-                    `Error: ${errorDetail.description} (${orderData.debug_id})`
-                  );
-                  // throw new Error(
-                  //   `${errorDetail.description} (${orderData.debug_id})`,
-                  // );
-                } else {
-                  // (3) Successful transaction -> Show confirmation or thank you message
-                  // Or go to another URL:  actions.redirect('thank_you.html');
-                  toast.success(
-                    `¡Gracias por tu compra! Tu cita ha sido confirmada.`
-                  );
-                  console.log(
-                    "Capture result",
-                    orderData,
-                    JSON.stringify(orderData, null, 2)
-                  );
-                }
-              } catch (error) {
-                console.error(error);
-              }
-            }}
-          />
-        </PayPalScriptProvider> */}
         {cartDates[0].MetodoPago === "PayPal" ? (
           <small className="ModalPay__Container__Message">
             ¡Atención! Para completar tu cita serás redirigido a PayPal,

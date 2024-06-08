@@ -73,7 +73,7 @@ export default function TableSales({ salesList, startIndex, endIndex }) {
                       href={`${HOST_PDF}/${Ticket}`}
                       target="_blank"
                     >
-                      <ion-icon name="document-text-outline"></ion-icon>
+                      <ion-icon name="ticket-outline"></ion-icon>
                     </a>
                   </td>
                 </tr>

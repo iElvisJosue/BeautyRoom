@@ -14,6 +14,8 @@ import {
   getAllSalesPerDay,
   getAllSalesByFilter,
   createOneReport,
+  getAllClients,
+  getOneClientHistory,
 } from "../api/authGlobal";
 import Cookies from "js-cookie";
 
@@ -194,6 +196,26 @@ export const GlobalProvider = ({ children }) => {
     }
   };
 
+  const getClients = async () => {
+    try {
+      const res = await getAllClients();
+      return res;
+    } catch (error) {
+      setError();
+      return error;
+    }
+  };
+
+  const getClientHistory = async (data) => {
+    try {
+      const res = getOneClientHistory(data);
+      return res;
+    } catch (error) {
+      setError();
+      return error;
+    }
+  };
+
   return (
     <GlobalContext.Provider
       value={{
@@ -213,6 +235,8 @@ export const GlobalProvider = ({ children }) => {
         getSalesPerDay,
         getSalesByFilter,
         createReport,
+        getClients,
+        getClientHistory,
       }}
     >
       {children}

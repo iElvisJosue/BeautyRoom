@@ -1,0 +1,121 @@
+.ClientHistory {
+  width: 100%;
+  height: auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-top: 95px;
+  padding-bottom: 20px;
+}
+.ClientHistory__Container {
+  width: 100%;
+  padding: 0 20px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.ClientHistory__Container--Back {
+  width: 150px;
+  height: 40px;
+  border: none;
+  font-size: var(--NormalFontSize);
+  background-color: var(--Transparent);
+  border: 2px solid var(--Transparent);
+  font-weight: bold;
+  color: var(--Gray);
+  cursor: pointer;
+  transition: 0.5s ease all;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+.ClientHistory__Container--Back:hover {
+  background-color: var(--White);
+  letter-spacing: 1px;
+}
+.ClientHistory__Container--Title {
+  font-size: var(--SubTittleFontSize);
+  font-weight: bold;
+  color: var(--StrongPurple);
+  text-align: left;
+}
+.ClientHistory__Container__Content {
+  width: 100%;
+  overflow-x: auto;
+}
+.ClientHistory__Container__Content--Table {
+  width: 100%;
+  table-layout: auto;
+}
+.ClientHistory__Container__Content--Table--Body--Picture {
+  width: 32px;
+  height: 32px;
+  background: var(--StrongPurple);
+  border-radius: 50%;
+}
+.ClientHistory__Container__Content--Table--Title {
+  background: var(--StrongPurple);
+  color: var(--White);
+  font-size: var(--SmallFontSize);
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 10px;
+}
+.ClientHistory__Container__Content--Table--Headers tr th {
+  background: var(--StrongPurple);
+  color: var(--White);
+  font-size: var(--SmallFontSize);
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 10px;
+}
+.ClientHistory__Container__Content--Table--Headers tr th ion-icon {
+  color: var(--White);
+  font-size: var(--NormalFontSize);
+}
+.ClientHistory__Container__Content--Table--Body td {
+  font-size: var(--SmallFontSize);
+  font-weight: bold;
+  padding: 10px;
+  text-align: center;
+}
+.ClientHistory__Container__Content--Table--Body tr:nth-child(odd) {
+  background: var(--Transparent);
+}
+.ClientHistory__Container__Content--Table--Body--Ticket {
+  width: 32px;
+  height: 32px;
+  margin: auto;
+  cursor: pointer;
+  transition: 0.5s ease all;
+  border: none;
+  outline: none;
+  background: var(--StrongPurple);
+  border: 1px solid var(--StrongPurple);
+  color: var(--White);
+  font-size: var(--NormalFontSize);
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ClientHistory__Container__Content--Table--Body--Ticket:hover {
+  transform: scale(1.1);
+  background: var(--White);
+  color: var(--StrongPurple);
+}
+@media (width < 450px) {
+  .ClientsList__Picture img {
+    width: 150px;
+  }
+  .ClientHistory__Container--Title {
+    font-size: var(--IconFontSize);
+    text-align: center;
+  }
+}

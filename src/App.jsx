@@ -19,6 +19,7 @@ import AdminServicesInventory from "./views/AdminServicesInventory";
 import AdminInternalInventory from "./views/AdminInternalInventory";
 import MyDates from "./views/MyDates";
 import Sales from "./views/Sales";
+import Clients from "./views/Clients";
 
 // PROTECCIÓN DE RUTAS
 import ProtectedByCookies from "./protection/ProtectedByCookies";
@@ -71,6 +72,7 @@ export default function App() {
                         element={<AdminInternalInventory />}
                       />
                       <Route path="/ReporteVentas" element={<Sales />} />
+                      <Route path="/ListaClientes" element={<Clients />} />
                     </Route>
                   </Route>
                   <Route path="/CitaCreada" element={<DateCreated />} />

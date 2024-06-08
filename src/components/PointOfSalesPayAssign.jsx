@@ -99,7 +99,7 @@ export default function PointOfSalesPayAssign({
       </header>
       <div className="PointOfSalesPayAssign__Cart__Header--Content">
         <p className="PointOfSalesPayAssign__Cart__Header--Content--Title">
-          Asignar cliente (Buscar)
+          Buscar cliente
         </p>
         <input
           type="text"
@@ -108,6 +108,9 @@ export default function PointOfSalesPayAssign({
           id="BuscarCliente"
           onChange={getClientsByFilter}
         />
+        <p className="PointOfSalesPayAssign__Cart__Header--Content--Title">
+          Seleccionar cliente
+        </p>
         <select
           type="text"
           className="PointOfSalesPayAssign__Cart__Header--Content--Input Result"

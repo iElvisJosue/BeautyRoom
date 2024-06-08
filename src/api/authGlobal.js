@@ -35,3 +35,8 @@ export const getAllSalesByFilter = (data) =>
 // RUTA PARA CREAR UN REPORTE
 export const createOneReport = (data) =>
   axios.post("/global/createReport", data);
+// RUTA PARA OBTENER LA LISTA DE CLIENTES
+export const getAllClients = () => axios.get("/global/getClients");
+// RUTA PARA OBTENER EL HISTORIAL DE COMPRAS DE UN CLIENTE
+export const getOneClientHistory = (data) =>
+  axios.post("/global/getClientHistory", data);
