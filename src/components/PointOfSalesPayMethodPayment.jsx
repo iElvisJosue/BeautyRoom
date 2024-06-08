@@ -246,6 +246,15 @@ export default function PointOfSalesPayMethodPayment({
             Continuar
           </button>
         )}
+        <small className="PointOfSalesPayMethodPayment__Cart__Header--Content--Message">
+          {`¡IMPORTANTE! El botón para "Continuar" se activará cuando la suma de los métodos de pago sea exactamente igual al total a pagar (${getTotal().toLocaleString(
+            "en-US",
+            {
+              style: "currency",
+              currency: "USD",
+            }
+          )})`}
+        </small>
         <a
           className="PointOfSalesPayMethodPayment__Cart__Header--Content--Message Cambio"
           onClick={handleShowCalculator}
@@ -286,15 +295,6 @@ export default function PointOfSalesPayMethodPayment({
             </p>
           </>
         )}
-        <small className="PointOfSalesPayMethodPayment__Cart__Header--Content--Message">
-          {`¡IMPORTANTE! El botón "Continuar" se activará cuando a suma de los métodos de pago sea exactamente igual al total (${getTotal().toLocaleString(
-            "en-US",
-            {
-              style: "currency",
-              currency: "USD",
-            }
-          )})`}
-        </small>
         {/* <button
           className={classNameButtonMoney}
           onClick={handleBackToMethodPayment}
