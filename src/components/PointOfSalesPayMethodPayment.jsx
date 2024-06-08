@@ -213,7 +213,7 @@ export default function PointOfSalesPayMethodPayment({
         </p>
         <input
           type="text"
-          placeholder="0.00"
+          placeholder="0"
           className="PointOfSalesPayMethodPayment__Cart__Header--Content--Input"
           id="Efectivo"
           onChange={validateInputs}
@@ -223,7 +223,7 @@ export default function PointOfSalesPayMethodPayment({
         </p>
         <input
           type="text"
-          placeholder="0.00"
+          placeholder="0"
           className="PointOfSalesPayMethodPayment__Cart__Header--Content--Input"
           id="Tarjeta"
           onChange={validateInputs}
@@ -233,7 +233,7 @@ export default function PointOfSalesPayMethodPayment({
         </p>
         <input
           type="text"
-          placeholder="0.00"
+          placeholder="0"
           className="PointOfSalesPayMethodPayment__Cart__Header--Content--Input"
           id="Transferencia"
           onChange={validateInputs}
