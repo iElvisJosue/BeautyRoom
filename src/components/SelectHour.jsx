@@ -45,15 +45,92 @@ export default function SelectHour({
     }
   }, [employeesByService]);
 
-  // if (searchingHours || searchingEmployeesByService) return <Loader />;
+  const getCurrentHour = () => {
+    const date = new Date();
+    return date.getHours();
+  };
+  const getCurrentDate = () => {
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    return `${year}-${month}-${day}`;
+  };
+  const getDayDate = () => {
+    const dayDate = `${dateInformation.AñoCita}-${monthNumber}-${dateInformation.DíaCita}`;
+    return dayDate;
+  };
+  const compareDates = () => {
+    const currentDate = getCurrentDate();
+    const dayDate = getDayDate();
+    if (currentDate === dayDate) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+  const getSaturdayHours = () => {
+    let filterSaturdayHours;
+    // SI LA CITA ES PARA EL MISMO DÍA, VERIFICAMOS LAS HORAS A MOSTRAR
+    if (compareDates()) {
+      // OBTENEMOS LAS HORAS DEL SÁBADO Y POSTERIORMENTE
+      // OBTENEMOS LAS HORAS DEL DÍA ACTUAL
+      filterSaturdayHours = hours.filter(
+        ({ idHora, HoraServicio }) =>
+          idHora <= 8 &&
+          Number(HoraServicio.substring(0, 2)) >= getCurrentHour()
+      );
+    } else {
+      // OBTENEMOS LAS HORAS DEL SÁBADO
+      // (PONEMOS MENOR A 8 PORQUE ES EL ID DE LAS 5PM)
+      filterSaturdayHours = hours.filter(({ idHora }) => idHora <= 8);
+    }
+    const saturdayHours = filterSaturdayHours.map(({ HoraServicio }, index) => {
+      // VERIFICAMOS SI EL EMPLEADO SELECCIONADO YA TIENE UNA CITA
+      // EN ESTA HORA
+      const hourExist = hoursByEmployeeSelected.includes(HoraServicio);
+      if (!hourExist) {
+        return (
+          <HourDetails
+            key={index}
+            HoraServicio={HoraServicio}
+            setProgressDate={setProgressDate}
+            dateInformation={dateInformation}
+            setDateInformation={setDateInformation}
+          />
+        );
+      }
+    });
+    return saturdayHours;
+  };
+  const getNormalHours = () => {
+    let filterNormalHours;
+    // SI LA CITA ES PARA EL MISMO DÍA, VERIFICAMOS LAS HORAS A MOSTRAR
+    if (compareDates()) {
+      filterNormalHours = hours.filter(
+        ({ HoraServicio }) =>
+          Number(HoraServicio.substring(0, 2)) >= getCurrentHour()
+      );
+    } else {
+      filterNormalHours = hours;
+    }
+    const normalHours = filterNormalHours.map(({ HoraServicio }, index) => {
+      const hourExist = hoursByEmployeeSelected.includes(HoraServicio);
+      if (!hourExist) {
+        return (
+          <HourDetails
+            key={index}
+            HoraServicio={HoraServicio}
+            setProgressDate={setProgressDate}
+            dateInformation={dateInformation}
+            setDateInformation={setDateInformation}
+          />
+        );
+      }
+    });
+    return normalHours;
+  };
 
-  // const getNewHoursByEmployee = () => {
-  //   dateInformation.EmpleadoAsignado = employeesByService[0].Usuario;
-  //   setInformationDate({
-  //     EmpleadoAsignado: employeesByService && employeesByService[0].Usuario,
-  //     FechaCita: dateFormatted,
-  //   });
-  // };
   return (
     // <div className="SelectHour__Container" onLoad={getNewHoursByEmployee}>
     <div className="SelectHour__Container">
@@ -88,54 +165,8 @@ export default function SelectHour({
           </div>
           <div className="SelectHour__Calendar">
             {dateInformation.DíaCitaNombre === "Sábado"
-              ? hours
-                  // PONEMOS MENOR A 8 PORQUE ES EL ID DE LAS 5PM
-                  .filter(({ idHora }) => idHora <= 8)
-                  .map(({ HoraServicio }, index) => {
-                    const hourExist =
-                      hoursByEmployeeSelected.includes(HoraServicio);
-                    if (!hourExist) {
-                      return (
-                        <HourDetails
-                          key={index}
-                          HoraServicio={HoraServicio}
-                          setProgressDate={setProgressDate}
-                          dateInformation={dateInformation}
-                          setDateInformation={setDateInformation}
-                        />
-                      );
-                    }
-                  })
-              : hours.map(({ HoraServicio }, index) => {
-                  const hourExist =
-                    hoursByEmployeeSelected.includes(HoraServicio);
-                  if (!hourExist) {
-                    return (
-                      <HourDetails
-                        key={index}
-                        HoraServicio={HoraServicio}
-                        setProgressDate={setProgressDate}
-                        dateInformation={dateInformation}
-                        setDateInformation={setDateInformation}
-                      />
-                    );
-                  }
-                })}
-
-            {/* {hours.map(({ HoraServicio }, index) => {
-              const hourExist = hoursByEmployeeSelected.includes(HoraServicio);
-              if (!hourExist) {
-                return (
-                  <HourDetails
-                    key={index}
-                    HoraServicio={HoraServicio}
-                    setProgressDate={setProgressDate}
-                    dateInformation={dateInformation}
-                    setDateInformation={setDateInformation}
-                  />
-                );
-              }
-            })} */}
+              ? getSaturdayHours()
+              : getNormalHours()}
           </div>
           <button className="Date__Back" onClick={() => setProgressDate(2)}>
             <ion-icon name="chevron-back-outline"></ion-icon> Regresar
