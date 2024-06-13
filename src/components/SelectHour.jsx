@@ -130,24 +130,26 @@ export default function SelectHour({
     });
     return normalHours;
   };
-
-  return (
-    // <div className="SelectHour__Container" onLoad={getNewHoursByEmployee}>
-    <div className="SelectHour__Container">
-      {employeesByService.length === 0 ? (
-        <NotResults>
-          {" "}
-          No hay empleados disponibles para este servicio.{" "}
-        </NotResults>
-      ) : employeesByService && hoursByEmployeeSelected ? (
+  const checkMaxHour = () => {
+    if (getCurrentHour() > 19 && compareDates()) {
+      return (
+        <>
+          <NotResults secondImage={true} responsive={true}>
+            El horario para este día ha sido cerrado.
+          </NotResults>
+          <button className="Date__Reload" onClick={() => setProgressDate(2)}>
+            <ion-icon name="chevron-back-outline"></ion-icon> Regresar
+          </button>
+        </>
+      );
+    } else {
+      return (
         <>
           <p className="SelectHour__Title">Selecciona una hora</p>
           <p className="SelectHour__Subtitle">
-            {employeesByService.length > 0
-              ? `Actualmente estas viendo el horario del ${employeesByService[
-                  numberEmployee
-                ].Usuario.toUpperCase()}, en caso de no ver la hora que deseas, prueba seleccionando otro empleado.`
-              : `No hay empleados disponibles para este servicio. Por favor selecciona otro tipo de servicio.`}
+            Actualmente estas viendo el horario de{" "}
+            {employeesByService[numberEmployee].Usuario.toUpperCase()}, en caso
+            de no ver la hora que deseas, prueba seleccionando otro empleado.
           </p>
           <div className="SelectHour__Container--Employees">
             {employeesByService.map(({ Usuario }, index) => (
@@ -172,6 +174,19 @@ export default function SelectHour({
             <ion-icon name="chevron-back-outline"></ion-icon> Regresar
           </button>
         </>
+      );
+    }
+  };
+
+  return (
+    <div className="SelectHour__Container">
+      {employeesByService.length === 0 ? (
+        <NotResults>
+          {" "}
+          No hay empleados disponibles para este servicio.{" "}
+        </NotResults>
+      ) : employeesByService && hoursByEmployeeSelected ? (
+        checkMaxHour()
       ) : (
         <>
           <NotResults>

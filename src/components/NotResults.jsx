@@ -2,13 +2,20 @@
 // IMPORTAMOS LOS ESTILOS
 import "../styles/NotResults.css";
 
-export default function NotResults({ responsive = false, children }) {
+export default function NotResults({
+  responsive = false,
+  secondImage = false,
+  children,
+}) {
   const classNotResults = responsive ? "NotResults Responsive" : "NotResults";
 
+  const imageNotResults = secondImage
+    ? "HorarioCerrado.png"
+    : "SinResultados.png";
   return (
     <section className={classNotResults}>
       <img
-        src="SinResultados.png"
+        src={imageNotResults}
         alt="Sin Resultados"
         className="NotResults__Img"
       />
