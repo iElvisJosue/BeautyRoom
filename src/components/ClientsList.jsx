@@ -47,7 +47,7 @@ export default function ClientsList({
                     <th>#</th>
                     <th>Nombre</th>
                     <th>Teléfono</th>
-                    <th>Correo</th>
+                    {/* <th>Correo</th> */}
                     <th>Compras</th>
                   </tr>
                 </thead>
@@ -57,13 +57,13 @@ export default function ClientsList({
                       idCliente,
                       NombreCliente,
                       TelefonoCliente,
-                      CorreoCliente,
+                      // CorreoCliente,
                     }) => (
                       <tr key={idCliente}>
                         <td>{idCliente}</td>
                         <td>{NombreCliente}</td>
                         <td>{formatNumber(TelefonoCliente)}</td>
-                        <td>{CorreoCliente ?? "No registrado"}</td>
+                        {/* <td>{CorreoCliente ?? "No registrado"}</td> */}
                         <td>
                           <button
                             className="ClientsList__Container__Content--Table--Body--Button"
