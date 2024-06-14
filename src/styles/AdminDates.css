@@ -104,6 +104,18 @@
   background: var(--StrongPurple);
   color: var(--White);
 }
+.DatingHistory__Container--Status--Button.Active:nth-child(1) {
+  background: var(--Blue);
+}
+.DatingHistory__Container--Status--Button.Active:nth-child(2) {
+  background: var(--StrongPurple);
+}
+.DatingHistory__Container--Status--Button.Active:nth-child(3) {
+  background: var(--Green);
+}
+.DatingHistory__Container--Status--Button.Active:nth-child(4) {
+  background: var(--Red);
+}
 .DatingHistory__Container--Dates {
   width: 100%;
   display: grid;

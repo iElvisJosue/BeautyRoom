@@ -104,7 +104,8 @@ export default function AdminDates() {
       ) : (
         <div className="DatingHistory__Container">
           <h1 className="DatingHistory__Container--Title">
-            Mostrando un total de {totalDates.length} citas
+            Mostrando un total de {totalDates.length} citas <br />(
+            {filter.length > 0 ? filter.toUpperCase() : "-"})
           </h1>
           <h1 className="DatingHistory__Container--SubTitle">Buscar citas:</h1>
           <div className="DatingHistory__Container--Filters">

@@ -17,6 +17,62 @@
 .ClientsList__Picture img {
   width: 200px;
 }
+.ClientsList__Search {
+  padding: 0 20px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.ClientsList__Search--Title {
+  font-size: var(--SubTittleFontSize);
+  font-weight: bold;
+  color: var(--StrongPurple);
+}
+.ClientsList__Search--Input {
+  background: var(--Transparent);
+  width: 100%;
+  padding: 0 20px;
+  height: 50px;
+  border-radius: 50px;
+  border: 2px solid var(--Transparent);
+  outline: none;
+}
+.ClientsList__Buttons {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.ClientsList__Buttons--Button {
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  transition: 0.5s ease all;
+  font-weight: bold;
+  border: none;
+  outline: none;
+  background: var(--StrongPurple);
+  border: 2px solid var(--StrongPurple);
+  color: var(--White);
+  border-radius: 25px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ClientsList__Buttons--Button:hover {
+  background: var(--White);
+  letter-spacing: 1px;
+  color: var(--StrongPurple);
+}
+.ClientsList__Buttons--Button.Prev {
+  left: -20px;
+}
+.ClientsList__Buttons--Button.Next {
+  right: -20px;
+}
 .ClientsList__Container {
   width: 100%;
   padding: 0 20px;

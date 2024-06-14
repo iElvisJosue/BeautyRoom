@@ -17,6 +17,7 @@ export default function useGetSalesByFilter() {
     async function getAllSalesByFilter() {
       try {
         const res = await getSalesByFilter({ filterSales });
+        console.log(res);
         if (res.response) {
           const { status, data } = res.response;
           handleResponseMessages({ status, data });

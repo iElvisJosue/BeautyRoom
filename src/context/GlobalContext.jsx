@@ -16,6 +16,7 @@ import {
   createOneReport,
   getAllClients,
   getOneClientHistory,
+  getOneClientHistoryByFilter,
 } from "../api/authGlobal";
 import Cookies from "js-cookie";
 
@@ -216,6 +217,16 @@ export const GlobalProvider = ({ children }) => {
     }
   };
 
+  const getClientHistoryByFilter = async (data) => {
+    try {
+      const res = getOneClientHistoryByFilter(data);
+      return res;
+    } catch (error) {
+      setError();
+      return error;
+    }
+  };
+
   return (
     <GlobalContext.Provider
       value={{
@@ -237,6 +248,7 @@ export const GlobalProvider = ({ children }) => {
         createReport,
         getClients,
         getClientHistory,
+        getClientHistoryByFilter,
       }}
     >
       {children}

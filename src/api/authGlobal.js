@@ -40,3 +40,6 @@ export const getAllClients = () => axios.get("/global/getClients");
 // RUTA PARA OBTENER EL HISTORIAL DE COMPRAS DE UN CLIENTE
 export const getOneClientHistory = (data) =>
   axios.post("/global/getClientHistory", data);
+// RUTA PARA OBTENER EL HISTORIAL DE UN CLIENTE POR FILTRO
+export const getOneClientHistoryByFilter = (data) =>
+  axios.post("/global/getClientHistoryByFilter", data);

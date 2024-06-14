@@ -4,12 +4,12 @@ import { Toaster } from "sonner";
 
 // IMPORTAMOS LOS COMPONENTES
 import Navbar from "../components/Navbar";
-import Loader from "../components/Loader";
+// import Loader from "../components/Loader";
 import ClientsList from "../components/ClientsList";
 import ClientHistory from "../components/ClientHistory";
 
 // IMPORTAMOS LOS HOOKS A USAR
-import useGetClients from "../hooks/useGetClients";
+// import useGetClients from "../hooks/useGetClients";
 
 // IMPORTAMOS LOS ESTILOS
 import "../styles/Clients.css";
@@ -17,9 +17,9 @@ import "../styles/Clients.css";
 export default function Clients() {
   const [showClientHistory, setShowClientHistory] = useState(false);
   const [clientSelected, setClientSelected] = useState(null);
-  const { clients, searchingClients } = useGetClients();
+  // const { clients, searchingClients } = useGetClients();
 
-  if (searchingClients) return <Loader />;
+  // if (searchingClients) return <Loader />;
 
   return (
     <main className="Clients">
@@ -33,7 +33,7 @@ export default function Clients() {
         />
       ) : (
         <ClientsList
-          clients={clients}
+          // clients={clients}
           setShowClientHistory={setShowClientHistory}
           setClientSelected={setClientSelected}
         />
