@@ -28,7 +28,7 @@ export default function SubMenuPointOfSales({
           }`}
           onClick={setOptionOneSubmenu}
         >
-          <ion-icon name="basket-outline"></ion-icon> {NombreOpciónUno}
+          <ion-icon name="cut-outline"></ion-icon> {NombreOpciónUno}
         </button>
         <button
           className={`SubMenuPointOfSales__Container--Button ${
@@ -36,7 +36,7 @@ export default function SubMenuPointOfSales({
           }`}
           onClick={setOptionTwoSubmenu}
         >
-          <ion-icon name="cut-outline"></ion-icon> {NombreOpciónDos}
+          <ion-icon name="basket-outline"></ion-icon> {NombreOpciónDos}
         </button>
         {/* <button
           className={`SubMenuPointOfSales__Container--Button ${
