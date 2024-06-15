@@ -2,7 +2,7 @@
 import { useState } from "react";
 
 export default function usePagination() {
-  const amountRegisters = 25;
+  const amountRegisters = 10;
   const [page, setPage] = useState(1);
   const [amountPages, setAmountPages] = useState(1);
   const [startIndex, setStartIndex] = useState(0);

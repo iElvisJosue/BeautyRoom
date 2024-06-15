@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 // IMPORTAMOS LAS LIBRERÍAS A USAR
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 // IMPORTAMOS LOS COMPONENTES
 import NotResults from "../components/NotResults";
@@ -19,6 +19,7 @@ export default function ClientsList({
   setClientSelected,
 }) {
   // const [clientsList, setClientsList] = useState(clients);
+  const [typeContentGrid, setTypeContentGrid] = useState(true);
   const { historyByFilter, searchingHistoryByFilter, setFilterHistory } =
     useGetClientHistoryByFilter();
   const {
@@ -71,6 +72,106 @@ export default function ClientsList({
 
   if (searchingHistoryByFilter) return <Loader />;
 
+  const loadTypeContentGrid = () => {
+    const list = (
+      <div
+        className="ClientsList__Container__Grid"
+        key={historyByFilter.length}
+      >
+        <h1 className="ClientsList__Container__Grid__Title">
+          Total de clientes ({historyByFilter.length})
+        </h1>
+        {historyByFilter
+          .slice(startIndex, endIndex)
+          .map((clientInformation) => (
+            <section
+              className="ClientsList__Container__Grid__Card"
+              key={clientInformation.idCliente}
+              id={clientInformation.idCliente}
+              onClick={() =>
+                handleClientHistory(clientInformation.NombreCliente)
+              }
+            >
+              <div className="ClientsList__Container__Grid__Card--Details">
+                <picture className="ClientsList__Container__Grid__Card--Details--Img">
+                  <img
+                    src="IconoCliente.png"
+                    alt="Icono representativo de cliente"
+                  />
+                </picture>
+                <span className="ClientsList__Container__Grid__Card--Details--Information">
+                  <p className="ClientsList__Container__Grid__Card--Details--Information--Text ID">
+                    #{clientInformation.idCliente}
+                  </p>
+                  <p className="ClientsList__Container__Grid__Card--Details--Information--Text">
+                    👤 {clientInformation.NombreCliente}
+                  </p>
+                  <p className="ClientsList__Container__Grid__Card--Details--Information--Text">
+                    📱 {formatNumber(clientInformation.TelefonoCliente)}
+                  </p>
+                </span>
+              </div>
+            </section>
+          ))}
+        <p className="ClientsList__Container__Grid--Pages">
+          ({page}/{amountPages})
+        </p>
+      </div>
+    );
+
+    return list;
+  };
+
+  const loadTypeContentTable = () => {
+    const table = (
+      <>
+        <div className="ClientsList__Container__Table">
+          <div className="ClientsList__Container__Table__Content">
+            <table className="ClientsList__Container__Table__Content--Table">
+              <thead className="ClientsList__Container__Table__Content--Table--Headers">
+                <tr>
+                  <th colSpan="5">
+                    Total de clientes ({historyByFilter.length})
+                  </th>
+                </tr>
+                <tr>
+                  <th>#</th>
+                  <th>Nombre</th>
+                  <th>Teléfono</th>
+                  <th>Compras</th>
+                </tr>
+              </thead>
+              <tbody className="ClientsList__Container__Table__Content--Table--Body">
+                {historyByFilter
+                  .slice(startIndex, endIndex)
+                  .map(({ idCliente, NombreCliente, TelefonoCliente }) => (
+                    <tr key={idCliente}>
+                      <td>{idCliente}</td>
+                      <td>{NombreCliente}</td>
+                      <td>{formatNumber(TelefonoCliente)}</td>
+                      <td>
+                        <button
+                          className="ClientsList__Container__Table__Content--Table--Body--Button"
+                          onClick={() => handleClientHistory(NombreCliente)}
+                        >
+                          <ion-icon name="eye-outline"></ion-icon>
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <p className="Sales__All--TableList--Pages">
+          ({page}/{amountPages})
+        </p>
+      </>
+    );
+
+    return table;
+  };
+
   return (
     <>
       <div className="ClientsList">
@@ -89,6 +190,14 @@ export default function ClientsList({
             onChange={getClientsByFilter}
           />
         </div>
+        <button
+          className="ClientsList__Button--Content"
+          onClick={() => setTypeContentGrid(!typeContentGrid)}
+        >
+          <ion-icon
+            name={typeContentGrid ? "list-outline" : "grid-outline"}
+          ></ion-icon>
+        </button>
         <div className="ClientsList__Buttons">
           {startIndex >= amountRegisters && (
             <button
@@ -108,58 +217,13 @@ export default function ClientsList({
           )}
         </div>
         {historyByFilter.length > 0 ? (
-          <>
-            <div className="ClientsList__Container">
-              <div className="ClientsList__Container__Content">
-                <table className="ClientsList__Container__Content--Table">
-                  <thead className="ClientsList__Container__Content--Table--Headers">
-                    <tr>
-                      <th colSpan="5">
-                        Total de clientes ({historyByFilter.length})
-                      </th>
-                    </tr>
-                    <tr>
-                      <th>#</th>
-                      <th>Nombre</th>
-                      <th>Teléfono</th>
-                      {/* <th>Correo</th> */}
-                      <th>Compras</th>
-                    </tr>
-                  </thead>
-                  <tbody className="ClientsList__Container__Content--Table--Body">
-                    {historyByFilter.slice(startIndex, endIndex).map(
-                      ({
-                        idCliente,
-                        NombreCliente,
-                        TelefonoCliente,
-                        // CorreoCliente,
-                      }) => (
-                        <tr key={idCliente}>
-                          <td>{idCliente}</td>
-                          <td>{NombreCliente}</td>
-                          <td>{formatNumber(TelefonoCliente)}</td>
-                          {/* <td>{CorreoCliente ?? "No registrado"}</td> */}
-                          <td>
-                            <button
-                              className="ClientsList__Container__Content--Table--Body--Button"
-                              onClick={() => handleClientHistory(NombreCliente)}
-                            >
-                              <ion-icon name="eye-outline"></ion-icon>
-                            </button>
-                          </td>
-                        </tr>
-                      )
-                    )}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            <p className="Sales__All--TableList--Pages">
-              ({page}/{amountPages})
-            </p>
-          </>
+          typeContentGrid ? (
+            loadTypeContentGrid()
+          ) : (
+            loadTypeContentTable()
+          )
         ) : (
-          <NotResults>No hay clientes registrados</NotResults>
+          <NotResults responsive={true}>No hay clientes registrados</NotResults>
         )}
       </div>
     </>
