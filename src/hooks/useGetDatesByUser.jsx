@@ -17,7 +17,7 @@ export default function useGetDatesByUser() {
   const [searchingDates, setSearchingDates] = useState(true);
   const [filter, setFilter] = useState({
     idEmpleado: user?.nombreUsuario,
-    status: "Confirmada",
+    filter: "Confirmada",
   });
 
   useEffect(() => {

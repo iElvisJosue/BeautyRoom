@@ -47,12 +47,6 @@ export default function PointOfSalesServices({
     );
   }, 5000);
 
-  // FILTRAMOS LAS CATEGORÍAS QUE NO TENGAN PRODUCTOS Y SEAN ACTIVAS
-  // const servicesWithSubservices = services.filter(
-  //   (Servicios) =>
-  //     Servicios.Subservicios.length > 0 && Servicios.EstadoServicio === "Activo"
-  // );
-
   const pointOfSalesServicesProps = {
     cart,
     setCart,

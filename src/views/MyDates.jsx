@@ -36,24 +36,29 @@ export default function MyDates() {
     // Utilizamos una expresión regular para permitir letras, números y "-"
     const regex = /^[a-zA-Z0-9\sáéíóúÁÉÍÓÚüÜ-]*$/;
     // Comprobamos si el nuevo valor cumple con la expresión regular
-    if (regex.test(value) || value === "") {
+    if (regex.test(value)) {
       const filter = event.target.value;
       setFilter({
         idEmpleado: user?.nombreUsuario,
         filter,
       });
     }
+    if (value === "") {
+      setFilter({
+        idEmpleado: user?.nombreUsuario,
+        filter: "Confirmada",
+      });
+      setOptionSubMenu("Confirmada");
+    }
   };
 
   const getMyDatesByFilter = (status) => {
     setFilter({
       idEmpleado: user?.nombreUsuario,
-      status: status,
+      filter: status,
     });
     setOptionSubMenu(status);
   };
-  // PROBABLEMENTE DEBA PONER UN
-  // if(searchingDates) return <Loader/>
 
   return (
     <main className="AdminDates">
@@ -69,7 +74,8 @@ export default function MyDates() {
       <Navbar>Administrar Citas</Navbar>
       <div className="DatingHistory__Container">
         <h1 className="DatingHistory__Container--Title">
-          Mostrando un total de {totalDates.length} citas
+          Mostrando un total de {totalDates.length} citas <br />(
+          {filter.filter.toUpperCase()})
         </h1>
         <h1 className="DatingHistory__Container--SubTitle">Buscar citas:</h1>
         <div className="DatingHistory__Container--Filters">
@@ -82,7 +88,7 @@ export default function MyDates() {
         </div>
         <div className="DatingHistory__Container--Status">
           <button
-            className={`DatingHistory__Container--Status--Button ${
+            className={`DatingHistory__Container--Status--Button--Confirmada ${
               optionSubMenu === "Confirmada" ? "Active" : ""
             }`}
             onClick={() => getMyDatesByFilter("Confirmada")}
@@ -90,15 +96,16 @@ export default function MyDates() {
             <ion-icon name="time-outline"></ion-icon> Confirmadas
           </button>
           <button
-            className={`DatingHistory__Container--Status--Button ${
+            className={`DatingHistory__Container--Status--Button--Completada ${
               optionSubMenu === "Completada" ? "Active" : ""
             }`}
             onClick={() => getMyDatesByFilter("Completada")}
           >
-            <ion-icon name="checkmark-circle-outline"></ion-icon> Completadas
+            <ion-icon name="checkmark-done-circle-outline"></ion-icon>{" "}
+            Completadas
           </button>
           <button
-            className={`DatingHistory__Container--Status--Button ${
+            className={`DatingHistory__Container--Status--Button--NoAsistio ${
               optionSubMenu === "No Asistio" ? "Active" : ""
             }`}
             onClick={() => getMyDatesByFilter("No Asistio")}

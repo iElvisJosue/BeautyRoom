@@ -72,4 +72,11 @@ export const listMenuOptions = [
     hrefOption: `${HOST}/ListaClientes`,
     userRol: "Administrador",
   },
+  // {
+  //   imgMenuOption: "GuiaSistema.png",
+  //   altImgMenuOption: "Icono menú Guía de Sistema",
+  //   nameMenuOption: "Guía del Sistema",
+  //   hrefOption: `${HOST}/GuiaSistema`,
+  //   userRol: "Administrador",
+  // },
 ];

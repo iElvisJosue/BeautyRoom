@@ -12,7 +12,8 @@ export default function PointOfSalesProductsList({
   setShowCart,
   employeesExist,
 }) {
-  const handleCart = (Product) => {
+  const handleCart = (Product, NombreCategoria) => {
+    Product.CategoriaProducto = NombreCategoria;
     employeesExist[0]
       ? (Product.EmpleadoAsignado = employeesExist[0].Usuario)
       : "Sin asignar";
@@ -76,7 +77,7 @@ export default function PointOfSalesProductsList({
               {Producto.CantidadProducto > 0 && (
                 <button
                   className="PointOfSalesProducts__Products--Container--Button"
-                  onClick={() => handleCart(Producto)}
+                  onClick={() => handleCart(Producto, NombreCategoria)}
                 >
                   Agregar al carrito <ion-icon name="cart"></ion-icon>
                 </button>

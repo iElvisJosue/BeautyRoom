@@ -23,6 +23,9 @@ export default function Home() {
 
   return (
     <main className="Home">
+      {/* <button className="Home__Notes">
+        <ion-icon name="megaphone-outline"></ion-icon>
+      </button> */}
       <Navbar>Beauty Room</Navbar>
       <div className="Home__Container">
         <h1 className="Home__Container--Title">

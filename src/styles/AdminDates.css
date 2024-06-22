@@ -80,7 +80,10 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 5px;
 }
-.DatingHistory__Container--Status--Button {
+.DatingHistory__Container--Status--Button--SinConfirmar,
+.DatingHistory__Container--Status--Button--Confirmada,
+.DatingHistory__Container--Status--Button--Completada,
+.DatingHistory__Container--Status--Button--NoAsistio {
   height: 50px;
   width: 100%;
   border: none;
@@ -100,21 +103,21 @@
   justify-content: center;
   gap: 5px;
 }
-.DatingHistory__Container--Status--Button.Active {
+.DatingHistory__Container--Status--Button--SinConfirmar.Active {
+  background: var(--Blue);
+  color: var(--White);
+}
+.DatingHistory__Container--Status--Button--Confirmada.Active {
   background: var(--StrongPurple);
   color: var(--White);
 }
-.DatingHistory__Container--Status--Button.Active:nth-child(1) {
-  background: var(--Blue);
-}
-.DatingHistory__Container--Status--Button.Active:nth-child(2) {
-  background: var(--StrongPurple);
-}
-.DatingHistory__Container--Status--Button.Active:nth-child(3) {
+.DatingHistory__Container--Status--Button--Completada.Active {
   background: var(--Green);
+  color: var(--White);
 }
-.DatingHistory__Container--Status--Button.Active:nth-child(4) {
+.DatingHistory__Container--Status--Button--NoAsistio.Active {
   background: var(--Red);
+  color: var(--White);
 }
 .DatingHistory__Container--Dates {
   width: 100%;

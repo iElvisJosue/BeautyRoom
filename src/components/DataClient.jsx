@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 // LIBRERÍAS A USAR
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import { toast } from "sonner";
@@ -34,7 +34,6 @@ import "../styles/DataClient.css";
 
 export default function DataClient({
   dateInformation,
-  // setDateInformation,
   setProgressDate,
   monthNumber,
   cartDates,
@@ -53,6 +52,8 @@ export default function DataClient({
   const { showModalPay, setShowModalPay } = useModalPay();
   const { verifyDateExist } = useDates();
   const { DíaCita, NombreMesCita, AñoCita, HoraCita } = dateInformation;
+  const [metodoPago, setMetodoPago] = useState("Transferencia");
+  const COSTO_CITA = 150;
 
   // AGREGAMOS LA CITA AL LOCAL STORAGE EN CUANTO LLEGUEMOS A ESTE COMPONENTE
   useEffect(() => {
@@ -62,6 +63,8 @@ export default function DataClient({
     // TAMBIÉN AGREGAMOS LA CITA CON FORMATO DE FECHA TIPO "23 de MAYO de 2024 a las 10:00"
     const FechaCitaFormateada = `${DíaCita} de ${NombreMesCita} de ${AñoCita} a las ${HoraCita}`;
     dateInformation.FechaCitaFormateada = FechaCitaFormateada;
+    // AGREGAMOS EL CREADOR DE LA CITA
+    dateInformation.CreadorCita = user?.rolUsuario ?? "Cliente";
 
     // COMPROBAMOS SI EXISTE UNA CITA CON LA MISMA FECHA, HORA Y EMPLEADO ASIGNADO
     const exists = cartDates.some(
@@ -84,6 +87,33 @@ export default function DataClient({
     }
   }, []);
 
+  const checkPaymentMethod = handleSubmit(async (data) => {
+    if (
+      user?.rolUsuario === "Administrador" &&
+      metodoPago === "Transferencia"
+    ) {
+      const CostoCita = document.getElementById("CostoCita").value;
+      const regex = /^\d+$/;
+      if (CostoCita.length > 0 && regex.test(CostoCita)) {
+        // AGREGAMOS EL COSTO DE LA CITA A CADA CITA
+        cartDates.forEach((cartDateInformation) => {
+          cartDateInformation.CostoCita = Number(CostoCita);
+        });
+        handleAddDataClientToCartDates(data);
+      } else {
+        return toast.error(
+          "El costo ingresado no es valido, por favor ingrese una cantidad valida ❌"
+        );
+      }
+    } else {
+      // ASIGNAMOS EL COSTO POR DEFECTO A CADA CITA
+      cartDates.forEach((cartDateInformation) => {
+        cartDateInformation.CostoCita = COSTO_CITA;
+      });
+      handleAddDataClientToCartDates(data);
+    }
+  });
+
   const handleAddDataClientToCartDates = handleSubmit(async (data) => {
     // AGREGAMOS LOS DATOS DEL CLIENTE A CADA CITA EXISTENTE EN EL CARRITO
     cartDates.forEach((cartDateInformation) => {
@@ -92,11 +122,6 @@ export default function DataClient({
       cartDateInformation.MetodoPago = data.MetodoPago;
     });
     verifyDateDuplicateExist(cartDates);
-    // const dateFormatted = DateFormatted(AñoCita, monthNumber, DíaCita);
-    // data.FechaCita = dateFormatted;
-    // setDateInformation({ ...dateInformation, ...data });
-    // const dataClient = { ...dateInformation, ...data };
-    // verifyDateDuplicateExist(dataClient);
   });
 
   const verifyDateDuplicateExist = async (dataDate) => {
@@ -114,54 +139,12 @@ export default function DataClient({
       } else {
         // MOSTRAMOS EL MODAL CON LA INFORMACIÓN DE LAS CITAS
         setShowModalPay(true);
-        // user ? createDateByAdmin(dataDate) : checkPayment(dataDate);
       }
-      // if (res.data.length > 0) {
-      //   return toast.error(
-      //     "¡Ya no hay citas disponibles para esta hora! Por favor selecciona una nueva fecha y/o hora ❌"
-      //   );
-      // }
-      // else {
-      //   user ? createDateByAdmin(cartDates) : checkPayment(cartDates);
-      // }
     } catch (error) {
       const { status, data } = error.response;
       handleResponseMessages({ status, data });
     }
   };
-
-  // const createDateByAdmin = async (dataInfo) => {
-  //   // const FechaCitaFormateada = `${DíaCita} de ${NombreMesCita} de ${AñoCita} a las ${HoraCita}`;
-  //   // dataInfo.FechaCitaFormateada = FechaCitaFormateada;
-  //   try {
-  //     // LO ENVIAMOS COMO UN ARRAY PARA VERIFICAR LA CANTIDAD DE CITAS
-  //     const res = await adminCreateNewDate(dataInfo);
-  //     const { status, data } = res;
-  //     handleResponseMessages({ status, data });
-  //     // ELIMINAMOS EL CARRITO DE CITAS
-  //     localStorage.removeItem("cartDates");
-  //     navigate("/CitaCreada");
-  //   } catch (error) {
-  //     const { status, data } = error.response;
-  //     handleResponseMessages({ status, data });
-  //   }
-  // };
-  // const checkPayment = (dataCartDates) => {
-  //   if (dataCartDates[0].MetodoPago === "PayPal") {
-  //     setShowModalPay(true);
-  //   }
-  //   if (dataCartDates[0].MetodoPago === "Transferencia") {
-  //     createDateByAdmin(dataCartDates);
-  //   }
-  // };
-
-  // CON ESTA FUNCIÓN VAMOS A EDITAR LA CITA, Y A SU VEZ ELIMINAR EL CARRITO Y A REINICIAR EL CARRITO
-  // const handleEditDate = () => {
-  //   localStorage.removeItem("cartDates");
-  //   setCartDates([]);
-  //   setProgressDate(0);
-  // };
-
   const classAside =
     cartDates.length === 1
       ? "DataClient__Container__DateInformation"
@@ -197,7 +180,7 @@ export default function DataClient({
       <aside className="DataClient__Container__Form">
         <p className="DataClient__Container__Form__Title">Completa tus datos</p>
         <form
-          onSubmit={handleAddDataClientToCartDates}
+          onSubmit={checkPaymentMethod}
           className="DataClient__Container__Form--Data"
         >
           {dataClientInputsProps.map(
@@ -239,12 +222,27 @@ export default function DataClient({
             <select
               {...register("MetodoPago")}
               className="DataClient__Container__Form--Data--Inputs--Input"
+              onChange={(e) => setMetodoPago(e.target.value)}
             >
               {user?.rolUsuario === "Administrador"
                 ? listOfPaymentsForAdmin
                 : listOfPaymentsForClient}
             </select>
           </div>
+          {user?.rolUsuario === "Administrador" &&
+            metodoPago === "Transferencia" && (
+              <div className="DataClient__Container__Form--Data--Inputs">
+                <p className="DataClient__Container__Form--Data--Inputs--Title">
+                  Costo por cita:
+                </p>
+                <input
+                  type="text"
+                  className="DataClient__Container__Form--Data--Inputs--Input"
+                  placeholder="0"
+                  id="CostoCita"
+                />
+              </div>
+            )}
           <button className="DataClient__Container__Form--Button">
             Ir a pagar
           </button>

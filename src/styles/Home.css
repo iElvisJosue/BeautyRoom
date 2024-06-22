@@ -11,6 +11,30 @@
 
   overflow: hidden;
 }
+.Home__Notes {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 75px;
+  height: 75px;
+  cursor: pointer;
+  transition: 0.5s ease all;
+  font-size: var(--TittleFontSize);
+  border-radius: 50%;
+  background-color: var(--StrongPurple);
+  color: var(--White);
+  border: 2px solid var(--StrongPurple);
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.Home__Notes:hover {
+  background-color: var(--White);
+  color: var(--StrongPurple);
+  transform: scale(1.1);
+}
 .Home__Container {
   width: 100%;
   height: auto;

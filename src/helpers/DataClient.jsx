@@ -13,7 +13,7 @@ export const dataClientInputsProps = [
     },
   },
   {
-    inputTitle: "Número de Teléfono",
+    inputTitle: "Número de teléfono",
     inputType: "text",
     inputName: "TelefonoCliente",
     placeholder: "Ejemplo: 7441595198",

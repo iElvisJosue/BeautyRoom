@@ -98,6 +98,7 @@ export default function PointOfSalesPaySuccess({
             Anticipo:
           </small>
           <small className="PointOfSalesPaySuccess__Cart--PaymentDetails--Subtitle--Value">
+            -
             {Anticipo.toLocaleString("en-US", {
               style: "currency",
               currency: "USD",

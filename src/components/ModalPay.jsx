@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 // IMPORTAMOS LAS LIBRERÍAS A USAR
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 // IMPORTAMOS LOS CONTEXTOS A USAR
@@ -12,6 +12,7 @@ import { handleResponseMessages } from "../helpers/RespuestasServidor";
 // IMPORTAMOS LOS ESTILOS
 import "../styles/ModalPay.css";
 export default function ModalPay({ showModalPay, setShowModalPay, cartDates }) {
+  const [totalToPay, setTotalToPay] = useState(0);
   const [showButtonPay, setShowButtonPay] = useState(true);
   const navigate = useNavigate();
   const [currentDataDate, setCurrentDataDate] = useState(0);
@@ -30,6 +31,10 @@ export default function ModalPay({ showModalPay, setShowModalPay, cartDates }) {
   const { createOrder, adminCreateNewDate } = useDates();
 
   const classModalPay = showModalPay ? "ModalPay Show" : "ModalPay";
+
+  useEffect(() => {
+    setTotalToPay(cartDates.length * cartDates[0].CostoCita);
+  }, [showModalPay]);
 
   // MOSTRAMOS LA INFORMACIÓN DE LA SIGUIENTE CITA
   const nextDate = () => {
@@ -63,9 +68,6 @@ export default function ModalPay({ showModalPay, setShowModalPay, cartDates }) {
   // CREAMOS LA ORDEN DE PAGO CON PAYPAL
   const createDateOrder = async () => {
     try {
-      // const FechaCitaFormateada = `${DíaCita} de ${NombreMesCita} de ${AñoCita} a las ${HoraCita}`;
-      // dateInformation.FechaCitaFormateada = FechaCitaFormateada;
-      // const res = await createOrder(dateInformation);
       const res = await createOrder(cartDates);
       window.location.href = res.data.links[1].href;
     } catch (error) {
@@ -75,8 +77,6 @@ export default function ModalPay({ showModalPay, setShowModalPay, cartDates }) {
   };
   // CREAMOS LA CITA DIRECTAMENTE
   const createDateByAdmin = async () => {
-    // const FechaCitaFormateada = `${DíaCita} de ${NombreMesCita} de ${AñoCita} a las ${HoraCita}`;
-    // dataInfo.FechaCitaFormateada = FechaCitaFormateada;
     try {
       // LO ENVIAMOS COMO UN ARRAY PARA VERIFICAR LA CANTIDAD DE CITAS
       const res = await adminCreateNewDate(cartDates);
@@ -155,7 +155,12 @@ export default function ModalPay({ showModalPay, setShowModalPay, cartDates }) {
             className="ModalPay__Container__Form--Button"
             onClick={checkPayment}
           >
-            Realizar Pago
+            Realizar Pago (
+            {totalToPay.toLocaleString("en-US", {
+              style: "currency",
+              currency: "USD",
+            })}
+            )
           </button>
         )}
       </div>

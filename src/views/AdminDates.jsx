@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Toaster, toast } from "sonner";
+import { useState, useEffect } from "react";
+import { Toaster } from "sonner";
 
 // IMPORTAMOS LOS COMPONENTES
 import Navbar from "../components/Navbar";
@@ -17,6 +17,7 @@ import useGetEmployees from "../hooks/useGetEmployees";
 import useGetServices from "../hooks/useGetServices";
 import useGetHours from "../hooks/useGetHours";
 import useModalChangeStatusDate from "../hooks/useModalChangeStatusDate";
+import usePagination from "../hooks/usePagination";
 
 // IMPORTAMOS LOS ESTILOS
 import "../styles/AdminDates.css";
@@ -43,6 +44,24 @@ export default function AdminDates() {
     textModalChangeStatusDate,
     setTextModalChangeStatusDate,
   } = useModalChangeStatusDate();
+  const {
+    amountRegisters,
+    page,
+    startIndex,
+    endIndex,
+    amountPages,
+    setAmountPages,
+    handleShowTwentyFiveMore,
+    handleShowTwentyFiveLess,
+    resetValues,
+  } = usePagination();
+
+  useEffect(() => {
+    if (totalDates) {
+      const cantidadDePaginas = Math.ceil(totalDates.length / amountRegisters);
+      setAmountPages(cantidadDePaginas);
+    }
+  }, [totalDates]);
 
   const getDatesByFilters = (event) => {
     setOptionSubMenu(4);
@@ -50,27 +69,21 @@ export default function AdminDates() {
     // Utilizamos una expresión regular para permitir letras, números y "-"
     const regex = /^[a-zA-Z0-9\sáéíóúÁÉÍÓÚüÜ-]*$/;
     // Comprobamos si el nuevo valor cumple con la expresión regular
-    if (regex.test(value) || value === "") {
+    if (regex.test(value)) {
       const filter = event.target.value;
       setFilter(filter);
+      resetValues();
+    }
+    if (value === "") {
+      setFilter("Sin confirmar");
+      setOptionSubMenu("Sin confirmar");
+      resetValues();
     }
   };
   const getDatesByFilter = (status) => {
     setFilter(status);
     setOptionSubMenu(status);
   };
-
-  // CADA 5 MINUTOS OBTENEMOS NUEVAMENTE LAS CITAS
-  setTimeout(() => {
-    toast.success(
-      "Hemos actualizado satisfactoriamente el registro de las citas. Este proceso volverá a suceder dentro de 5 minutos ✔️"
-    );
-    setFilter("Sin confirmar");
-    setOptionSubMenu("Sin confirmar");
-  }, 300000);
-
-  // PROBABLEMENTE DEBA PONER UN
-  // if(searchingDates) return <Loader/>
 
   return (
     <main className="AdminDates">
@@ -79,8 +92,6 @@ export default function AdminDates() {
         showModalChangeStatusDate={showModalChangeStatusDate}
         textModalChangeStatusDate={textModalChangeStatusDate}
         idDateUpdate={idDateUpdate}
-        // setFilter={setFilter}
-        // filter={filter
         getDatesByFilter={getDatesByFilter}
         setGetDatesByFilterAgain={setGetDatesByFilterAgain}
         getDatesByFilterAgain={getDatesByFilterAgain}
@@ -105,7 +116,7 @@ export default function AdminDates() {
         <div className="DatingHistory__Container">
           <h1 className="DatingHistory__Container--Title">
             Mostrando un total de {totalDates.length} citas <br />(
-            {filter.length > 0 ? filter.toUpperCase() : "-"})
+            {filter.toUpperCase()})
           </h1>
           <h1 className="DatingHistory__Container--SubTitle">Buscar citas:</h1>
           <div className="DatingHistory__Container--Filters">
@@ -118,7 +129,7 @@ export default function AdminDates() {
           </div>
           <div className="DatingHistory__Container--Status">
             <button
-              className={`DatingHistory__Container--Status--Button ${
+              className={`DatingHistory__Container--Status--Button--SinConfirmar ${
                 optionSubMenu === "Sin confirmar" ? "Active" : ""
               }`}
               onClick={() => getDatesByFilter("Sin confirmar")}
@@ -126,7 +137,7 @@ export default function AdminDates() {
               <ion-icon name="time-outline"></ion-icon> Sin confirmar
             </button>
             <button
-              className={`DatingHistory__Container--Status--Button ${
+              className={`DatingHistory__Container--Status--Button--Confirmada ${
                 optionSubMenu === "Confirmada" ? "Active" : ""
               }`}
               onClick={() => getDatesByFilter("Confirmada")}
@@ -134,7 +145,7 @@ export default function AdminDates() {
               <ion-icon name="checkmark-circle-outline"></ion-icon>Confirmadas
             </button>
             <button
-              className={`DatingHistory__Container--Status--Button ${
+              className={`DatingHistory__Container--Status--Button--Completada ${
                 optionSubMenu === "Completada" ? "Active" : ""
               }`}
               onClick={() => getDatesByFilter("Completada")}
@@ -143,7 +154,7 @@ export default function AdminDates() {
               Completadas
             </button>
             <button
-              className={`DatingHistory__Container--Status--Button ${
+              className={`DatingHistory__Container--Status--Button--NoAsistio ${
                 optionSubMenu === "No Asistio" ? "Active" : ""
               }`}
               onClick={() => getDatesByFilter("No Asistio")}
@@ -151,21 +162,43 @@ export default function AdminDates() {
               <ion-icon name="close-circle-outline"></ion-icon> No Asistieron
             </button>
           </div>
+          <div className="Sales__All--Buttons--Pages">
+            {startIndex >= amountRegisters && (
+              <button
+                className="Sales__All--TableList--Buttons--Pages--Button Prev"
+                onClick={handleShowTwentyFiveLess}
+              >
+                <ion-icon name="arrow-back-outline"></ion-icon>
+              </button>
+            )}
+            {endIndex < totalDates.length && (
+              <button
+                className="Sales__All--TableList--Buttons--Pages--Button Next"
+                onClick={handleShowTwentyFiveMore}
+              >
+                <ion-icon name="arrow-forward-outline"></ion-icon>
+              </button>
+            )}
+          </div>
           <div className="DatingHistory__Container--Dates">
             {searchingDates ? (
               <Loader responsive={true} />
             ) : totalDates.length > 0 ? (
-              totalDates.map((dataDate) => (
-                <DateInformation
-                  key={dataDate.idCita}
-                  dataDate={dataDate}
-                  setShowEditDate={setShowEditDate}
-                  setCurrentDataDate={setCurrentDataDate}
-                  setShowModalChangeStatusDate={setShowModalChangeStatusDate}
-                  setTextModalChangeStatusDate={setTextModalChangeStatusDate}
-                  setIdDateUpdate={setIdDateUpdate}
-                />
-              ))
+              totalDates
+                .slice(startIndex, endIndex)
+                .map((dataDate) => (
+                  <DateInformation
+                    key={dataDate.idCita}
+                    dataDate={dataDate}
+                    setShowEditDate={setShowEditDate}
+                    setCurrentDataDate={setCurrentDataDate}
+                    setShowModalChangeStatusDate={setShowModalChangeStatusDate}
+                    setTextModalChangeStatusDate={setTextModalChangeStatusDate}
+                    setIdDateUpdate={setIdDateUpdate}
+                    setGetDatesByFilterAgain={setGetDatesByFilterAgain}
+                    getDatesByFilterAgain={getDatesByFilterAgain}
+                  />
+                ))
             ) : (
               <NotResults responsive={true}>
                 ¡No se encontraron <br />
@@ -173,6 +206,11 @@ export default function AdminDates() {
               </NotResults>
             )}
           </div>
+          {totalDates.length > 0 && (
+            <p className="Sales__All--TableList--Pages">
+              ({page}/{amountPages})
+            </p>
+          )}
         </div>
       )}
       <Toaster richColors position="top-right" closeButton />

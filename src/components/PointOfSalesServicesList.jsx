@@ -13,8 +13,9 @@ export default function PointOfSalesServicesList({
   setShowCart,
   employeesExist,
 }) {
-  const handleCart = (Subservicio, ImagenServicio) => {
+  const handleCart = (NombreServicio, Subservicio, ImagenServicio) => {
     Subservicio.ImagenProducto = ImagenServicio;
+    Subservicio.CategoriaProducto = NombreServicio;
     Subservicio.NombreProducto = Subservicio.NombreSubservicio;
     employeesExist[0]
       ? (Subservicio.EmpleadoAsignado = employeesExist[0].Usuario)
@@ -61,7 +62,9 @@ export default function PointOfSalesServicesList({
                 </div>
                 <button
                   className="PointOfSalesServices__Products--Container--Button"
-                  onClick={() => handleCart(Subservicio, ImagenServicio)}
+                  onClick={() =>
+                    handleCart(NombreServicio, Subservicio, ImagenServicio)
+                  }
                 >
                   Agregar al carrito <ion-icon name="cart"></ion-icon>
                 </button>

@@ -104,18 +104,9 @@ export default function PointOfSalesPayMethodPayment({
     setShowCalculator(!showCalculator);
     setChange(0);
   };
-  // const handleBackToMethodPayment = () => {
-  //   setPayment("Efectivo");
-  //   setShowInputMoney(!showInputMoney);
-  //   setShowConfirm(false);
-  // };
   const backToCart = () => {
     setProgressPay(1);
   };
-  // const handleCreateTicket = (methodPayment) => {
-  //   handleUpdateCart(methodPayment);
-  //   addTicketInformation();
-  // };
   const addTicketInformation = () => {
     const today = new Date();
     const date = today.toLocaleString();
@@ -295,67 +286,6 @@ export default function PointOfSalesPayMethodPayment({
             </p>
           </>
         )}
-        {/* <button
-          className={classNameButtonMoney}
-          onClick={handleBackToMethodPayment}
-        >
-          <ion-icon name="cash-outline"></ion-icon>
-          Efectivo
-        </button>
-        {!showInputMoney && (
-          <>
-            <button
-              className="PointOfSalesPayMethodPayment__Cart__Header--Content--Button"
-              onClick={() => handleCreateTicket("Tarjeta Crédito")}
-            >
-              <ion-icon name="card-outline"></ion-icon>
-              Tarjeta Crédito
-            </button>
-            <button
-              className="PointOfSalesPayMethodPayment__Cart__Header--Content--Button"
-              onClick={() => handleCreateTicket("Tarjeta Débito")}
-            >
-              <ion-icon name="card-outline"></ion-icon>
-              Tarjeta Débito
-            </button>
-            <button
-              className="PointOfSalesPayMethodPayment__Cart__Header--Content--Button"
-              onClick={() => handleCreateTicket("Transferencia")}
-            >
-              <ion-icon name="repeat-outline"></ion-icon>
-              Transferencia
-            </button>
-          </>
-        )}
-        {showInputMoney && (
-          <div className="PointOfSalesPayMethodPayment__Cart__Header--Content--Input">
-            <p className="PointOfSalesPayMethodPayment__Cart__Header--Content--Input--Title">
-              Ingresa el monto recibido
-            </p>
-            <input
-              type="text"
-              placeholder="0.00"
-              className="PointOfSalesPayMethodPayment__Cart__Header--Content--Input--Input"
-              onChange={(e) => handleCheckMoney(e.target.value)}
-            />
-            <p className="PointOfSalesPayMethodPayment__Cart__Header--Content--Input--Title">
-              Total a pagar ${getTotal().toFixed(2)}
-            </p>
-            {showConfirm && (
-              <>
-                <p className="PointOfSalesPayMethodPayment__Cart__Header--Content--Input--Title">
-                  Cambio a dar ${change.toFixed(2)}
-                </p>
-                <button
-                  className="PointOfSalesPayMethodPayment__Cart__Header--Content--Input--Button"
-                  onClick={handleUpdateCart}
-                >
-                  Confirmar
-                </button>
-              </>
-            )}
-          </div>
-        )} */}
       </div>
     </section>
   );

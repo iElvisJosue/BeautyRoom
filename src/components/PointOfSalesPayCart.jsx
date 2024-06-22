@@ -99,28 +99,6 @@ export default function PointOfSalesPayCart({
     );
     return total;
   };
-  // const handleAddOtherServiceToCart = () => {
-  //   const value = document.querySelector("#OtroServicios").value;
-  //   const regexOnlyNumbers = /^[0-9]+$/;
-  //   if (regexOnlyNumbers.test(value)) {
-  //     cart.map((currentItem) => {
-  //       currentItem.OtrosServicios = parseInt(value);
-  //       delete currentItem.PropinaCliente;
-  //     });
-  //     toast.success("Otros Servicios agregados correctamente ✔️");
-  //     handleUpdateCart(cart);
-  //   } else {
-  //     toast.error("Solo se permiten valores numéricos ❌");
-  //   }
-  // };
-  // const handleDeleteOtherService = () => {
-  //   toast.success("Otros Servicios eliminados correctamente ✔️");
-  //   cart.map((currentItem) => {
-  //     delete currentItem.OtrosServicios;
-  //     delete currentItem.PropinaCliente;
-  //   });
-  //   handleUpdateCart(cart);
-  // };
   const handleAppTipPercentage = () => {
     const value = document.querySelector("#PropinaCliente").value;
     handleAddTipClientToCart(value, "%");
@@ -179,33 +157,27 @@ export default function PointOfSalesPayCart({
     }
   };
   const handleAddDateToCart = (data) => {
+    const { foliosCitas, costoTotalCitas } = data;
+    const totalCitas = costoTotalCitas.reduce(
+      (acc, product) => acc + product,
+      0
+    );
     toast.success(
       "Citas validadas correctamente, el descuento ha sido aplicado ✔️"
     );
     cart.map((currentItem) => {
-      currentItem.idCita = data;
-      currentItem.Descuentos = data.length * 150;
+      currentItem.idCita = foliosCitas[0];
+      currentItem.Descuentos = totalCitas;
+      currentItem.PreciosCitas = costoTotalCitas;
     });
     handleUpdateCart(cart);
-    // if (data.length > 0) {
-    //   toast.success(
-    //     "Cita validada correctamente, el descuento ha sido aplicado ✔️"
-    //   );
-    //   cart.map((currentItem) => {
-    //     currentItem.idCita = data[0].idCita;
-    //   });
-    //   handleUpdateCart(cart);
-    // } else {
-    //   toast.error(
-    //     "No hay cita activa para este folio, por favor introduzca un nuevo folio ❌"
-    //   );
-    // }
   };
   const handleDeleteDate = () => {
     toast.success("Cita eliminada correctamente ✔️");
     cart.map((currentItem) => {
       delete currentItem.idCita;
       delete currentItem.Descuentos;
+      delete currentItem.PreciosCitas;
     });
     handleUpdateCart(cart);
   };
@@ -337,10 +309,12 @@ export default function PointOfSalesPayCart({
         <footer className="PointOfSalesPay__Cart__Footer">
           {optionsDiscount && (
             <>
-              {cart[0].Descuentos ? (
+              {cart[0].Descuentos >= 0 ? (
                 <div className="PointOfSalesPay__Cart__Footer--SuccessDiscount">
                   <p className="PointOfSalesPay__Cart__Footer--SuccessDiscount--Title">
-                    Cita agregada: (${cart[0].Descuentos}.00)
+                    Cita {cart[0].idCita.map((idCita) => `#${idCita} `)}
+                    agregada: ($
+                    {cart[0].Descuentos}.00)
                   </p>
                   <button
                     className="PointOfSalesPay__Cart__Footer--SuccessDiscount--Button"
@@ -371,7 +345,7 @@ export default function PointOfSalesPayCart({
                   </span>
                 </div>
               )}
-              {cart[0].PropinaCliente ? (
+              {cart[0].PropinaCliente >= 0 ? (
                 <div className="PointOfSalesPay__Cart__Footer--SuccessDiscount">
                   <p className="PointOfSalesPay__Cart__Footer--SuccessDiscount--Title">
                     Propina: (
