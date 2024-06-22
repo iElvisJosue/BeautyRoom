@@ -60,7 +60,8 @@ export default function DateInformation({
   };
 
   useEffect(() => {
-    EstadoCita === "Sin confirmar" && verificarTiempoCita(idCita, HoraCreacion);
+    // ACTIVAR SOLO SI ELLOS ASI LO DESEAN
+    // EstadoCita === "Sin confirmar" && verificarTiempoCita(idCita, HoraCreacion);
   }, []);
 
   const handleStatusDate = (status) => {
