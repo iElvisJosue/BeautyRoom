@@ -117,6 +117,7 @@
   justify-content: center;
   gap: 10px;
 }
+.DatingHistory__Container--Dates--Card--Buttons--Advertise,
 .DatingHistory__Container--Dates--Card--Buttons--Negative,
 .DatingHistory__Container--Dates--Card--Buttons--Positive {
   background: none;
@@ -131,14 +132,22 @@
   cursor: pointer;
   transition: 0.5s ease all;
 }
-.DatingHistory__Container--Dates--Card--Buttons--Negative {
+.DatingHistory__Container--Dates--Card--Buttons--Advertise {
   color: var(--Red);
+}
+.DatingHistory__Container--Dates--Card--Buttons--Negative {
+  color: var(--Orange);
 }
 .DatingHistory__Container--Dates--Card--Buttons--Positive {
   color: var(--Green);
 }
-.DatingHistory__Container--Dates--Card--Buttons--Negative:hover {
+.DatingHistory__Container--Dates--Card--Buttons--Advertise:hover {
   background-color: var(--Red);
+  color: var(--White);
+  transform: scale(1.05);
+}
+.DatingHistory__Container--Dates--Card--Buttons--Negative:hover {
+  background-color: var(--Orange);
   color: var(--White);
   transform: scale(1.05);
 }
@@ -163,6 +172,15 @@
     min-height: 80px;
     min-width: 80px;
   }
+  .DatingHistory__Container--Dates--Card--Buttons--Advertise,
+  .DatingHistory__Container--Dates--Card--Buttons--Negative,
+  .DatingHistory__Container--Dates--Card--Buttons--Positive {
+    font-size: var(--SmallFontSize);
+  }
+  .DatingHistory__Container--Dates--Card--Container--Button--View ion-icon {
+    font-size: var(--NormalFontSize);
+    transition: 0.5s ease all;
+  }
   .DatingHistory__Container--Dates--Card--Container--Details--Text {
     font-size: var(--SmallFontSize);
   }
@@ -171,6 +189,15 @@
   }
 }
 @media (width < 570px) {
+  .DatingHistory__Container--Dates--Card--Buttons--Advertise,
+  .DatingHistory__Container--Dates--Card--Buttons--Negative,
+  .DatingHistory__Container--Dates--Card--Buttons--Positive {
+    font-size: var(--NormalFontSize);
+  }
+  .DatingHistory__Container--Dates--Card--Container--Button--View ion-icon {
+    font-size: var(--IconFontSize);
+    transition: 0.5s ease all;
+  }
   .DatingHistory__Container--Dates--Card--Container--Details--Text {
     font-size: var(--NormalFontSize);
   }
@@ -179,6 +206,15 @@
   }
 }
 @media (width < 360px) {
+  .DatingHistory__Container--Dates--Card--Buttons--Advertise,
+  .DatingHistory__Container--Dates--Card--Buttons--Negative,
+  .DatingHistory__Container--Dates--Card--Buttons--Positive {
+    font-size: var(--SmallFontSize);
+  }
+  .DatingHistory__Container--Dates--Card--Container--Button--View ion-icon {
+    font-size: var(--NormalFontSize);
+    transition: 0.5s ease all;
+  }
   .DatingHistory__Container--Dates--Card--Container--Details--Text {
     font-size: var(--SmallFontSize);
   }

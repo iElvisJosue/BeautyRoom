@@ -176,10 +176,10 @@ export default function DateInformation({
         {user?.rolUsuario === "Administrador" && canEdit()}
       </div>
       {EstadoCita === "Sin confirmar" &&
-        user.rolUsuario === "Administrador" && (
+        user?.rolUsuario === "Administrador" && (
           <div className="DatingHistory__Container--Dates--Card--Buttons">
             <button
-              className="DatingHistory__Container--Dates--Card--Buttons--Negative"
+              className="DatingHistory__Container--Dates--Card--Buttons--Advertise"
               onClick={() => handleStatusDate("Eliminar")}
             >
               Eliminar
@@ -194,6 +194,14 @@ export default function DateInformation({
         )}
       {EstadoCita === "Confirmada" && (
         <div className="DatingHistory__Container--Dates--Card--Buttons">
+          {user?.rolUsuario === "Administrador" && (
+            <button
+              className="DatingHistory__Container--Dates--Card--Buttons--Advertise"
+              onClick={() => handleStatusDate("Eliminar")}
+            >
+              Eliminar
+            </button>
+          )}
           <button
             className="DatingHistory__Container--Dates--Card--Buttons--Negative"
             onClick={() => handleStatusDate("No Asistio")}
