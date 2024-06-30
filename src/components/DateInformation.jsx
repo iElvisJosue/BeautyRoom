@@ -18,6 +18,7 @@ import useCalendar from "../hooks/useCalendar";
 import "../styles/DateInformation.css";
 
 export default function DateInformation({
+  statusTolerance,
   dataDate,
   setShowEditDate,
   setCurrentDataDate,
@@ -60,8 +61,10 @@ export default function DateInformation({
   };
 
   useEffect(() => {
-    // ACTIVAR SOLO SI ELLOS ASI LO DESEAN
-    // EstadoCita === "Sin confirmar" && verificarTiempoCita(idCita, HoraCreacion);
+    if (statusTolerance) {
+      EstadoCita === "Sin confirmar" &&
+        verificarTiempoCita(idCita, HoraCreacion);
+    }
   }, []);
 
   const handleStatusDate = (status) => {
@@ -111,7 +114,7 @@ export default function DateInformation({
   };
 
   const verificarTiempoCita = async (idCita, HoraCreacion) => {
-    if (calcularDiferenciaEnMinutos(HoraCreacion) > 15) {
+    if (calcularDiferenciaEnMinutos(HoraCreacion) >= 15) {
       try {
         const res = await deleteDate(idCita);
         if (res.response) {

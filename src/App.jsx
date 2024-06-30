@@ -5,6 +5,7 @@ import { DatesProvider } from "./context/DatesContext";
 import { ServicesProvider } from "./context/ServicesContext";
 import { ProductsProvider } from "./context/ProductsContext";
 import { InternalProvider } from "./context/InternalContext";
+import { SettingsProvider } from "./context/SettingsContext";
 
 // IMPORTAMOS LAS VISTAS
 import Login from "./views/Login";
@@ -29,59 +30,64 @@ import ProtectedForEmployees from "./protection/ProtectedForEmployees";
 export default function App() {
   return (
     <GlobalProvider>
-      <DatesProvider>
-        <ServicesProvider>
-          <ProductsProvider>
-            <InternalProvider>
-              <BrowserRouter>
-                <Routes>
-                  <Route path="/" element={<Login />} />
-                  <Route path="/AgendarCita" element={<Date />} />
-                  {/* RUTAS PROTEGIDAS PARA USUARIOS LOGUEADOS */}
-                  <Route element={<ProtectedByCookies />}>
-                    <Route path="/Principal" element={<Home />} />
-                    {/* RUTAS PROTEGIDAS PARA EMPLEADOS */}
-                    <Route element={<ProtectedForEmployees />}>
-                      <Route path="/MisCitas" element={<MyDates />} />
+      <SettingsProvider>
+        <DatesProvider>
+          <ServicesProvider>
+            <ProductsProvider>
+              <InternalProvider>
+                <BrowserRouter>
+                  <Routes>
+                    <Route path="/" element={<Login />} />
+                    <Route path="/AgendarCita" element={<Date />} />
+                    {/* RUTAS PROTEGIDAS PARA USUARIOS LOGUEADOS */}
+                    <Route element={<ProtectedByCookies />}>
+                      <Route path="/Principal" element={<Home />} />
+                      {/* RUTAS PROTEGIDAS PARA EMPLEADOS */}
+                      <Route element={<ProtectedForEmployees />}>
+                        <Route path="/MisCitas" element={<MyDates />} />
+                      </Route>
+                      {/* RUTAS PROTEGIDAS PARA ADMINISTRADORES */}
+                      <Route element={<ProtectedForAdmins />}>
+                        <Route
+                          path="/AdministrarCitas"
+                          element={<AdminDates />}
+                        />
+                        <Route
+                          path="/PuntoDeVenta"
+                          element={<PointOfSales />}
+                        />
+                        <Route
+                          path="/AgendarCitaAdministrador"
+                          element={<Date />}
+                        />
+                        <Route
+                          path="/AdministrarUsuarios"
+                          element={<AdminUsers />}
+                        />
+                        <Route
+                          path="/AdministrarInventarioProductos"
+                          element={<AdminProductsInventory />}
+                        />
+                        <Route
+                          path="/AdministrarInventarioServicios"
+                          element={<AdminServicesInventory />}
+                        />
+                        <Route
+                          path="/AdministrarInventarioInterno"
+                          element={<AdminInternalInventory />}
+                        />
+                        <Route path="/ReporteVentas" element={<Sales />} />
+                        <Route path="/ListaClientes" element={<Clients />} />
+                      </Route>
                     </Route>
-                    {/* RUTAS PROTEGIDAS PARA ADMINISTRADORES */}
-                    <Route element={<ProtectedForAdmins />}>
-                      <Route
-                        path="/AdministrarCitas"
-                        element={<AdminDates />}
-                      />
-                      <Route path="/PuntoDeVenta" element={<PointOfSales />} />
-                      <Route
-                        path="/AgendarCitaAdministrador"
-                        element={<Date />}
-                      />
-                      <Route
-                        path="/AdministrarUsuarios"
-                        element={<AdminUsers />}
-                      />
-                      <Route
-                        path="/AdministrarInventarioProductos"
-                        element={<AdminProductsInventory />}
-                      />
-                      <Route
-                        path="/AdministrarInventarioServicios"
-                        element={<AdminServicesInventory />}
-                      />
-                      <Route
-                        path="/AdministrarInventarioInterno"
-                        element={<AdminInternalInventory />}
-                      />
-                      <Route path="/ReporteVentas" element={<Sales />} />
-                      <Route path="/ListaClientes" element={<Clients />} />
-                    </Route>
-                  </Route>
-                  <Route path="/CitaCreada" element={<DateCreated />} />
-                </Routes>
-              </BrowserRouter>
-            </InternalProvider>
-          </ProductsProvider>
-        </ServicesProvider>
-      </DatesProvider>
+                    <Route path="/CitaCreada" element={<DateCreated />} />
+                  </Routes>
+                </BrowserRouter>
+              </InternalProvider>
+            </ProductsProvider>
+          </ServicesProvider>
+        </DatesProvider>
+      </SettingsProvider>
     </GlobalProvider>
   );
 }

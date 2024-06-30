@@ -119,6 +119,60 @@
   background: var(--Red);
   color: var(--White);
 }
+.DatingHistory__Container--Tolerance {
+  width: 100%;
+  min-height: 50px;
+  font-size: var(--NormalFontSize);
+  font-weight: bold;
+  color: var(--Red);
+  text-align: center;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 5px;
+}
+.DatingHistory__Container--Tolerance.Active {
+  color: var(--Green);
+}
+.DatingHistory__Container--Tolerance--Button {
+  position: relative;
+  background-color: var(--Red);
+  min-width: 50px;
+  height: 30px;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: 0.5s ease all;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+.DatingHistory__Container--Tolerance--Button--Button {
+  position: absolute;
+  left: 5px;
+  transition: 0.5s ease all;
+  background-color: var(--White);
+  border: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  color: var(--Red);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.DatingHistory__Container--Tolerance.Active
+  .DatingHistory__Container--Tolerance--Button {
+  background-color: var(--Green);
+}
+.DatingHistory__Container--Tolerance.Active
+  .DatingHistory__Container--Tolerance--Button--Button {
+  left: 25px;
+  color: var(--Green);
+}
 .DatingHistory__Container--Dates {
   width: 100%;
   display: grid;
@@ -139,6 +193,11 @@
 @media (width < 570px) {
   .DatingHistory__Container--Dates {
     grid-template-columns: repeat(1, 1fr);
+  }
+}
+@media (width < 450px) {
+  .DatingHistory__Container--Tolerance {
+    flex-direction: column;
   }
 }
 @media (width < 420px) {

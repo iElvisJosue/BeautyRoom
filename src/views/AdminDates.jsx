@@ -9,6 +9,9 @@ import DateInformation from "../components/DateInformation";
 import EditDate from "../components/EditDate";
 import ModalChangeStatusDate from "../components/ModalChangeStatusDate";
 
+// IMPORTAMOS LOS CONTEXTOS
+import { useSettings } from "../context/SettingsContext";
+
 // IMPORTAMOS LOS HOOKS
 import useGetDates from "../hooks/useGetDates";
 import useEditDate from "../hooks/useEditDate";
@@ -18,11 +21,21 @@ import useGetServices from "../hooks/useGetServices";
 import useGetHours from "../hooks/useGetHours";
 import useModalChangeStatusDate from "../hooks/useModalChangeStatusDate";
 import usePagination from "../hooks/usePagination";
+import useGetStatusTolerance from "../hooks/useGetStatusTolerance";
+
+// IMPORTAMOS LAS AYUDAS
+import { handleResponseMessages } from "../helpers/RespuestasServidor";
 
 // IMPORTAMOS LOS ESTILOS
 import "../styles/AdminDates.css";
 
 export default function AdminDates() {
+  const { updateTolerance } = useSettings();
+  const {
+    statusTolerance,
+    getStatusToleranceAgain,
+    setGetStatusToleranceAgain,
+  } = useGetStatusTolerance();
   const [idDateUpdate, setIdDateUpdate] = useState(null);
   const [optionSubMenu, setOptionSubMenu] = useState("Sin confirmar");
   const { services } = useGetServices();
@@ -84,6 +97,26 @@ export default function AdminDates() {
     setFilter(status);
     setOptionSubMenu(status);
   };
+  const handleTolerance = async () => {
+    try {
+      const res = await updateTolerance({ statusTolerance: !statusTolerance });
+      if (res.response) {
+        const { status, data } = res.response;
+        handleResponseMessages({ status, data });
+      } else {
+        setGetStatusToleranceAgain(!getStatusToleranceAgain);
+        const { status, data } = res;
+        handleResponseMessages({ status, data });
+      }
+    } catch (error) {
+      console.error(error);
+      handleResponseMessages(error);
+    }
+  };
+
+  const classContainerTolerance = statusTolerance
+    ? "DatingHistory__Container--Tolerance Active"
+    : "DatingHistory__Container--Tolerance";
 
   return (
     <main className="AdminDates">
@@ -162,6 +195,25 @@ export default function AdminDates() {
               <ion-icon name="close-circle-outline"></ion-icon> No Asistieron
             </button>
           </div>
+          {filter === "Sin confirmar" && (
+            <div className={classContainerTolerance}>
+              Tolerancia de confirmación (
+              {statusTolerance ? "15 minutos" : "Ilimitado"}
+              ):
+              <span
+                className="DatingHistory__Container--Tolerance--Button"
+                onClick={handleTolerance}
+              >
+                <button className="DatingHistory__Container--Tolerance--Button--Button">
+                  {statusTolerance ? (
+                    <ion-icon name="stopwatch-outline"></ion-icon>
+                  ) : (
+                    <ion-icon name="close-circle-outline"></ion-icon>
+                  )}
+                </button>
+              </span>
+            </div>
+          )}
           <div className="Sales__All--Buttons--Pages">
             {startIndex >= amountRegisters && (
               <button
@@ -188,6 +240,7 @@ export default function AdminDates() {
                 .slice(startIndex, endIndex)
                 .map((dataDate) => (
                   <DateInformation
+                    statusTolerance={statusTolerance}
                     key={dataDate.idCita}
                     dataDate={dataDate}
                     setShowEditDate={setShowEditDate}
