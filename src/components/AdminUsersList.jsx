@@ -3,6 +3,9 @@
 import Loader from "./Loader";
 import NotResults from "./NotResults";
 
+// IMPORTAMOS LOS CONTEXTOS A USAR
+import { useGlobal } from "../context/GlobalContext";
+
 // IMPORTAMOS LOS HOOKS A USAR
 import useGetAllEmployees from "../hooks/useGetAllEmployees";
 
@@ -13,6 +16,7 @@ export default function AdminUsersList({
   setOptionSubMenu,
   setUserInformation,
 }) {
+  const { user } = useGlobal();
   const { employeesExist, searchingExist } = useGetAllEmployees();
 
   const handleEditUser = (userInformation) => {
@@ -22,12 +26,20 @@ export default function AdminUsersList({
 
   if (searchingExist) return <Loader />;
 
+  const validateUserProfile = (userArray, userLogged) => {
+    return userArray === userLogged;
+  };
+
   return (
     <div className="AdminUsersList__Container">
       {employeesExist.length > 0 ? (
         employeesExist.map((userInformation) => (
           <section
-            className="AdminUsersList__Container__Card"
+            className={
+              validateUserProfile(userInformation.idUsuario, user.id)
+                ? "AdminUsersList__Container__Card MyProfile"
+                : "AdminUsersList__Container__Card"
+            }
             key={userInformation.idUsuario}
             id={userInformation.idUsuario}
           >
@@ -40,18 +52,22 @@ export default function AdminUsersList({
               </picture>
               <span className="AdminUsersList__Container__Card--Details--Information">
                 <p className="AdminUsersList__Container__Card--Details--Information--Text">
-                  👤 {userInformation.Usuario}
+                  👤 {userInformation.Usuario}{" "}
+                  {validateUserProfile(userInformation.idUsuario, user.id) &&
+                    "- (Mi perfil)"}
                 </p>
+                <p className="AdminUsersList__Container__Card--Details--Information--Text"></p>
               </span>
               <span className="AdminUsersList__Container__Card--Details--Information--Button">
-                {userInformation.RolUsuario === "Empleado" && (
+                {userInformation.RolUsuario === "Empleado" ||
+                validateUserProfile(userInformation.idUsuario, user.id) ? (
                   <button
                     className="AdminUsersList__Container__Card--Details--Information--Button--View"
                     onClick={() => handleEditUser(userInformation)}
                   >
                     <ion-icon name="brush-outline"></ion-icon>
                   </button>
-                )}
+                ) : null}
               </span>
             </div>
           </section>

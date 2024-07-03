@@ -1,7 +1,7 @@
 .AdminUsersList__Container {
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
   padding: 20px;
 }
@@ -28,6 +28,9 @@
 }
 .AdminUsersList__Container__Card:nth-child(4n) {
   background: var(--ContainerGreen);
+}
+.AdminUsersList__Container__Card.MyProfile {
+  background: var(--Red);
 }
 .AdminUsersList__Container__Card--Details {
   display: flex;
@@ -104,14 +107,11 @@
   color: var(--White);
 }
 @media (width < 800px) {
+  .AdminUsersList__Container {
+    grid-template-columns: repeat(2, 1fr);
+  }
   .AdminUsersList__Container__Card--Details {
     min-height: 130px;
-  }
-  .AdminUsersList__Container__Card--Details--Information--Text {
-    font-size: var(--SmallFontSize);
-  }
-  .AdminUsersList__Container__Card--Details--Information--Text ion-icon {
-    font-size: var(--NormalFontSize);
   }
 }
 @media (width < 570px) {
